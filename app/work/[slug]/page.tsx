@@ -32,10 +32,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return { title: `${c.title} · Eucharia Odili`, description: c.headline };
 }
 
-// The live product, as a dark pill: under the summary, and again at the end.
-function LiveLink({ live, end = false }: { live: { label: string; href: string }; end?: boolean }) {
+// The live product, as a dark pill under the summary.
+function LiveLink({ live }: { live: { label: string; href: string } }) {
   return (
-    <a className={`cs-live${end ? " cs-live--end" : ""}`} href={live.href} target="_blank" rel="noreferrer">
+    <a className="cs-live" href={live.href} target="_blank" rel="noreferrer">
       {live.label}
       <ArrowUpRight aria-hidden="true" />
     </a>
@@ -237,7 +237,6 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
 
           <footer className="cs-end">
             <p className="cs-thanks">Thank you for reading</p>
-            {c.live ? <LiveLink live={c.live} end /> : null}
             {next ? (
               <Link className="cs-next" href={caseHref(next.slug)}>
                 <span className="cs-next-label">Next project</span>

@@ -52,7 +52,7 @@ export type CaseStudy = {
   /** The container behind the visuals, from the previous portfolio. The
       texture is an image path, or a CSS gradient. */
   box: { color: string; texture: string; size: string };
-  /** The live product, linked under the summary and at the end. */
+  /** The live product, linked under the summary. */
   live?: { label: string; href: string };
   hero: Media;
   meta: { label: string; value: string }[];

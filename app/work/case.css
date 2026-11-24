@@ -176,7 +176,7 @@
 }
 
 /* Two columns of facts, then the skills, as on Jenn's case studies. */
-/* The live product: a dark pill under the summary, and again at the end. */
+/* The live product: a dark pill under the summary. */
 .cs-live {
   display: inline-flex;
   align-items: center;
@@ -211,10 +211,6 @@
 
 .cs-live:active {
   transform: scale(0.98);
-}
-
-.cs-live--end {
-  margin: 0 0 40px;
 }
 
 .cs-meta {
