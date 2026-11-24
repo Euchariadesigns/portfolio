@@ -6,11 +6,11 @@ Designed and built by me with Claude Code: Next.js (App Router), React, TypeScri
 
 ## What's inside
 
-- **Home**: a short intro with highlighted words that preview the work on hover, and a pinned stack of work cards. Scroll or point at a card to open it; each opens onto an animated, looping visual of the product.
+- **Home**: a short intro with highlighted words that preview the work on hover, and a list of work cards. Click a card to open it onto an animated, looping visual of the product; click it again to read the case study.
 - **Work** (`/work`): every project as a gallery of tiles, each playing the product's flow.
 - **Case studies** (`/work/<project>`): long reads with a section list that follows you as you scroll.
 - **About** (`/about`).
-- Small touches: a custom cursor, soft synthesised hover sounds (no audio files), a live Lagos clock.
+- Small touches: a custom cursor that says what a click will do, soft synthesised hover sounds (no audio files), a live Lagos clock, and a soft fade between pages.
 
 ## Run it locally
 

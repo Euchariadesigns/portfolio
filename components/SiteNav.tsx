@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { CSSProperties } from "react";
+import NavMenu from "./NavMenu";
 import Soon from "./Soon";
 import SoundToggle from "./SoundToggle";
 
@@ -35,6 +36,7 @@ export default function SiteNav({ current, reveal = false }: { current?: "work" 
         ) : null}
         <SoundToggle />
       </div>
+      <NavMenu current={current} resume={RESUME} github={GITHUB} />
     </nav>
   );
 }

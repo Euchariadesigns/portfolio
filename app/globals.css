@@ -84,11 +84,173 @@ button {
 }
 
 .nav {
+  position: relative;
+  /* Above the intro, so the phone menu opens over it. */
+  z-index: 20;
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 72px;
   font-size: 14px;
+}
+
+/* ---------------------------------------------------- Phone menu (NavMenu) */
+
+.nm {
+  display: none;
+}
+
+.nm-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 40px;
+  padding: 0 2px 0 12px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Two lines that turn into a cross. */
+.nm-icon {
+  position: relative;
+  width: 18px;
+  height: 18px;
+}
+
+.nm-icon i {
+  position: absolute;
+  left: 1px;
+  right: 1px;
+  height: 1.6px;
+  border-radius: 2px;
+  background: currentColor;
+  transition:
+    top 320ms var(--ease-out),
+    transform 320ms var(--ease-out);
+}
+
+.nm-icon i:first-child {
+  top: 5.5px;
+}
+
+.nm-icon i:last-child {
+  top: 11px;
+}
+
+.nm.is-open .nm-icon i {
+  top: 8.2px;
+}
+
+.nm.is-open .nm-icon i:first-child {
+  transform: rotate(45deg);
+}
+
+.nm.is-open .nm-icon i:last-child {
+  transform: rotate(-45deg);
+}
+
+.nm-panel {
+  position: absolute;
+  top: 62px;
+  right: -8px;
+  left: -8px;
+  padding: 6px;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.05),
+    0 24px 48px -22px rgba(0, 0, 0, 0.24);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px) scale(0.98);
+  transform-origin: top right;
+  transition:
+    opacity 180ms ease,
+    transform 240ms var(--ease-out),
+    visibility 0s linear 240ms;
+}
+
+.nm.is-open .nm-panel {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition:
+    opacity 220ms ease,
+    transform 360ms var(--ease-out),
+    visibility 0s;
+}
+
+.nm-panel ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nm-panel li {
+  opacity: 0;
+  transform: translateY(-4px);
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
+}
+
+/* The links settle in one after another. */
+.nm.is-open .nm-panel li {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 300ms ease calc(60ms + var(--i) * 35ms),
+    transform 420ms var(--ease-out) calc(60ms + var(--i) * 35ms);
+}
+
+.nm-panel a,
+.nm-soon {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 50px;
+  padding: 0 14px;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.nm-panel a:active {
+  background: #f4f4f4;
+}
+
+.nm-panel a[aria-current] {
+  background: #f6f6f6;
+}
+
+.nm-panel a svg {
+  width: 16px;
+  height: 16px;
+  color: #9a9a9a;
+}
+
+.nm-soon {
+  justify-content: flex-start;
+  gap: 8px;
+  color: #9a9a9a;
+}
+
+.nm-tag {
+  padding: 1px 7px 2px;
+  border-radius: 6px;
+  background: rgba(198, 90, 58, 0.12);
+  color: #b4502f;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: 0.02em;
 }
 
 .nav-name {
@@ -1125,19 +1287,48 @@ button {
   transform: translateX(3px);
 }
 
-/* The track is as tall as the scroll distance; the stack stays pinned in the
-   middle of the screen while you scroll through it. */
-.work-track {
-  position: relative;
+/* The cards, one under another. Click one to open it (see WorkStack.tsx);
+   the heights are eased by script, so the card you clicked stays put. */
+.acc {
+  --pill-h: 72px;
+  --open-head: 84px;
+  --pad: 28px;
+  --gap: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
 }
 
-.work-pin {
-  position: sticky;
-}
-
-.stack {
+/* Each card sits in the list rather than in the old pinned stack. */
+.acc .card {
+  --r: calc(var(--pill-h) / 2);
   position: relative;
+  top: auto;
+  left: auto;
   width: 100%;
+  height: var(--pill-h);
+  opacity: 1;
+  transform: none;
+  transition:
+    border-radius var(--move) var(--ease-soft) var(--lag),
+    box-shadow var(--move) var(--ease-soft) var(--lag),
+    color var(--move) var(--ease-soft) var(--lag);
+}
+
+.acc .card[data-state="open"] {
+  --r: 32px;
+}
+
+/* A collapsed card lifts a little under the mouse; the cursor says
+   "Click to open". */
+@media (hover: hover) {
+  .acc .card[data-state="pill"]:hover {
+    box-shadow:
+      0 0 0 1px rgba(0, 0, 0, 0.05),
+      0 12px 32px -18px rgba(0, 0, 0, 0.2);
+    transition-delay: 0ms;
+    transition-duration: 260ms;
+  }
 }
 
 /* Each project is one card. Collapsed it wears the project's pastel; open it
@@ -1209,21 +1400,6 @@ button {
 
 .card[data-state="open"]::before {
   opacity: 0;
-}
-
-.stack.is-entered .card {
-  opacity: var(--o);
-  transform: translate3d(-50%, var(--y), 0);
-}
-
-/* First appearance: cards rise into place one after another. */
-.stack.is-first .card {
-  transition-duration: 1000ms;
-  transition-delay: var(--enter);
-}
-
-.card[data-state="hidden"] {
-  pointer-events: none;
 }
 
 .card-hit {
@@ -1455,8 +1631,7 @@ button {
     margin var(--move) var(--ease-soft) var(--lag);
 }
 
-.card[data-state="pill"] .card-go,
-.card[data-state="hidden"] .card-go {
+.card[data-state="pill"] .card-go {
   width: 0;
   margin-right: -12px;
 }
@@ -1984,6 +2159,33 @@ button {
     animation: cursor-spin 460ms cubic-bezier(0.34, 0, 0.2, 1);
   }
 
+  /* The label that rides beside the petal (data-cursor in the page). */
+  .cursor-hint {
+    position: absolute;
+    top: 17px;
+    left: 15px;
+    padding: 4px 9px 5px;
+    border-radius: 999px;
+    background: #171717;
+    color: #fff;
+    font-size: 11.5px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.005em;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translate(-4px, -2px) scale(0.92);
+    transform-origin: top left;
+    transition:
+      opacity 160ms ease,
+      transform 260ms var(--ease-out);
+  }
+
+  .cursor-mark.has-hint .cursor-hint {
+    opacity: 1;
+    transform: none;
+  }
+
 }
 
 @keyframes cursor-spin {
@@ -2053,27 +2255,32 @@ button {
     font-size: 34px;
   }
 
+  /* On phones the links live behind the Menu button (NavMenu). */
   .nav-links {
-    gap: 12px;
-    font-size: 12.5px;
-    white-space: nowrap;
-  }
-
-  /* Hover sounds only matter with a mouse. */
-  .nav-links .sound-toggle {
     display: none;
   }
 
-  /* On phones the nav's "soon" tag becomes a small dot. */
-  .soon--nav .soon-tag {
-    width: 6px;
-    height: 6px;
-    padding: 0;
-    border-radius: 50%;
-    background: #c65a3a;
-    font-size: 0;
-    align-self: flex-start;
-    margin-top: 2px;
+  .nm {
+    display: block;
+  }
+
+  /* 20px at the sides, a little more room than before. */
+  .page {
+    padding: 0 20px;
+  }
+
+  /* The intro uses the full width (Safari's balanced wrapping left a wide
+     empty strip on the right), so it takes fewer lines. */
+  .hero3 .hero-p {
+    text-wrap: wrap;
+  }
+
+  .hero3 {
+    padding-bottom: 36px;
+  }
+
+  .hero-open {
+    margin-top: 20px;
   }
 
   .soon-note {
@@ -2097,6 +2304,17 @@ button {
     font-size: 16px;
   }
 
+
+  .acc {
+    --pill-h: 60px;
+    --open-head: 68px;
+    --pad: 14px;
+    --gap: 10px;
+  }
+
+  .acc .card[data-state="open"] {
+    --r: 26px;
+  }
 
   .card-head {
     gap: 12px;
@@ -2143,18 +2361,6 @@ button {
 
   .footer-loc {
     display: none;
-  }
-}
-
-@media (max-width: 380px) {
-  .nav,
-  .nav-links {
-    gap: 9px;
-  }
-
-  .nav-name,
-  .nav-links {
-    font-size: 12px;
   }
 }
 

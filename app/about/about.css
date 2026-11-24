@@ -201,15 +201,15 @@
 
 @media (max-width: 600px) {
   .ab {
-    padding: 0 16px;
+    padding: 0 22px;
   }
 
   .ab-main {
-    padding-top: 32px;
+    padding: 32px 0 64px;
   }
 
   .ab-title {
-    font-size: 26px;
+    font-size: 24px;
   }
 
   .ab-photo,
