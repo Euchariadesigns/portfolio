@@ -30,7 +30,15 @@ export default function CaseNav({ sections }: { sections: { id: string; nav: str
         for (const e of entries) visible.set(e.target.id, e.isIntersecting);
         // The first section (in page order) that crosses the reading line.
         const first = sections.find((s) => visible.get(s.id));
-        if (first) setActive(first.id);
+        if (first) {
+          setActive(first.id);
+          return;
+        }
+        // None does (a jump past the end, say): the last one that started
+        // above the line.
+        const line = window.innerHeight * 0.28;
+        const above = els.filter((el) => el.getBoundingClientRect().top < line).pop();
+        if (above) setActive(above.id);
       },
       { rootMargin: "-28% 0px -62% 0px" },
     );

@@ -34,7 +34,7 @@ export const projects: Project[] = [
     summary: "Margin helps people get back into the habit of thinking through things.",
     org: "Founder",
     year: "2026",
-    href: "https://trymargin.expo.app/",
+    href: "/work/margin",
     surface: { color: "#F2F7FD" },
     tone: "dark",
     box: { color: "#111214", image: "radial-gradient(70% 60% at 50% 70%, rgba(10, 132, 255, 0.28), transparent 70%)", size: "cover", ink: "light" },

@@ -1,0 +1,325 @@
+{
+ "slug": "margin",
+ "project": "margin",
+ "title": "Margin",
+ "headline": "Helping people get back the habit of thinking things through, one question a day.",
+ "summary": "We scroll, react and repost, but we rarely sit with a question long enough to put our own thoughts into words. Margin is a small daily practice for that: one question, a minute to think, and an answer you write by hand in a notebook. I designed and built it on my own. It went from an idea to a live product, with real people using it, in two weeks.",
+ "live": {
+  "label": "Try Margin",
+  "href": "https://trymargin.expo.app/start"
+ },
+ "skills": [
+  "Product Strategy",
+  "Interaction Design",
+  "UX Writing",
+  "Prototyping",
+  "Usability Testing",
+  "AI-Assisted Development"
+ ],
+ "box": {
+  "color": "#111214",
+  "texture": "radial-gradient(70% 60% at 50% 70%, rgba(10, 132, 255, 0.28), transparent 70%)",
+  "size": "cover"
+ },
+ "hero": {
+  "kind": "cover",
+  "cover": "margin",
+  "src": "",
+  "w": 600,
+  "h": 1298,
+  "caption": "Margin: opening the app, the welcome letter, today’s question and the thinking timer"
+ },
+ "meta": [
+  {
+   "label": "Role",
+   "value": "Solo product designer and builder"
+  },
+  {
+   "label": "Timeline",
+   "value": "2 weeks, live"
+  },
+  {
+   "label": "Tools",
+   "value": "Figma, Claude Code, Expo, Cloudflare"
+  },
+  {
+   "label": "Year",
+   "value": "2026"
+  }
+ ],
+ "next": "goal-savings",
+ "sections": [
+  {
+   "id": "at-a-glance",
+   "nav": "Summary",
+   "title": "At a glance: what Margin does",
+   "blocks": [
+    {
+     "t": "p",
+     "text": "Every day, Margin asks you one question. You put your phone down and think about it for a minute. Then you write your answer in a notebook and take a photo of the page. The photo stays on your phone, and only you can see it. By Day 30, you can look back and see how your thinking has changed."
+    },
+    {
+     "t": "media",
+     "todo": "The daily loop, four screens",
+     "items": [
+      {
+       "kind": "image",
+       "src": "",
+       "w": 1600,
+       "h": 1000,
+       "caption": "Question, thinking time, write, save the page"
+      }
+     ]
+    },
+    {
+     "t": "quote",
+     "text": "Everything below this point is how I got there."
+    }
+   ]
+  },
+  {
+   "id": "context",
+   "nav": "Context",
+   "title": "How I noticed the problem",
+   "blocks": [
+    {
+     "t": "p",
+     "text": "For a while now, I’ve noticed that most of us, me included, are slowly losing the habit of thinking things through. You can see it in any comment section: quick reactions, borrowed opinions, very little that’s our own. It’s tempting to blame AI, and maybe that’s part of it. But I didn’t want to point fingers. I wanted to find a way to get better."
+    },
+    {
+     "t": "p",
+     "text": "So I kept coming back to one question: what would it take to make thinking a daily habit again, for people who are busy, distracted and, honestly, not very patient?"
+    }
+   ]
+  },
+  {
+   "id": "problem",
+   "nav": "Problem",
+   "title": "Defining the problem",
+   "blocks": [
+    {
+     "t": "p",
+     "text": "The phone is where the distraction lives. A thinking app that keeps you on your phone would just be more of the problem. That left me with a strange brief: design an app whose whole job is to get you off it."
+    }
+   ]
+  },
+  {
+   "id": "principles",
+   "nav": "Principles",
+   "title": "From problem to principles",
+   "blocks": [
+    {
+     "t": "p",
+     "text": "Before I designed a single screen, I wrote down the rules Margin would never break:"
+    },
+    {
+     "t": "list",
+     "items": [
+      "**It never thinks for you.** No AI answers, no suggestions, no grading.",
+      "**The thinking happens off the screen.** The phone opens the practice and closes it. The writing happens on paper.",
+      "**Private by default.** No accounts, no feed, no likes. Your pages never leave your phone.",
+      "**Small enough to do every day.** One question, one minute, one page.",
+      "**No guilt.** No scores, and no streaks to lose. If you miss a day, you just carry on."
+     ]
+    },
+    {
+     "t": "media",
+     "todo": "Principles",
+     "items": [
+      {
+       "kind": "image",
+       "src": "",
+       "w": 1600,
+       "h": 1000,
+       "caption": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "daily-loop",
+   "nav": "Solution",
+   "title": "Designing the daily loop",
+   "blocks": [
+    {
+     "t": "p",
+     "text": "**One question, a minute to think.** My first version asked for 30 minutes of thinking. That felt right for the deep practice I had in mind, but a habit has to start small. So I brought it down to one minute, and people can raise it to 15 in Settings as the practice grows on them."
+    },
+    {
+     "t": "p",
+     "text": "**Pen and paper.** Writing by hand slows you down and takes you away from the screen. It’s the decision people question the most, and the one I’m most sure about."
+    },
+    {
+     "t": "p",
+     "text": "**The photo.** A photo of the page turns a loose notebook into a record. It stays inside Margin, not in your camera roll, so your thinking stays yours."
+    },
+    {
+     "t": "media",
+     "todo": "Camera screen",
+     "items": [
+      {
+       "kind": "image",
+       "src": "",
+       "w": 1600,
+       "h": 1000,
+       "caption": "Saving the page"
+      }
+     ]
+    },
+    {
+     "t": "p",
+     "text": "**Questions that grow with you.** I wrote 100 questions across five levels. They start light (“What’s a song you never get tired of?”) and go deeper over the weeks. Everyone gets them in the same order, so I could design how they build."
+    },
+    {
+     "t": "p",
+     "text": "**“Gap closed.”** Every day ends with the same two words. They’re small, but they give the practice a finish line."
+    },
+    {
+     "t": "media",
+     "todo": "“Gap closed” screen",
+     "items": [
+      {
+       "kind": "image",
+       "src": "",
+       "w": 1600,
+       "h": 1000,
+       "caption": "The end of each day"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "building",
+   "nav": "Solution",
+   "title": "Building it: a website that behaves like an app",
+   "blocks": [
+    {
+     "t": "p",
+     "text": "As a product designer, I’d always handed my designs over to engineers. This time I built Margin myself, with AI coding tools, all the way from Figma to a working product."
+    },
+    {
+     "t": "p",
+     "text": "I wasn’t ready to spend the time and money on an App Store launch, and most of the people I wanted to test with use iPhones. So Margin had to work as a website. The catch is that Margin depends on two things websites usually struggle with: daily reminders and the phone’s camera."
+    },
+    {
+     "t": "p",
+     "text": "So I made the website behave like an app:"
+    },
+    {
+     "t": "list",
+     "items": [
+      "You add it to your Home Screen, and it opens full screen like any other app.",
+      "It sends daily reminders as web push notifications, from a small server I set up.",
+      "It uses the phone’s camera inside the app, tuned so handwriting comes out sharp.",
+      "It carries your progress over when you move from the browser to the Home Screen, so nobody loses their first day."
+     ]
+    },
+    {
+     "t": "media",
+     "todo": "Adding Margin to the Home Screen, step by step",
+     "items": [
+      {
+       "kind": "image",
+       "src": "",
+       "w": 1600,
+       "h": 1000,
+       "caption": "From browser to Home Screen"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "testing",
+   "nav": "Testing",
+   "title": "What my friends told me",
+   "blocks": [
+    {
+     "t": "p",
+     "text": "I tested Margin with 7 friends over a few days. Each day I gathered their feedback and improved the product."
+    },
+    {
+     "t": "p",
+     "text": "**“It isn’t sticky.”** This one stung, but they were right. Day 1 didn’t give people a reason to come back on Day 2, so I made three changes:"
+    },
+    {
+     "t": "list",
+     "items": [
+      "The Day 1 question now gives you a small “huh” moment: “What’s something small you changed your mind about recently?”",
+      "After your first page, Margin tells you: “That’s page one of your notebook. In a month, you’ll look back and see how your thinking has changed.”",
+      "Every day now ends with a hint of tomorrow’s question: “Tomorrow’s question is about a song you never get tired of.”"
+     ]
+    },
+    {
+     "t": "media",
+     "todo": "“Gap closed”, before and after",
+     "items": [
+      {
+       "kind": "image",
+       "src": "",
+       "w": 1600,
+       "h": 1000,
+       "caption": "A reason to come back tomorrow"
+      }
+     ]
+    },
+    {
+     "t": "p",
+     "text": "**People skipped the intro.** Some testers tapped straight through the welcome note and never found out what Margin was for. So now the Practice screen opens with the purpose, every day: “Margin helps you get back the habit of thinking things through.”"
+    },
+    {
+     "t": "p",
+     "text": "**The reminder mattered more than the note.** My first “Gap closed” screen offered “See today’s note.” But a habit needs a nudge, and the reminder is what brings people back. So if you haven’t set one yet, the main button is now “Set a reminder”, with one line on why it helps."
+    },
+    {
+     "t": "p",
+     "text": "**Small things that broke trust.** On one Android phone, photos came out blurry and the app froze when it was opened twice. I rebuilt the camera and made sure only one copy of Margin can run at a time. On iPhone, a tester lost their day after adding Margin to the Home Screen. That’s why progress now carries over."
+    }
+   ]
+  },
+  {
+   "id": "said-no",
+   "nav": "Testing",
+   "title": "What I said no to, for now",
+   "blocks": [
+    {
+     "t": "p",
+     "text": "Testers asked for an app lock, typing instead of handwriting, writing their own questions, and more reminders. They’re all reasonable requests. But my rule is simple: one request is a note, two or three is a pattern. Typing and custom questions also go against what Margin is. So for now, they’re parked, not ignored."
+    }
+   ]
+  },
+  {
+   "id": "learned",
+   "nav": "Reflection",
+   "title": "What I learned",
+   "blocks": [
+    {
+     "t": "list",
+     "items": [
+      "**Constraints push you to find a way.** No App Store meant rethinking what a website can do.",
+      "**Design for Day 1, not Day 30.** Margin’s value builds over weeks, but people decide whether to come back after one day.",
+      "**Every product needs a clear “why”.** Testers didn’t skip the intro because they didn’t care. They skipped it because nobody reads intros. The purpose has to live where people already are.",
+      "**Building changes how you design.** Owning the whole product, from Figma to the live site, made me think about edge cases I used to leave to engineers."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "whats-next",
+   "nav": "Reflection",
+   "title": "What’s next",
+   "blocks": [
+    {
+     "t": "p",
+     "text": "A “look back” moment around Day 30, to keep the promise the app makes on Day 1. After that, the iPhone and Android apps."
+    },
+    {
+     "t": "quote",
+     "text": "Margin is small on purpose: one question, one minute, one page. But if it helps a few people think a little more for themselves every day, that’s the gap closed."
+    }
+   ]
+  }
+ ]
+}

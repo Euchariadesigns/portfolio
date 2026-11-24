@@ -176,6 +176,47 @@
 }
 
 /* Two columns of facts, then the skills, as on Jenn's case studies. */
+/* The live product: a dark pill under the summary, and again at the end. */
+.cs-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 42px;
+  margin: 26px 0 0;
+  padding: 0 15px 0 19px;
+  border-radius: 21px;
+  background: #171717;
+  color: #fff;
+  font-size: 14.5px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  transition:
+    background-color 160ms ease,
+    transform 160ms var(--ease-out);
+}
+
+.cs-live svg {
+  width: 15px;
+  height: 15px;
+  transition: transform 320ms var(--ease-out);
+}
+
+.cs-live:hover {
+  background: #2b2b2b;
+}
+
+.cs-live:hover svg {
+  transform: translate(2px, -2px);
+}
+
+.cs-live:active {
+  transform: scale(0.98);
+}
+
+.cs-live--end {
+  margin: 0 0 40px;
+}
+
 .cs-meta {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -282,6 +323,17 @@
 
 .cs-panel--fill {
   padding: 0;
+}
+
+/* The project's own phone from the work page, playing its recording. */
+.cs-panel--cover {
+  padding: 0;
+}
+
+.cs-cover {
+  position: relative;
+  width: 100%;
+  height: clamp(460px, 48vw, 620px);
 }
 
 /* Recordings sit inset on the container, as they did on the old site. */

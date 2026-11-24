@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import type { CSSProperties } from "react";
+import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import { notFound } from "next/navigation";
 import CaseNav from "@/components/case/CaseNav";
 import CaseVideo from "@/components/case/CaseVideo";
+import { CoverInView } from "@/components/covers/Cover";
 import Rich from "@/components/case/Rich";
 import Link from "next/link";
 import PageFade from "@/components/PageFade";
@@ -28,6 +30,16 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const c = CASES[slug];
   if (!c) return {};
   return { title: `${c.title} · Eucharia Odili`, description: c.headline };
+}
+
+// The live product, as a dark pill: under the summary, and again at the end.
+function LiveLink({ live, end = false }: { live: { label: string; href: string }; end?: boolean }) {
+  return (
+    <a className={`cs-live${end ? " cs-live--end" : ""}`} href={live.href} target="_blank" rel="noreferrer">
+      {live.label}
+      <ArrowUpRight aria-hidden="true" />
+    </a>
+  );
 }
 
 // A picture's shape and natural width, so its box is the right size before
@@ -115,6 +127,7 @@ function BlockView({ b }: { b: Block }) {
         </ul>
       );
     case "media": {
+      if (b.todo) return null; // waiting for the picture
       // Side by side visuals of different shapes: match the tallest.
       const shapes = b.items.map((m) => m.w / m.h);
       const tallest = Math.min(...shapes);
@@ -152,7 +165,7 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
           {
             "--surface": project?.surface.color ?? "#F2F7FD",
             "--box": c.box.color,
-            "--box-texture": `url(${c.box.texture})`,
+            "--box-texture": c.box.texture.startsWith("/") ? `url(${c.box.texture})` : c.box.texture,
             "--box-size": c.box.size,
           } as CSSProperties
         }
@@ -175,6 +188,7 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
             </p>
             <h1>{c.headline}</h1>
             <p className="cs-summary">{c.summary}</p>
+            {c.live ? <LiveLink live={c.live} /> : null}
             <dl className="cs-meta">
               {c.meta.map((m) => (
                 <div key={m.label}>
@@ -194,8 +208,12 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
               </div>
             </dl>
             <div className="cs-hero">
-              <div className={`cs-panel cs-panel--hero${c.hero.kind === "video" ? " cs-panel--video" : ""}`}>
-                {c.hero.kind === "video" ? (
+              <div className={`cs-panel cs-panel--hero${c.hero.kind === "video" ? " cs-panel--video" : ""}${c.hero.kind === "cover" ? " cs-panel--cover" : ""}`}>
+                {c.hero.kind === "cover" && c.hero.cover ? (
+                  <div className="cs-cover">
+                    <CoverInView id={c.hero.cover} />
+                  </div>
+                ) : c.hero.kind === "video" ? (
                   <CaseVideo src={c.hero.src} poster={c.hero.poster} w={c.hero.w} h={c.hero.h} label={c.title} />
                 ) : (
                   <img src={c.hero.src} alt={c.title} width={c.hero.w} height={c.hero.h} fetchPriority="high" style={shape(c.hero.w, c.hero.h)} />
@@ -219,6 +237,7 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
 
           <footer className="cs-end">
             <p className="cs-thanks">Thank you for reading</p>
+            {c.live ? <LiveLink live={c.live} end /> : null}
             {next ? (
               <Link className="cs-next" href={caseHref(next.slug)}>
                 <span className="cs-next-label">Next project</span>
