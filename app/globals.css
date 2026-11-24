@@ -262,6 +262,8 @@ button {
    Text, as on Flo Guo's. */
 .hero3 {
   position: relative;
+  /* Above the work stack, so the Say hi menu and the peeks open over it. */
+  z-index: 2;
   max-width: none;
   padding: 16px 0 52px;
 }
@@ -691,20 +693,104 @@ button {
   transition: opacity 160ms ease;
 }
 
-.say-hi {
+/* "Say hi" opens a small menu: the address, Copy, Gmail, Mail app. */
+.hi-say {
+  position: relative;
+  display: inline-flex;
+}
+
+.hi-say-btn {
   display: inline-flex;
   align-items: center;
   gap: 5px;
+  font: inherit;
+  letter-spacing: inherit;
+  color: #0e0e0e;
+  cursor: pointer;
 }
 
-.say-hi svg {
+.hi-say-btn svg {
   width: 14px;
   height: 14px;
   transition: transform 300ms var(--ease-out);
 }
 
-.say-hi:hover svg {
+.hi-say-btn:hover svg {
   transform: translateY(-1px) rotate(-8deg);
+}
+
+.sf-mail .hi-say-btn {
+  color: #2a2a2a;
+}
+
+.sf-mail .hi-say-btn:hover {
+  color: #c65a3a;
+}
+
+.hi-say-menu {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 8px);
+  left: -10px;
+  display: grid;
+  gap: 10px;
+  width: max-content;
+  padding: 12px;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.06),
+    0 16px 36px -14px rgba(0, 0, 0, 0.22);
+  font-size: 13px;
+  line-height: 1.3;
+  animation: say-in 220ms var(--ease-out);
+}
+
+/* In the footer it opens upwards, so it never falls off the page. */
+.sf-mail .hi-say-menu {
+  top: auto;
+  bottom: calc(100% + 8px);
+}
+
+@keyframes say-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.98);
+  }
+}
+
+.hi-say-addr {
+  color: #151413;
+  font-weight: 500;
+  user-select: all;
+}
+
+.hi-say-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.hi-say-actions > * {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 30px;
+  padding: 0 11px;
+  border-radius: 9px;
+  background: #f3f3f2;
+  color: #2a2a2a;
+  font-size: 12.5px;
+  cursor: pointer;
+  transition: background-color 160ms ease;
+}
+
+.hi-say-actions > *:hover {
+  background: #e9e9e7;
+}
+
+.hi-say-actions svg {
+  width: 13px;
+  height: 13px;
 }
 
 .hero-open a:hover {

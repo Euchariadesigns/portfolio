@@ -4,6 +4,7 @@ import { ArrowUp, Check, Copy, DribbbleLogo, GithubLogo, InstagramLogo, Linkedin
 import { useState } from "react";
 import { play } from "@/lib/sound";
 import LagosTime from "./LagosTime";
+import SayHi, { EMAIL } from "./SayHi";
 import { RESUME } from "./SiteNav";
 import SubstackMark from "./SubstackMark";
 
@@ -11,7 +12,6 @@ import SubstackMark from "./SubstackMark";
   The home page footer: a sign-off with her name in the script of the nav
   mark, where to find her, her email (click to copy), and the time in Lagos.
 */
-const EMAIL = "odilieucharia1@gmail.com";
 
 const ELSEWHERE = [
   { label: "Substack", href: "https://substack.com/@ukheriah", icon: <SubstackMark className="sf-sub" /> },
@@ -75,7 +75,9 @@ export default function SiteFooter() {
             <h2>Say hi</h2>
             <ul>
               <li>
-                <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+                <SayHi className="sf-mail" icon={false}>
+                  {EMAIL}
+                </SayHi>
                 <button type="button" className={`sf-copy${copied ? " is-done" : ""}`} onClick={copy} aria-label="Copy email address">
                   {copied ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />}
                   <span className="sf-copied" role="status">

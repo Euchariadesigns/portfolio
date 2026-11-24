@@ -57,7 +57,8 @@ function measure(width: number, vh: number): Geometry {
       gap: 16,
       gapOpen,
       pad: 28,
-      step: clamp(vh * 0.42, 300, 420),
+      // One scroll flick per project, so the pinned stretch stays short.
+      step: clamp(vh * 0.2, 130, 170),
     };
   }
   const pillH = 60;
@@ -72,7 +73,7 @@ function measure(width: number, vh: number): Geometry {
     gap: 10,
     gapOpen,
     pad: 14,
-    step: clamp(vh * 0.45, 280, 400),
+    step: clamp(vh * 0.18, 120, 160),
   };
 }
 

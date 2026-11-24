@@ -1,6 +1,7 @@
 import Cursor from "@/components/Cursor";
-import { EnvelopeSimple, InstagramLogo, TiktokLogo } from "@phosphor-icons/react/dist/ssr";
+import { InstagramLogo, TiktokLogo } from "@phosphor-icons/react/dist/ssr";
 import Peek from "@/components/Peek";
+import SayHi from "@/components/SayHi";
 import SiteFooter from "@/components/SiteFooter";
 import SubstackMark from "@/components/SubstackMark";
 import Soon from "@/components/Soon";
@@ -90,10 +91,7 @@ export default function Home() {
               <p className="hero-open">
                 <span className="hero-dot" aria-hidden="true" />
                 Open to product design roles.{" "}
-                <a className="say-hi" href="mailto:odilieucharia1@gmail.com">
-                  Say hi
-                  <EnvelopeSimple weight="regular" aria-hidden="true" />
-                </a>
+                <SayHi className="say-hi">Say hi</SayHi>
               </p>
             </div>
           </div>
