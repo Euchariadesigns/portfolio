@@ -701,7 +701,8 @@ button {
   white-space: normal;
   pointer-events: none;
   opacity: 0;
-  transform: translate(-50%, -4px);
+  /* --nudge keeps it on screen near the edges (Soon.tsx). */
+  transform: translate(calc(-50% + var(--nudge, 0px)), -4px);
   transition:
     opacity 160ms ease,
     transform 260ms var(--ease-out);
@@ -709,7 +710,7 @@ button {
 
 .soon-note.is-on {
   opacity: 1;
-  transform: translate(-50%, 0);
+  transform: translate(calc(-50% + var(--nudge, 0px)), 0);
 }
 
 /* Real state: being worked on. */
@@ -2325,13 +2326,133 @@ button {
 
   .acc {
     --pill-h: 60px;
-    --open-head: 68px;
+    --open-head: 82px;
     --pad: 14px;
     --gap: 10px;
   }
 
   .acc .card[data-state="open"] {
     --r: 26px;
+  }
+
+  /* The open header on phones: the pitch gets two lines instead of being cut
+     off, the title rises to make room, and the arrow keeps clear of the edge. */
+  .acc .card[data-state="open"] .card-title {
+    transform: translateY(-19px) scale(1.04);
+  }
+
+  .acc .card[data-state="open"] .card-summary {
+    top: 27px;
+    display: -webkit-box;
+    white-space: normal;
+    text-overflow: clip;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-height: 17px;
+  }
+
+  .acc .card-go {
+    margin-right: 2px;
+  }
+
+  /* The open card's tiles stack in one column, each about the size it has on
+     a computer, and the card grows to fit them (WorkStack measures it). The
+     body is not a size container here, so the narrow-tile rules in
+     visuals.css (written for the work page's tiles) leave these alone. */
+  .acc .card-body {
+    height: auto;
+    container-type: normal;
+  }
+
+  .acc .v {
+    position: relative;
+    inset: auto;
+    margin: 0 var(--pad) var(--pad);
+    gap: 8px;
+    grid-template-columns: 1fr;
+  }
+
+  .acc .cell {
+    border-radius: 18px;
+  }
+
+  .acc .v-margin {
+    grid-template-rows: 348px 330px;
+    grid-template-areas:
+      "l"
+      "r";
+  }
+
+  .acc .v-goal {
+    grid-template-rows: 480px;
+  }
+
+  .acc .v-crime {
+    grid-template-rows: 330px 270px;
+    grid-template-areas:
+      "l"
+      "r";
+  }
+
+  .acc .cr-screen {
+    top: 32px;
+  }
+
+  .acc .v-group {
+    grid-template-rows: 212px 212px 240px;
+    grid-template-areas:
+      "e"
+      "f"
+      "ph";
+  }
+
+  /* The group's total sits lower right, under the name and chips, so it
+     fits narrow phones without running off the edge. */
+  .acc .gr-total {
+    top: 124px;
+    right: 14px;
+    left: auto;
+  }
+
+  .acc .gr-tghost {
+    top: 116px;
+    right: 6px;
+    left: auto;
+  }
+
+  .acc .v-group .a-v,
+  .acc .v-box .a-b,
+  .acc .v-box .a-r {
+    display: none;
+  }
+
+  .acc .v-box {
+    grid-template-rows: 170px 300px 190px;
+    grid-template-areas:
+      "n"
+      "p"
+      "c";
+  }
+
+  .acc .v-bond {
+    grid-template-rows: 250px 130px 310px;
+    grid-template-areas:
+      "a"
+      "i"
+      "p";
+  }
+
+  /* The bond cards sit under the title instead of across it. */
+  .acc .bd-card.k2 {
+    top: 72px;
+  }
+
+  .acc .bd-card.k1 {
+    top: 106px;
+  }
+
+  .acc .bd-card.k0 {
+    top: 140px;
   }
 
   .card-head {

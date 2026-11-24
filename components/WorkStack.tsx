@@ -13,17 +13,20 @@ import Visual from "./visuals";
   Selected work: one card per project, all collapsed when the page opens.
   - Click a collapsed card to open it; a card that was open closes.
   - Click the open card (or its arrow button) to go to the case study.
+  - A tap or click anywhere outside the list closes the open card (a scroll
+    or a text selection does not).
   - Hovering never opens a card. Over a collapsed one, the year on the right
     gives way to a small "Click to open" label (CSS only, so it shows in
     every browser).
   The list scrolls with the page; nothing is pinned. When a card opens, the
   card you clicked stays where it was under the pointer, and the page eases
-  down just enough to show it whole.
+  down just enough to show it whole. On phones the open card's tiles stack
+  in one column, so each card is as tall as its own tiles (measured below).
 */
 
 type Geo = {
   w: number; // card width
-  openH: number; // open card height
+  openH: number; // open card height (computers; phones measure each card)
   pillH: number; // collapsed card height (from CSS)
   openHead: number; // header height of the open card (from CSS)
   phone: boolean;
@@ -73,7 +76,9 @@ export default function WorkStack() {
   const [geo, setGeo] = useState<Geo | null>(null);
   const listRef = useRef<HTMLDivElement>(null);
   const cards = useRef<(HTMLElement | null)[]>([]);
-  const hold = useRef<number | null>(null); // the card that stays put while heights change
+  // What stays put on screen while the heights change: the card being
+  // opened, or whatever was tapped below a card that is closing.
+  const hold = useRef<{ el: HTMLElement; opening: boolean } | null>(null);
   const raf = useRef(0);
   const placed = useRef(false);
   const mouse = useRef<{ x: number; y: number } | null>(null);
@@ -95,9 +100,15 @@ export default function WorkStack() {
   useLayoutEffect(() => {
     if (!geo) return;
     const els = cards.current;
-    const to = projects.map((_, i) => (i === openIdx ? geo.openH : geo.pillH));
+    // An open card is its header plus its tiles. On computers that is the
+    // shared height; on phones each card's own (its body sizes itself).
+    const openHeight = (i: number) => {
+      const body = els[i]?.querySelector<HTMLElement>(".card-body");
+      return body && body.offsetHeight ? Math.round(geo.openHead + body.offsetHeight) : geo.openH;
+    };
+    const to = projects.map((_, i) => (i === openIdx ? openHeight(i) : geo.pillH));
     cancelAnimationFrame(raf.current);
-    const holdIdx = hold.current;
+    const held = hold.current;
     hold.current = null;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (!placed.current || reduce) {
@@ -109,13 +120,14 @@ export default function WorkStack() {
     }
 
     const from = els.map((e) => (e ? e.getBoundingClientRect().height : 0));
-    let holdEl = holdIdx !== null ? els[holdIdx] : null;
+    let holdEl = held ? held.el : null;
     const top0 = holdEl ? holdEl.getBoundingClientRect().top : 0;
-    // How far the page eases down so the card that opened ends up whole.
+    // How far the page eases down so the card that opened ends up whole (or,
+    // if it is taller than the screen, with its top near the top).
     let lift = 0;
-    if (holdEl && holdIdx === openIdx) {
+    if (holdEl && held?.opening && openIdx !== null) {
       const margin = geo.phone ? 12 : 24;
-      lift = clamp(top0 + geo.openH - (window.innerHeight - margin), 0, Math.max(0, top0 - margin));
+      lift = clamp(top0 + to[openIdx] - (window.innerHeight - margin), 0, Math.max(0, top0 - margin));
     }
     // If the reader scrolls during the move, let them: stop holding the card.
     const release = () => {
@@ -153,17 +165,55 @@ export default function WorkStack() {
       return; // the open card: follow the link to the case study
     }
     e.preventDefault();
-    hold.current = i;
+    const card = cards.current[i];
+    hold.current = card ? { el: card, opening: true } : null;
     play("tick");
     setOpenIdx(i);
   };
 
   const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "Escape" && openIdx !== null) {
-      hold.current = openIdx;
       setOpenIdx(null);
     }
   };
+
+  // A tap or click outside the list closes the open card. Pointer events,
+  // not click: iPhones send no click for a tap on plain text. A press that
+  // moves (a scroll, a text selection) or lingers is not a tap.
+  useEffect(() => {
+    if (openIdx === null) return;
+    let start: { x: number; y: number; t: number } | null = null;
+    const onDown = (e: PointerEvent) => {
+      start = { x: e.clientX, y: e.clientY, t: e.timeStamp };
+    };
+    const onCancel = () => {
+      start = null;
+    };
+    const onUp = (e: PointerEvent) => {
+      const s = start;
+      start = null;
+      if (!s || Math.hypot(e.clientX - s.x, e.clientY - s.y) > 10 || e.timeStamp - s.t > 600) return;
+      const list = listRef.current;
+      const target = e.target instanceof Element ? e.target : null;
+      if (!list || !target || list.contains(target)) return;
+      // Whatever was tapped below the open card would slide up as it closes:
+      // keep it where it is.
+      const card = cards.current[openIdx];
+      const el = target.closest<HTMLElement>("*");
+      if (card && el && el.getBoundingClientRect().top >= card.getBoundingClientRect().bottom - 1) {
+        hold.current = { el, opening: false };
+      }
+      setOpenIdx(null);
+    };
+    document.addEventListener("pointerdown", onDown, { passive: true });
+    document.addEventListener("pointerup", onUp, { passive: true });
+    document.addEventListener("pointercancel", onCancel, { passive: true });
+    return () => {
+      document.removeEventListener("pointerdown", onDown);
+      document.removeEventListener("pointerup", onUp);
+      document.removeEventListener("pointercancel", onCancel);
+    };
+  }, [openIdx]);
 
   // The case-study button stretches into a labelled pill when the mouse
   // comes near it; the pitch may then move onto a second line, and if it
