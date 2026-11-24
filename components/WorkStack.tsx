@@ -1,5 +1,6 @@
 "use client";
 
+import { CaretDown } from "@phosphor-icons/react";
 import Link from "next/link";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { CSSProperties, KeyboardEvent, MouseEvent } from "react";
@@ -12,8 +13,9 @@ import Visual from "./visuals";
   Selected work: one card per project, all collapsed when the page opens.
   - Click a collapsed card to open it; a card that was open closes.
   - Click the open card (or its arrow button) to go to the case study.
-  - Hovering never opens a card. Over a collapsed one the cursor says
-    "Click to open" (the data-cursor attribute, read by Cursor.tsx).
+  - Hovering never opens a card. Over a collapsed one, the year on the right
+    gives way to a small "Click to open" label (CSS only, so it shows in
+    every browser).
   The list scrolls with the page; nothing is pinned. When a card opens, the
   card you clicked stays where it was under the pointer, and the page eases
   down just enough to show it whole.
@@ -279,7 +281,6 @@ export default function WorkStack() {
                 {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
                 aria-expanded={open}
                 aria-label={open ? `${p.title}: ${external ? "open the app" : "open the case study"}` : `${p.title}: show project`}
-                data-cursor={open ? undefined : "Click to open"}
                 onClick={onHit(i)}
               />
 
@@ -290,6 +291,10 @@ export default function WorkStack() {
                   <span className="card-summary">{p.summary}</span>
                 </div>
                 <div className="card-side">
+                  <span className="card-hint" aria-hidden="true">
+                    Click to open
+                    <CaretDown weight="bold" />
+                  </span>
                   <span className="card-meta">
                     {p.org} <span className="dot">·</span> {p.year}
                   </span>

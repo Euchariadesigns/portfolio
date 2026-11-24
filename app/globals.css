@@ -1319,15 +1319,60 @@ button {
   --r: 32px;
 }
 
-/* A collapsed card lifts a little under the mouse; the cursor says
-   "Click to open". */
+/* "Click to open": hidden until the mouse is on a collapsed card, then it
+   takes the place of the organisation and year on the right. */
+.card-side {
+  position: relative;
+}
+
+.card-hint {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 11px 0 13px;
+  border-radius: 15px;
+  background: #f1f1f1;
+  color: #171717;
+  font-size: 12.5px;
+  font-weight: 500;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(8px, -50%);
+  transition:
+    opacity 180ms ease,
+    transform 320ms var(--ease-out);
+}
+
+.card-hint svg {
+  width: 12px;
+  height: 12px;
+}
+
 @media (hover: hover) {
+  /* The card lifts a little, and the label slides in. */
   .acc .card[data-state="pill"]:hover {
     box-shadow:
       0 0 0 1px rgba(0, 0, 0, 0.05),
       0 12px 32px -18px rgba(0, 0, 0, 0.2);
     transition-delay: 0ms;
     transition-duration: 260ms;
+  }
+
+  .acc .card[data-state="pill"]:hover .card-hint {
+    opacity: 1;
+    transform: translate(0, -50%);
+    transition:
+      opacity 220ms ease 40ms,
+      transform 360ms var(--ease-out);
+  }
+
+  .acc .card[data-state="pill"]:hover .card-meta {
+    opacity: 0;
   }
 }
 
@@ -2157,33 +2202,6 @@ button {
 
   .cursor-mark.spin svg {
     animation: cursor-spin 460ms cubic-bezier(0.34, 0, 0.2, 1);
-  }
-
-  /* The label that rides beside the petal (data-cursor in the page). */
-  .cursor-hint {
-    position: absolute;
-    top: 17px;
-    left: 15px;
-    padding: 4px 9px 5px;
-    border-radius: 999px;
-    background: #171717;
-    color: #fff;
-    font-size: 11.5px;
-    font-weight: 500;
-    line-height: 1.2;
-    letter-spacing: 0.005em;
-    white-space: nowrap;
-    opacity: 0;
-    transform: translate(-4px, -2px) scale(0.92);
-    transform-origin: top left;
-    transition:
-      opacity 160ms ease,
-      transform 260ms var(--ease-out);
-  }
-
-  .cursor-mark.has-hint .cursor-hint {
-    opacity: 1;
-    transform: none;
   }
 
 }
