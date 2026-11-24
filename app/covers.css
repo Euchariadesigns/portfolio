@@ -1,0 +1,255 @@
+/* Project covers: a phone playing the real flow, or a recording inset on the
+   project's colour. The container (open card tile, work page tile) brings the
+   colour; covers fill it. */
+
+.cv-root,
+.cv-box {
+  position: absolute;
+  inset: 0;
+}
+
+.cv-root {
+  transition: transform 500ms ease;
+}
+
+.cv-cam {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: var(--pw);
+  transition: transform 1100ms var(--ease-soft);
+}
+
+.cv-cam.is-still {
+  transition: none;
+}
+
+.cv-phone {
+  padding: 7px;
+  border-radius: calc(var(--pw) * 0.15);
+  background: #0c0c0d;
+  box-shadow:
+    inset 0 0 0 1px #2c2c2f,
+    0 0 0 1px rgba(0, 0, 0, 0.08),
+    0 36px 60px -30px rgba(0, 0, 0, 0.55),
+    0 12px 24px -16px rgba(0, 0, 0, 0.3);
+}
+
+.cv-screen {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: calc(var(--pw) * 0.12);
+  background: #fff;
+}
+
+.cv-screen img,
+.cv-screen video {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Screens slide in from the right like an iOS push; the one underneath
+   drifts left and dims a touch. */
+.cv-screen img {
+  position: absolute;
+  inset: 0;
+  transition:
+    transform 580ms cubic-bezier(0.32, 0.72, 0, 1),
+    filter 580ms ease,
+    opacity 480ms ease;
+}
+
+.cv-screen img[data-pos="next"] {
+  transform: translateX(102%);
+}
+
+.cv-screen img[data-pos="prev"] {
+  transform: translateX(-28%);
+  filter: brightness(0.94);
+}
+
+.cv-screen img[data-pos="cur"] {
+  z-index: 1;
+}
+
+.cv-screen.is-fading img {
+  opacity: 0;
+}
+
+.cv-screen.is-still img {
+  transition: none;
+}
+
+/* The tap: a soft dot that lands, presses and lifts away. */
+.cv-tap {
+  position: absolute;
+  z-index: 5;
+  width: 15%;
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: rgba(28, 28, 30, 0.22);
+  box-shadow:
+    0 0 0 2px rgba(255, 255, 255, 0.9),
+    0 6px 16px rgba(0, 0, 0, 0.16);
+  opacity: 0;
+  animation: cv-tap 700ms var(--ease-soft) forwards;
+}
+
+@keyframes cv-tap {
+  0% {
+    opacity: 0;
+    transform: scale(1.35);
+  }
+  30% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.82);
+  }
+  72% {
+    opacity: 1;
+    transform: scale(0.96);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.12);
+  }
+}
+
+/* A desktop recording, inset like a screen on a desk. */
+.cv-inset {
+  position: absolute;
+  inset: 22px;
+  display: grid;
+  place-items: center;
+}
+
+.cv-inset video {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  border-radius: 10px;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.06),
+    0 30px 60px -28px rgba(0, 0, 0, 0.45);
+}
+
+/* Scenes: one card at a time. A scene comes in from a soft blur, holds while
+   its card builds itself, then drifts up and away as the next arrives. */
+.sc {
+  --in: 160ms;
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  transform: translateY(18px) scale(0.97);
+  filter: blur(6px);
+  transition:
+    opacity 420ms ease,
+    transform 700ms var(--ease-out),
+    filter 500ms ease;
+}
+
+.sc[data-state="on"] {
+  opacity: 1;
+  transform: none;
+  filter: blur(0);
+  transition-delay: 200ms;
+}
+
+.sc[data-state="out"] {
+  transform: translateY(-18px) scale(0.97);
+}
+
+.sc-stage {
+  position: relative;
+  flex: none;
+}
+
+/* A heading on top, its cards (or coins) centred beneath. */
+.sc-titled {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.sc-titled .bd-title,
+.sc-titled .c-title {
+  position: static;
+  width: auto;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.sc-titled .bd-title {
+  font-size: 19px;
+}
+
+.sc-titled .c-title {
+  font-size: 17px;
+  font-weight: 700;
+}
+
+/* The three bonds, stacked one over the next. */
+.sc-stack {
+  position: relative;
+  width: 270px;
+  height: 168px;
+}
+
+.sc-titled .bd-card.k2 {
+  top: 0;
+  right: 0;
+}
+
+.sc-titled .bd-card.k1 {
+  top: 34px;
+  right: 32px;
+}
+
+.sc-titled .bd-card.k0 {
+  top: 68px;
+  right: 64px;
+}
+
+.sc-titled .sb-coins {
+  position: static;
+  width: 210px;
+}
+
+/* A phone on its own fills most of the space's height. */
+.sc-phonestage {
+  width: auto !important;
+  height: 86% !important;
+  aspect-ratio: 1201 / 2487;
+}
+
+.sc-phone {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 22px 32px rgba(0, 0, 0, 0.28));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sc {
+    transition: none;
+    filter: none;
+  }
+
+  .cv-cam,
+  .cv-screen img {
+    transition: none;
+  }
+}

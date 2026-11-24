@@ -1,0 +1,2098 @@
+/* Project visuals inside the open (white) card.
+   The body is a grid of the project's coloured tiles, as in the Figma
+   portfolio. Once the card has finished opening (--in), the tiles fade in,
+   then their content settles in with opacity and a soft blur only. */
+
+.v {
+  position: absolute;
+  inset: 0 var(--pad) var(--pad);
+  display: grid;
+  gap: 10px;
+  color: var(--tile-ink);
+}
+
+.v {
+  --tile-ink: #1b1a17;
+}
+
+.ink-light .v {
+  --tile-ink: #ffffff;
+}
+
+.cell {
+  position: relative;
+  overflow: hidden;
+  min-width: 0;
+  min-height: 0;
+  border-radius: 20px;
+  background-color: var(--box);
+  background-image: var(--box-image);
+  background-size: var(--box-size, cover);
+  background-position: center;
+  opacity: 0;
+  transition: opacity 160ms ease;
+}
+
+/* After the first run, replays start sooner. */
+.v.again {
+  --in: 120ms;
+}
+
+.v.on .cell {
+  opacity: 1;
+  transition: opacity 700ms var(--ease-out) calc(var(--in) - 80ms + var(--ci, 0) * 70ms);
+}
+
+.cell:nth-child(2) { --ci: 1; }
+.cell:nth-child(3) { --ci: 2; }
+.cell:nth-child(4) { --ci: 3; }
+.cell:nth-child(5) { --ci: 4; }
+
+.a-p { grid-area: p; }
+.a-o { grid-area: o; }
+.a-d { grid-area: d; }
+.a-j { grid-area: j; }
+.a-l { grid-area: l; }
+.a-n { grid-area: n; }
+.a-c { grid-area: c; }
+.a-b { grid-area: b; }
+.a-r { grid-area: r; }
+.a-f { grid-area: f; }
+.a-e { grid-area: e; }
+.a-ph { grid-area: ph; }
+.a-v { grid-area: v; }
+.a-a { grid-area: a; }
+.a-i { grid-area: i; }
+.a-h { grid-area: h; }
+.a-g { grid-area: g; }
+.a-s { grid-area: s; }
+
+/* ---------------------------------------------------------------- Motion */
+
+.v [data-in] {
+  opacity: 0;
+  filter: blur(6px);
+  transition: opacity 160ms ease, filter 160ms ease;
+}
+
+.play [data-in] {
+  opacity: 1;
+  filter: blur(0);
+  transition:
+    opacity 700ms var(--ease-out) calc(var(--in) + 140ms + var(--d, 0ms)),
+    filter 800ms var(--ease-out) calc(var(--in) + 140ms + var(--d, 0ms));
+}
+
+.v [data-move] {
+  opacity: 0;
+  transform: var(--from, translateY(16px));
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.play [data-move] {
+  opacity: 1;
+  transform: var(--to, none);
+  transition:
+    opacity 650ms var(--ease-out) calc(var(--in) + 140ms + var(--d, 0ms)),
+    transform 1200ms var(--ease-out) calc(var(--in) + 140ms + var(--d, 0ms));
+}
+
+@keyframes float {
+  to {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* --------------------------------------------------------------- Shared */
+
+.phone {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  width: 78%;
+  max-width: 172px;
+  height: auto;
+  filter: drop-shadow(0 16px 24px rgba(0, 0, 0, 0.08));
+}
+
+.c-title {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  font-size: 15px;
+  line-height: 1.25;
+  letter-spacing: -0.012em;
+}
+
+.flag {
+  flex: none;
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+.flag-cm {
+  background:
+    radial-gradient(circle at 50% 50%, #fcd116 0 2.4px, transparent 2.8px),
+    linear-gradient(90deg, #007a5e 0 33.3%, #ce1126 33.3% 66.6%, #fcd116 66.6%);
+}
+
+.flag-td {
+  background: linear-gradient(90deg, #002664 0 33.3%, #fecb00 33.3% 66.6%, #c60c30 66.6%);
+}
+
+.flag-ga {
+  background: linear-gradient(180deg, #009e60 0 33.3%, #fcd116 33.3% 66.6%, #3a75c4 66.6%);
+}
+
+/* ================================================================ Margin */
+
+/* Two equal tiles: the idea on the left, the app on the right. */
+.v-margin {
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "l r";
+}
+
+.mg-left {
+  padding: 26px 26px 0;
+  font-family: var(--font-rounded), system-ui, sans-serif;
+}
+
+/* Title and subtext, held together. */
+.mg-copy {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mg-title {
+  margin: 0;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 31px;
+  font-weight: 500;
+  line-height: 1.1;
+  color: #f6f5f1;
+  white-space: nowrap;
+}
+
+.mg-u {
+  position: relative;
+  display: inline-block;
+}
+
+.mg-line {
+  position: absolute;
+  left: -2px;
+  bottom: -5px;
+  width: calc(100% + 6px);
+  height: 10px;
+  overflow: visible;
+}
+
+.mg-line path {
+  fill: none;
+  stroke: #0a84ff;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-dasharray: 130;
+  stroke-dashoffset: 130;
+  transition: stroke-dashoffset 160ms ease;
+}
+
+.play .mg-line path {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1100ms cubic-bezier(0.6, 0, 0.2, 1) calc(var(--in) + 800ms);
+}
+
+.mg-sub {
+  max-width: 272px;
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: rgba(246, 245, 241, 0.6);
+}
+
+/* The notebook page rises from the bottom of the tile and the answer writes
+   itself, line by line. */
+.mg-sheet {
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  width: 184px;
+  height: 222px;
+  margin-left: -92px;
+  padding: 26px 8px 0 26px;
+  border-radius: 8px;
+  background:
+    linear-gradient(90deg, transparent 17px, rgba(255, 59, 48, 0.25) 17px 18px, transparent 18px),
+    repeating-linear-gradient(to bottom, transparent 0 25px, rgba(0, 122, 255, 0.2) 25px 26px),
+    #fdfdfb;
+  box-shadow: 0 22px 40px -14px rgba(0, 0, 0, 0.8);
+}
+
+.mg-hand {
+  display: block;
+  font-family: "Bradley Hand", var(--font-hand), cursive;
+  font-size: 15px;
+  line-height: 26px;
+  color: #1f3c8f;
+  white-space: nowrap;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 150ms ease;
+}
+
+.play .mg-hand {
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 700ms cubic-bezier(0.45, 0.05, 0.55, 0.95) calc(var(--in) + 700ms + var(--l) * 520ms);
+}
+
+/* Phone, centred with equal space above and below. Drawn at 160x330. */
+.mp-phone {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  zoom: 0.92;
+  margin-top: -165px;
+  width: 160px;
+  height: 330px;
+  padding: 6px;
+  border-radius: 32px;
+  background: #050505;
+  box-shadow: 0 0 0 1px #2c2c2e, 0 30px 50px -28px rgba(0, 0, 0, 0.18), 0 10px 20px -16px rgba(0, 0, 0, 0.12);
+}
+
+.mp-screen {
+  position: relative;
+  height: 100%;
+  border-radius: 26px;
+  overflow: hidden;
+  background: #f6f6f4;
+}
+
+.mp-screen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.mp-island {
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  width: 48px;
+  height: 14px;
+  margin-left: -24px;
+  border-radius: 10px;
+  background: #050505;
+}
+
+/* ========================================================== Goal Savings */
+
+/* One tile, one phone playing through creating a first goal (GoalFlow.tsx).
+   Inside .gf-screen everything is in iPhone points (375 x 812); the screen is
+   zoomed down to the phone's size. */
+.v-goal {
+  grid-template-columns: 1fr;
+  grid-template-areas: "g";
+}
+
+.gf-cell-in,
+.gf-rig {
+  position: absolute;
+  inset: 0;
+}
+
+/* The "camera": the phone glides up and down to follow the taps. */
+.gf-cam {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: var(--pw);
+  transition: transform 1100ms var(--ease-soft);
+}
+
+.gf-cam.is-still {
+  transition: none;
+}
+
+.gf-phone {
+  padding: 7px;
+  border-radius: calc(44px * var(--s) + 7px);
+  background: #0c0c0d;
+  box-shadow:
+    inset 0 0 0 1px #2c2c2f,
+    0 0 0 1px rgba(0, 0, 0, 0.06),
+    0 30px 50px -28px rgba(0, 0, 0, 0.18),
+    0 10px 20px -16px rgba(0, 0, 0, 0.12);
+}
+
+.gf-screen {
+  position: relative;
+  width: 375px;
+  height: 812px;
+  zoom: var(--s);
+  border-radius: 44px;
+  overflow: hidden;
+  background: #fff;
+  color: #121417;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+
+.gf-screen h4,
+.gf-screen p {
+  margin: 0;
+}
+
+/* Screens slide in from the right like an iOS push; the one underneath
+   drifts left and dims a touch. */
+.gf-scr {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  transition:
+    transform 580ms cubic-bezier(0.32, 0.72, 0, 1),
+    filter 580ms ease,
+    opacity 600ms ease;
+}
+
+.gf-scr[data-pos="next"] {
+  transform: translateX(102%); /* a hair past the edge: zoom can leave a 1px seam */
+}
+
+.gf-scr[data-pos="prev"] {
+  transform: translateX(-28%);
+  filter: brightness(0.94);
+}
+
+.gf-screen.is-fading .gf-scr,
+.gf-screen.is-fading .gf-tap {
+  opacity: 0;
+  transition: opacity 480ms ease;
+}
+
+.gf-screen.is-still *,
+.gf-screen.is-still {
+  transition: none !important;
+}
+
+/* Status bar, island, home bar: fixed above the screens. */
+.gf-status {
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  padding: 16px 30px 0 36px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 22px;
+}
+
+.gf-status-r {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 22px;
+}
+
+.gf-sig {
+  width: 17px;
+  height: 11px;
+  fill: #121417;
+}
+
+.gf-wifi {
+  width: 15px;
+  height: 11px;
+  fill: #121417;
+}
+
+.gf-batt {
+  position: relative;
+  width: 25px;
+  height: 12px;
+  border-radius: 3.5px;
+  box-shadow: inset 0 0 0 1.2px rgba(18, 20, 23, 0.38);
+}
+
+.gf-batt::before {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  right: 4px;
+  border-radius: 1.5px;
+  background: #121417;
+}
+
+.gf-batt::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  right: -3px;
+  width: 1.5px;
+  height: 4px;
+  border-radius: 0 1px 1px 0;
+  background: rgba(18, 20, 23, 0.38);
+}
+
+.gf-island {
+  position: absolute;
+  z-index: 11;
+  top: 11px;
+  left: 50%;
+  width: 122px;
+  height: 35px;
+  margin-left: -61px;
+  border-radius: 20px;
+  background: #000;
+}
+
+.gf-home {
+  position: absolute;
+  z-index: 11;
+  bottom: 8px;
+  left: 50%;
+  width: 134px;
+  height: 5px;
+  margin-left: -67px;
+  border-radius: 3px;
+  background: #121417;
+}
+
+/* The tap: a soft dot that lands, presses and lifts away. */
+.gf-tap {
+  position: absolute;
+  z-index: 12;
+  width: 46px;
+  height: 46px;
+  margin: -23px 0 0 -23px;
+  border-radius: 50%;
+  background: rgba(28, 28, 30, 0.2);
+  box-shadow:
+    0 0 0 2px rgba(255, 255, 255, 0.9),
+    0 6px 16px rgba(0, 0, 0, 0.16);
+  opacity: 0;
+  animation: gf-tap 700ms var(--ease-soft) forwards;
+}
+
+@keyframes gf-tap {
+  0% {
+    opacity: 0;
+    transform: scale(1.35);
+  }
+  30% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.82);
+  }
+  72% {
+    opacity: 1;
+    transform: scale(0.96);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.12);
+  }
+}
+
+/* Shared bits */
+.gf-head {
+  position: absolute;
+  top: 56px;
+  left: 16px;
+  right: 16px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.gf-head > span {
+  width: 40px;
+  height: 40px;
+}
+
+.gf-head b {
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.gf-x {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #f1f3f4;
+}
+
+.gf-x svg,
+.gf-pick-i svg,
+.gf-monthly svg,
+.gf-key svg,
+.gf-perk-i svg,
+.gf-row-i svg,
+.gf-save svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.gf-x svg {
+  width: 20px;
+  height: 20px;
+  color: #3f4549;
+}
+
+.gf-x--r {
+  position: absolute;
+  z-index: 2;
+  top: 56px;
+  right: 16px;
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.gf-btn {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 30px;
+  height: 56px;
+  border-radius: 28px;
+  display: grid;
+  place-items: center;
+  background: #8758ff;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  transition: background-color 360ms ease;
+}
+
+.gf-btn.is-off {
+  background: #d8ceff;
+}
+
+.gf-label {
+  position: absolute;
+  left: 20px;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.gf-label em {
+  color: #8758ff;
+}
+
+.gf-field {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  height: 54px;
+  padding: 0 16px;
+  border-radius: 14px;
+  background: #f3f5f7;
+  font-size: 15px;
+  line-height: 54px;
+  white-space: nowrap;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1.5px transparent;
+  transition:
+    box-shadow 240ms ease,
+    background-color 240ms ease;
+}
+
+.gf-field.is-focus {
+  background: #fff;
+  box-shadow: inset 0 0 0 1.5px #8758ff;
+}
+
+.gf-area {
+  height: 104px;
+  padding-top: 15px;
+  line-height: 1.45;
+  white-space: normal;
+}
+
+.gf-ph {
+  color: #9aa1a9;
+}
+
+.gf-caret {
+  display: inline-block;
+  width: 2px;
+  height: 19px;
+  margin: 0 0 -4px 1px;
+  border-radius: 1px;
+  background: #8758ff;
+  animation: gf-blink 1s steps(1) infinite;
+}
+
+@keyframes gf-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.gf-pick {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  height: 72px;
+  padding: 0 14px;
+  border-radius: 16px;
+  background: #f3f5f7;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.gf-pick-i {
+  position: relative;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #fff;
+  display: grid;
+  place-items: center;
+  color: #9aa1a9;
+}
+
+.gf-pick-i svg {
+  width: 22px;
+  height: 22px;
+  transition: opacity 300ms ease;
+}
+
+.gf-pick-i img {
+  position: absolute;
+  top: 9px;
+  left: 9px;
+  width: 26px;
+  height: 26px;
+  opacity: 0;
+  transform: scale(0.7);
+  transition:
+    opacity 300ms ease,
+    transform 500ms var(--ease-out);
+}
+
+.gf-pick-i.is-set svg {
+  opacity: 0;
+}
+
+.gf-pick-i.is-set img {
+  opacity: 1;
+  transform: none;
+}
+
+.gf-pick-i.is-cal {
+  color: #121417;
+}
+
+.gf-swap {
+  position: relative;
+  flex: 1;
+  height: 20px;
+  font-size: 15px;
+  line-height: 20px;
+}
+
+.gf-swap > span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 260ms ease,
+    transform 420ms var(--ease-out);
+}
+
+.gf-swap > span:first-child {
+  color: #9aa1a9;
+}
+
+.gf-swap > span.is-on {
+  opacity: 1;
+  transform: none;
+}
+
+.gf-strong,
+.gf-two .gf-swap > span:last-child {
+  color: #121417;
+  font-weight: 600;
+}
+
+.gf-two {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.gf-two small {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.gf-pill {
+  flex: none;
+  height: 32px;
+  padding: 0 14px;
+  border-radius: 16px;
+  background: #fff;
+  color: #8758ff;
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 32px;
+}
+
+/* 1. Intro */
+.gf-intro {
+  background: #f6f9f9;
+}
+
+.gf-art > * {
+  position: absolute;
+}
+
+.gf-hand-l {
+  top: 96px;
+  left: -22px;
+  width: 132px;
+}
+
+.gf-hand-r {
+  top: 124px;
+  left: 258px;
+  width: 128px;
+}
+
+.gf-spark {
+  top: 88px;
+  left: 132px;
+  width: 112px;
+}
+
+.gf-jar {
+  top: 150px;
+  left: 145px;
+  width: 84px;
+  height: 110px;
+}
+
+.gf-jar img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.gf-coins {
+  position: absolute;
+  left: 5px;
+  right: 5px;
+  bottom: 3px;
+  height: 46%;
+  border-radius: 4px 4px 22px 22px;
+  background: linear-gradient(#c3e58a, #a3d35f);
+  overflow: hidden;
+}
+
+.gf-coins i {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #6fae3b;
+}
+
+.gf-coins i:nth-child(1) { left: 10px; bottom: 10px; }
+.gf-coins i:nth-child(2) { left: 32px; bottom: 22px; }
+.gf-coins i:nth-child(3) { right: 10px; bottom: 8px; }
+.gf-coins i:nth-child(4) { left: 26px; bottom: -2px; }
+
+.gf-bub {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 0 0 2.5px rgba(255, 255, 255, 0.8);
+}
+
+.gf-bub img {
+  width: 18px;
+  height: 18px;
+}
+
+.gf-bub.b1 { top: 268px; left: 84px; background: #ffd29e; }
+.gf-bub.b2 { top: 108px; left: 248px; background: #cfe8ff; }
+.gf-bub.b3 { top: 252px; left: 256px; background: #bfe9e2; }
+
+.gf-h1 {
+  position: absolute;
+  top: 346px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.gf-lede {
+  position: absolute;
+  top: 384px;
+  left: 34px;
+  right: 34px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.45;
+  color: #5f6a69;
+}
+
+.gf-perks {
+  position: absolute;
+  top: 448px;
+  left: 16px;
+  right: 16px;
+  padding: 2px 16px;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.04);
+}
+
+.gf-perk {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 0;
+}
+
+.gf-perk + .gf-perk {
+  border-top: 1px solid #eef0f2;
+}
+
+.gf-perk-i {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+}
+
+.gf-perk-i svg {
+  width: 19px;
+  height: 19px;
+}
+
+.gf-perk-i--bonus {
+  background: #efeaff;
+  color: #8758ff;
+}
+
+.gf-perk-i--fee {
+  background: #ffeceb;
+  color: #e5484d;
+}
+
+.gf-perk b,
+.gf-row b {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.gf-perk small,
+.gf-row small {
+  display: block;
+  margin-top: 2px;
+  font-size: 12.5px;
+  color: #6b7280;
+}
+
+/* 3. Amount and date */
+.gf-ask {
+  position: absolute;
+  top: 170px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 14px;
+  color: #4b5563;
+}
+
+.gf-amount {
+  position: absolute;
+  top: 196px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.gf-amount small {
+  font-size: 15px;
+  font-weight: 500;
+  color: #9aa1a9;
+}
+
+.gf-amount b {
+  font-size: 44px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.gf-monthly {
+  position: absolute;
+  top: 262px;
+  left: 50%;
+  height: 30px;
+  padding: 0 10px 0 12px;
+  border-radius: 15px;
+  background: #f3f5f7;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12.5px;
+  color: #6b7280;
+  white-space: nowrap;
+  transform: translateX(-50%);
+}
+
+.gf-monthly b {
+  color: #121417;
+  font-weight: 600;
+}
+
+.gf-monthly svg {
+  width: 14px;
+  height: 14px;
+}
+
+.gf-keys {
+  position: absolute;
+  top: 450px;
+  left: 0;
+  right: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 56px);
+  justify-content: center;
+  gap: 8px 58px;
+}
+
+.gf-key {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  box-shadow: inset 0 0 0 1px #e6e8eb;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.gf-key:nth-child(10),
+.gf-key:nth-child(12) {
+  box-shadow: none;
+}
+
+.gf-key svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* 4. Goal details */
+.gf-goal-i {
+  position: absolute;
+  top: 112px;
+  left: 50%;
+  width: 60px;
+  height: 60px;
+  margin-left: -30px;
+  border-radius: 16px;
+  background: #ecf8fe;
+  display: grid;
+  place-items: center;
+}
+
+.gf-goal-i img {
+  width: 34px;
+  height: 34px;
+}
+
+.gf-goal-t {
+  position: absolute;
+  top: 186px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.gf-goal-m {
+  position: absolute;
+  top: 220px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 13.5px;
+  color: #6b7280;
+}
+
+.gf-goal-m i {
+  margin: 0 6px;
+  font-style: normal;
+}
+
+.gf-bar {
+  position: absolute;
+  top: 254px;
+  left: 50%;
+  width: 236px;
+  height: 6px;
+  margin-left: -118px;
+  border-radius: 3px;
+  background: #eceff2;
+}
+
+.gf-bar i {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 4%;
+  border-radius: 3px;
+  background: #29a9e1;
+}
+
+.gf-saved {
+  position: absolute;
+  top: 282px;
+  left: 16px;
+  right: 16px;
+  height: 140px;
+  padding: 18px 16px;
+  border-radius: 20px;
+  background: #dde5ed;
+}
+
+.gf-saved small {
+  font-size: 13px;
+  color: #5f6b78;
+}
+
+.gf-saved b {
+  display: block;
+  margin-top: 2px;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.gf-saved b i {
+  font-size: 14px;
+  font-weight: 500;
+  font-style: normal;
+  letter-spacing: 0;
+  color: #5f6b78;
+}
+
+.gf-pct {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  height: 24px;
+  padding: 0 9px;
+  border-radius: 12px;
+  background: #ffe3e3;
+  color: #e5484d;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.gf-save {
+  position: absolute;
+  left: 16px;
+  right: 72px;
+  bottom: 16px;
+  height: 44px;
+  border-radius: 22px;
+  background: #8758ff;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.gf-save svg {
+  width: 16px;
+  height: 16px;
+}
+
+.gf-more {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+.gf-row {
+  position: absolute;
+  top: 438px;
+  left: 16px;
+  right: 16px;
+  height: 68px;
+  padding: 0 14px;
+  border-radius: 16px;
+  background: #fafafc;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.gf-row-i {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: #e8f7ee;
+  color: #22a06b;
+  display: grid;
+  place-items: center;
+}
+
+.gf-row-i svg {
+  width: 22px;
+  height: 22px;
+}
+
+.gf-view {
+  flex: none;
+  margin-left: auto;
+  height: 30px;
+  padding: 0 12px;
+  border-radius: 15px;
+  background: #eef0f3;
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 30px;
+}
+
+.gf-row--auto {
+  top: 518px;
+  background: #00161e;
+  color: #fff;
+}
+
+.gf-row--auto .gf-row-i {
+  background: #fff;
+  color: #2a86ff;
+}
+
+.gf-row--auto small {
+  color: rgba(255, 255, 255, 0.66);
+}
+
+.gf-row--auto .gf-view {
+  background: #fff;
+  color: #121417;
+}
+
+/* Savings Box keeps its tile layout: phone, then four equal tiles. */
+.v-box {
+  grid-template-columns: 200px 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+/* =========================================================== Savings Box */
+
+/* The phone sits whole in its tile, with the same space above and below. */
+.v-box .phone {
+  top: 26px;
+  width: auto;
+  max-width: none;
+  height: calc(100% - 52px);
+}
+
+.v-box {
+  grid-template-areas:
+    "p n c"
+    "p b r";
+}
+
+.sb-card,
+.sb-ghost {
+  position: absolute;
+  left: 22px;
+  width: 320px;
+  border-radius: 14px;
+}
+
+.sb-card {
+  top: 48px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: #ecf6fd;
+  box-shadow: inset 0 1px 0 #fff, 0 18px 32px -18px rgba(40, 20, 120, 0.6);
+}
+
+.sb-ghost {
+  top: 64px;
+  left: 34px;
+  height: 62px;
+  background: rgba(236, 246, 253, 0.55);
+}
+
+.sb-cal {
+  position: relative;
+  flex: none;
+  width: 26px;
+  height: 26px;
+  color: #1a9fd9;
+}
+
+.sb-cal svg {
+  width: 26px;
+  height: 26px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+.sb-cal em {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 10px;
+  font-size: 9px;
+  font-style: normal;
+  font-weight: 700;
+  text-align: center;
+}
+
+.sb-card b {
+  display: block;
+  font-size: 14.5px;
+  font-weight: 450;
+  color: #1a9fd9;
+  letter-spacing: -0.01em;
+}
+
+.sb-card small {
+  display: block;
+  font-size: 11.5px;
+  color: #555;
+}
+
+.sb-title {
+  width: 160px;
+  font-weight: 700;
+}
+
+.sb-title .emoji {
+  font-size: 14px;
+}
+
+.sb-coins {
+  position: absolute;
+  right: -26px;
+  bottom: -30px;
+  width: 212px;
+}
+
+.sb-box {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  width: 100px;
+  height: 141px;
+  transform: translateX(-50%);
+}
+
+.sb-box img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.sb-box-base {
+  clip-path: inset(44% 0 0 0);
+}
+
+/* The two CFA coins drop into the slot, once, on a soft curve. */
+.sb-box-coins {
+  clip-path: inset(0 0 56% 0);
+  opacity: 0;
+  transform: translateY(-46px);
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.play .sb-box-coins {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 500ms ease calc(var(--in) + 450ms),
+    transform 1000ms cubic-bezier(0.45, 0, 0.3, 1) calc(var(--in) + 450ms);
+}
+
+.sb-receipt img {
+  position: absolute;
+  top: 22px;
+  left: 50%;
+  width: 176px;
+  margin-left: -88px;
+  clip-path: inset(0 0 89% 0);
+}
+
+/* The receipt prints out of its slot. */
+.play .sb-receipt img {
+  clip-path: inset(0 0 0 0);
+  transition:
+    opacity 700ms var(--ease-out) calc(var(--in) + var(--d, 0ms)),
+    filter 800ms var(--ease-out) calc(var(--in) + var(--d, 0ms)),
+    clip-path 1600ms var(--ease-out) calc(var(--in) + 500ms);
+}
+
+/* ==================================================== Group Goal Savings */
+
+.v-group {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 132px 70px 1fr;
+  grid-template-areas:
+    "f e"
+    "f ph"
+    "v ph";
+}
+
+.gr-photos {
+  --x0: -66px;
+  --r0: -16deg;
+  --x1: -22px;
+  --r1: -5deg;
+  --x2: 22px;
+  --r2: 6deg;
+  --x3: 66px;
+  --r3: 16deg;
+}
+
+.gr-photos img {
+  position: absolute;
+  top: 34px;
+  left: 50%;
+  width: 56px;
+}
+
+.gr-photos img:nth-child(1),
+.gr-photos img:nth-child(4) {
+  top: 46px;
+}
+
+.gr-folder {
+  position: absolute;
+  top: 76px;
+  left: 50%;
+  width: 164px;
+  transform: translateX(-50%);
+}
+
+.gr-folder img {
+  width: 100%;
+}
+
+.gr-folder span {
+  position: absolute;
+  top: 38%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.gr-vcard {
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  width: 236px;
+  height: 160px;
+  padding: 20px 16px 0;
+  border-radius: 18px;
+  background: #fff;
+  color: #111;
+  text-align: center;
+  box-shadow: 0 16px 32px -16px rgba(0, 0, 0, 0.45);
+}
+
+.gr-vghost {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  width: 208px;
+  height: 40px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.gr-handle {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  width: 36px;
+  height: 4px;
+  margin-left: -18px;
+  border-radius: 4px;
+  background: #e4e4e9;
+}
+
+.gr-faces {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 58px;
+}
+
+.gr-faces img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+}
+
+.gr-faces .f1 {
+  margin-right: -12px;
+}
+
+.gr-faces .f2 {
+  position: relative;
+  z-index: 2;
+  width: 54px;
+  height: 54px;
+  box-shadow: 0 0 0 2.5px #34c759;
+}
+
+.gr-faces .f3 {
+  margin-left: -12px;
+}
+
+.gr-check {
+  position: absolute;
+  top: 40px;
+  left: calc(50% + 14px);
+  z-index: 3;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #22c55e;
+  border: 2px solid #fff;
+  display: grid;
+  place-items: center;
+  transform: scale(0);
+  transition: transform 150ms ease;
+}
+
+.gr-check svg {
+  width: 10px;
+  height: 10px;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.play .gr-check {
+  transform: scale(1);
+  transition: transform 600ms var(--ease-out) calc(var(--in) + 1000ms);
+}
+
+.gr-vcard b {
+  display: block;
+  margin-top: 6px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.gr-vcard small {
+  display: block;
+  margin-top: 2px;
+  font-size: 9.5px;
+  color: #777;
+}
+
+.gr-who {
+  position: absolute;
+  top: 14px;
+  left: 18px;
+  width: 156px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gr-av {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 2.5px solid #fff;
+  box-shadow: 0 8px 16px -8px rgba(0, 0, 0, 0.4);
+}
+
+.gr-who b {
+  margin-top: 5px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.gr-chips {
+  display: flex;
+  gap: 5px;
+  margin-top: 7px;
+}
+
+.gr-chips > span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px 3px 5px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.86);
+  font-size: 9.5px;
+  white-space: nowrap;
+}
+
+.gr-mini {
+  display: flex;
+}
+
+.gr-mini img {
+  width: 12px;
+  height: 12px;
+  margin-left: -4px;
+  border-radius: 50%;
+  border: 1px solid #fff;
+}
+
+.gr-mini img:first-child {
+  margin-left: 0;
+}
+
+.gr-mini--e img {
+  width: 10px;
+  height: 10px;
+  margin-left: -1px;
+  border: 0;
+  border-radius: 0;
+}
+
+.gr-total,
+.gr-tghost {
+  position: absolute;
+  border-radius: 14px;
+}
+
+.gr-total {
+  top: 30px;
+  left: 150px;
+  width: 200px;
+  padding: 12px 14px;
+  background: linear-gradient(110deg, #f4faff 0%, #bfe1ff 100%);
+  box-shadow: inset 0 1px 0 #fff, 0 16px 30px -16px rgba(20, 60, 120, 0.6);
+  color: #111;
+}
+
+.gr-tghost {
+  top: 22px;
+  left: 162px;
+  width: 196px;
+  height: 76px;
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.gr-total small {
+  display: block;
+  font-size: 9.5px;
+  color: #7a8a99;
+}
+
+.gr-total b {
+  display: block;
+  margin-top: 2px;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.gr-total i {
+  font-style: normal;
+  font-size: 9.5px;
+  font-weight: 500;
+  color: #7a8a99;
+}
+
+.gr-save {
+  position: absolute;
+  right: 26px;
+  top: 50%;
+  margin-top: -12px;
+  height: 24px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: #111;
+  color: #fff;
+  font-size: 9.5px;
+  line-height: 24px;
+}
+
+/* ======================================================= Bond Investment */
+
+.v-bond {
+  grid-template-columns: 1.35fr 1fr;
+  grid-template-rows: 1.75fr 1fr;
+  grid-template-areas:
+    "a p"
+    "i p";
+}
+
+.bd-title {
+  position: absolute;
+  top: 18px;
+  left: 20px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.bd-card {
+  position: absolute;
+  width: 206px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: #fff;
+  color: #111;
+  box-shadow: 0 16px 28px -16px rgba(0, 0, 0, 0.5);
+}
+
+.bd-card.k2 { top: 40px; right: 18px; z-index: 3; background: #fff6f1; }
+.bd-card.k1 { top: 74px; right: 50px; z-index: 2; background: #f3efff; }
+.bd-card.k0 { top: 108px; right: 82px; z-index: 1; }
+
+.bd-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bd-top b {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.bd-top small {
+  display: block;
+  font-size: 9px;
+  color: #8a8a8a;
+}
+
+.bd-nums {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  padding: 6px 9px;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+.bd-nums small {
+  display: block;
+  font-size: 8.5px;
+  color: #8a8a8a;
+}
+
+.bd-nums b {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.bd-info {
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  right: 40px;
+  display: flex;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: #eef7fd;
+  color: #111;
+  box-shadow: inset 0 1px 0 #fff, 0 16px 28px -16px rgba(0, 0, 0, 0.45);
+}
+
+.bd-i {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid #1a9fd9;
+  color: #1a9fd9;
+  display: grid;
+  place-items: center;
+  font: italic 600 12px/1 Georgia, serif;
+}
+
+.bd-info b {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 500;
+}
+
+.bd-info small {
+  display: block;
+  margin-top: 1px;
+  font-size: 11px;
+  color: #555;
+}
+
+/* ========================================================= Crime records */
+
+.v-crime {
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "l r";
+}
+
+.cr-title {
+  position: absolute;
+  top: 22px;
+  left: 22px;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  color: #121212;
+}
+
+.cr-search {
+  position: absolute;
+  top: 94px;
+  left: 22px;
+  right: 18px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 12px 24px -14px rgba(60, 40, 0, 0.4);
+  font-size: 10px;
+  line-height: 1.4;
+  color: #777;
+}
+
+.cr-spin {
+  flex: none;
+  width: 14px;
+  height: 14px;
+  margin-top: 1px;
+  border-radius: 50%;
+  border: 2px solid #cfe1ff;
+  border-top-color: #2563eb;
+}
+
+.play .cr-spin {
+  animation: spin 900ms linear infinite;
+}
+
+.cr-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cr-text mark {
+  padding: 0 2px;
+  border-radius: 2px;
+  background: #cfe2ff;
+  color: #1d4ed8;
+}
+
+.cr-f {
+  position: absolute;
+}
+
+.cr-green {
+  bottom: 26px;
+  left: -46px;
+  width: 152px;
+}
+
+.cr-yellow {
+  bottom: 34px;
+  right: -36px;
+  width: 150px;
+}
+
+.cr-orange {
+  bottom: -30px;
+  left: 92px;
+  width: 170px;
+}
+
+.cr-screen {
+  position: absolute;
+  top: 70px;
+  left: 20px;
+  width: 400px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 26px 50px -26px rgba(60, 40, 0, 0.5), 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+.cr-screen video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: #fafafa;
+}
+
+/* ================================================================ Scenes */
+
+/* Work page only: Savings Box, Group Goal Savings and Bond show one card at a
+   time (Cards.tsx). One tile, not the home page grid. */
+.v.v-scenes {
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: "g";
+}
+
+@container (min-width: 521px) {
+  .sc-stage:not(.sc-phonestage) {
+    scale: 1.15;
+  }
+}
+
+/* ================================================================ Mobile */
+
+@container (max-width: 520px) {
+  .v {
+    gap: 6px;
+  }
+
+  .cell {
+    border-radius: 16px;
+  }
+
+  .v-margin {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+      "l"
+      "r";
+  }
+
+  .mg-left {
+    padding: 20px 18px 0 20px;
+  }
+
+  .mg-title {
+    font-size: 26px;
+  }
+
+  .mg-sub {
+    font-size: 11px;
+  }
+
+  .mg-sheet {
+    width: 160px;
+    height: 170px;
+    margin-left: -80px;
+    bottom: -60px;
+  }
+
+  .mg-hand {
+    font-size: 13.5px;
+  }
+
+  .mp-phone {
+    zoom: 0.62;
+  }
+
+  .v-box {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 0.75fr 1.25fr;
+    grid-template-areas:
+      "n n"
+      "p c";
+  }
+
+  .v-box .a-b,
+  .v-box .a-r {
+    display: none;
+  }
+
+  .sb-card {
+    top: 40px;
+  }
+
+  .sb-ghost {
+    top: 56px;
+  }
+
+  .sb-title {
+    width: 140px;
+  }
+
+  .sb-coins {
+    width: 190px;
+    right: -30px;
+  }
+
+  .v-group {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+      "e e"
+      "f ph";
+  }
+
+  .v-group .a-v {
+    display: none;
+  }
+
+  .gr-folder {
+    width: 136px;
+    top: 90px;
+  }
+
+  .gr-photos {
+    --x0: -48px;
+    --x1: -16px;
+    --x2: 16px;
+    --x3: 48px;
+  }
+
+  .gr-photos img {
+    width: 46px;
+    top: 52px;
+  }
+
+  .gr-photos img:nth-child(1),
+  .gr-photos img:nth-child(4) {
+    top: 62px;
+  }
+
+  .gr-who {
+    top: 24px;
+  }
+
+  .gr-total {
+    top: 44px;
+    left: 182px;
+  }
+
+  .gr-tghost {
+    top: 36px;
+    left: 194px;
+  }
+
+  .v-bond {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1.25fr 1fr;
+    grid-template-areas:
+      "a a"
+      "i p";
+  }
+
+  .bd-card.k2 { top: 74px; }
+  .bd-card.k1 { top: 108px; }
+  .bd-card.k0 { top: 142px; }
+
+  .bd-info {
+    left: 12px;
+    right: 12px;
+    padding: 10px 12px;
+  }
+
+  .bd-info b {
+    font-size: 11.5px;
+  }
+
+  .bd-info small {
+    display: none;
+  }
+
+  .v-crime {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1.15fr 1fr;
+    grid-template-areas:
+      "l"
+      "r";
+  }
+
+  .cr-screen {
+    top: 22px;
+  }
+
+  .sc-stage:not(.sc-phonestage) {
+    scale: 0.86;
+  }
+}

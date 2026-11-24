@@ -1,0 +1,166 @@
+{
+ "project": "group-savings",
+ "title": "Ejara Group Goal Savings",
+ "headline": "Making saving together safe, transparent, and stress free.",
+ "summary": "People wanted to save together, the way they already do in tontines, but without the risks. I designed Group Goal Savings: one group, many goals, with trusted validators who approve withdrawals so no single person has unchecked control.",
+ "skills": [
+  "User Research",
+  "Product Strategy",
+  "Service Design",
+  "Interaction Design",
+  "UX/UI"
+ ],
+ "box": {
+  "color": "#9cbeeb",
+  "texture": "/case/group-savings/texture.webp",
+  "size": "660px auto"
+ },
+ "hero": {
+  "src": "/case/group-savings/hero.webp",
+  "w": 894,
+  "h": 748,
+  "kind": "image"
+ },
+ "next": "savings-box",
+ "slug": "group-savings",
+ "meta": [
+  {
+   "label": "Role",
+   "value": "Product Designer"
+  },
+  {
+   "label": "Company",
+   "value": "Ejara (fintech)"
+  },
+  {
+   "label": "Duration",
+   "value": "5 months"
+  },
+  {
+   "label": "Year",
+   "value": "2024"
+  }
+ ],
+ "sections": [
+  {
+   "id": "context",
+   "nav": "Context",
+   "title": "Context",
+   "blocks": [
+    {
+     "t": "p",
+     "text": "When we launched Ejara’s savings products, one of the strongest signals we got from users was a desire to save together. Some wanted to invite friends or family members to a personal goal, while others, especially cooperatives wanted something that mirrored their familiar tontine (A traditional group savings system popular in many African communities) model but without the risks."
+    },
+    {
+     "t": "p",
+     "text": "Tontines, while popular, come with problems: administrators running away with funds, lack of transparency, and disputes over contributions. I saw an opportunity to reimagine this experience digitally, making it secure, transparent, and aligned with our value proposition."
+    }
+   ]
+  },
+  {
+   "id": "first",
+   "nav": "First attempt",
+   "title": "Extending Personal Goals",
+   "blocks": [
+    {
+     "t": "p",
+     "text": "My first attempt was simple: allow someone to create a personal goal and then later add members to it. It felt like the most straightforward path."
+    },
+    {
+     "t": "p",
+     "text": "But when I walked through this idea with our engineers, they pushed back. According to them, personal and group goals would have to be structured differently in the system, and forcing them into the same framework would create chaos."
+    },
+    {
+     "t": "media",
+     "items": [
+      {
+       "src": "/case/group-savings/v1.webp",
+       "w": 1288,
+       "h": 1188,
+       "kind": "image"
+      }
+     ],
+     "wide": true
+    }
+   ]
+  },
+  {
+   "id": "second",
+   "nav": "Second attempt",
+   "title": "The Second Iteration: Groups first, Goals right after",
+   "blocks": [
+    {
+     "t": "p",
+     "text": "So we flipped the approach. Instead of starting with a goal, users would create a group first, give it a name, set the type of relationship (family, friends, coworkers), and then invite members with a link. Only after the group was formed could they create a savings goal together."
+    },
+    {
+     "t": "p",
+     "text": "This felt cleaner, but something still bothered me..."
+    },
+    {
+     "t": "media",
+     "items": [
+      {
+       "src": "/case/group-savings/v2.webp",
+       "w": 2000,
+       "h": 996,
+       "kind": "image"
+      }
+     ],
+     "wide": true
+    }
+   ]
+  },
+  {
+   "id": "third",
+   "nav": "Solution",
+   "title": "Making It Truly Collaborative",
+   "blocks": [
+    {
+     "t": "p",
+     "text": "One day, scrolling through Instagram, I saw a reel, a mother and daughter texting about bills and contributions essentially a family running a mini financial system over chat. That struck me. Families and friend groups don’t have just one goal; they juggle many. Rent. School fees. A holiday trip. Medical expenses. It felt like a burden to force them to create a whole new group for every single goal."
+    },
+    {
+     "t": "p",
+     "text": "That led to my third iteration: multiple goals within a group. Suddenly, the structure matched real life — one group, many goals, all managed transparently. The team bought into the idea immediately."
+    },
+    {
+     "t": "p",
+     "text": "To make it feel like real-time group savings, we built in validators. While only the group admin could withdraw funds when a goal reached its target, withdrawals had to be approved by selected validators, and all members would be notified. That way, no single person had unchecked control — a direct answer to the trust issues in traditional tontines."
+    },
+    {
+     "t": "media",
+     "items": [
+      {
+       "src": "/case/group-savings/v3a.webp",
+       "w": 1236,
+       "h": 1248,
+       "kind": "image"
+      },
+      {
+       "src": "/case/group-savings/v3b.webp",
+       "w": 1236,
+       "h": 1248,
+       "kind": "image"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "reflection",
+   "nav": "Reflection",
+   "title": "Reflection",
+   "blocks": [
+    {
+     "t": "p",
+     "text": "This was one of the most interesting products I worked on. It stretched me beyond just designing screens; it pushed me to think about culture, trust, and collaboration in money management."
+    },
+    {
+     "t": "p",
+     "text": "Even though I didn’t get to see its full performance in the market, I made it a point to speak with colleagues and gather their feedback. The excitement they had about its potential reassured me that this product had a strong future especially in communities where tontines are not just financial tools but social ones."
+    }
+   ]
+  }
+ ]
+}

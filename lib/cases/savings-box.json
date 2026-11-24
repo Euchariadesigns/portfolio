@@ -1,0 +1,112 @@
+{
+ "project": "savings-box",
+ "title": "Ejara Savings Box",
+ "headline": "Savings for rainy days.",
+ "summary": "Life doesn't always fit a target and a date. Savings Box is a safe place to set money aside and reach it when needed, with one free withdrawal a quarter and rules explained upfront, so a small fee never feels unfair.",
+ "skills": [
+  "Product Strategy",
+  "Interaction Design",
+  "UX Writing",
+  "UX/UI"
+ ],
+ "box": {
+  "color": "#ad98fb",
+  "texture": "/case/savings-box/texture.webp",
+  "size": "600px auto"
+ },
+ "hero": {
+  "src": "/case/savings-box/hero.webp",
+  "w": 798,
+  "h": 1140,
+  "kind": "image"
+ },
+ "next": "bond",
+ "slug": "savings-box",
+ "meta": [
+  {
+   "label": "Role",
+   "value": "Product Designer"
+  },
+  {
+   "label": "Company",
+   "value": "Ejara (fintech)"
+  },
+  {
+   "label": "Duration",
+   "value": "5 months, launched"
+  },
+  {
+   "label": "Year",
+   "value": "2024"
+  }
+ ],
+ "sections": [
+  {
+   "id": "context",
+   "nav": "Context",
+   "title": "Context",
+   "blocks": [
+    {
+     "t": "p",
+     "text": "When we designed Goal Savings, the idea was to help users save with intention, for a set amount and a set date. But we also knew life doesn’t always fit into a calendar. People face emergencies, unexpected bills, and situations where they just need quick access to their money."
+    }
+   ]
+  },
+  {
+   "id": "getting-started",
+   "nav": "Approach",
+   "title": "Getting started",
+   "blocks": [
+    {
+     "t": "p",
+     "text": "That’s where Savings Box came in. We built it as the opposite of Goal Savings: no targets, no deadlines, just a safe place to set money aside and access it whenever needed. In many ways, it was designed to act as an emergency fund."
+    },
+    {
+     "t": "p",
+     "text": "But there was a catch. If the money was too easy to withdraw, people might start treating Savings Box like a regular wallet, not true savings. To balance flexibility with discipline, we introduced a simple rule:"
+    },
+    {
+     "t": "p",
+     "text": "One free withdrawal per quarter."
+    },
+    {
+     "t": "p",
+     "text": "After that, any extra withdrawals came with a small 1% fee"
+    },
+    {
+     "t": "p",
+     "text": "This little bit of friction encouraged people to think twice before dipping into their savings, while still keeping funds available when they really needed them."
+    },
+    {
+     "t": "media",
+     "items": [
+      {
+       "src": "/case/savings-box/flows.webp",
+       "w": 1838,
+       "h": 1248,
+       "kind": "image"
+      }
+     ],
+     "wide": true
+    }
+   ]
+  },
+  {
+   "id": "challenge",
+   "nav": "Solution",
+   "title": "The design challenge here was clarity, users had to instantly understand:",
+   "blocks": [
+    {
+     "t": "list",
+     "items": [
+      "How many free withdrawals they had left.",
+      "When the next free withdrawal would unlock.",
+      "What it would cost if they went beyond it.",
+      "Without that transparency, even a tiny 1% fee could feel unfair. So I designed flows and microcopy that explained the rules upfront, reducing the chance of surprises."
+     ],
+     "big": false
+    }
+   ]
+  }
+ ]
+}

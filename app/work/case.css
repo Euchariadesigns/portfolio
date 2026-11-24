@@ -1,0 +1,622 @@
+/* Case study pages. A long read: sections down the left, the story on the
+   right. Body in Inter, section titles in Alegreya (as in the original case
+   studies), media on the project's pastel. */
+
+/* Type, as in the original case studies: Geist for text, Alegreya for
+   headings, Gentium for callouts and the closing line. */
+.cs {
+  font-family: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  font-feature-settings: normal;
+  --cs-ink: #121212;
+  --cs-ink-2: rgba(18, 18, 18, 0.72);
+  --cs-ink-3: #8c8c8c;
+  --cs-quiet: rgba(23, 23, 23, 0.26);
+  --cs-line: rgba(0, 0, 0, 0.07);
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  column-gap: 64px;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 40px;
+  color: var(--cs-ink);
+}
+
+/* ------------------------------------------------------------ Left side */
+
+.cs-side {
+  position: sticky;
+  top: 0;
+  align-self: start;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+  padding: 40px 0;
+}
+
+.cs-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  font-size: 14px;
+  color: var(--cs-ink-2);
+  transition: color 200ms ease;
+}
+
+.cs-back svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 300ms var(--ease-out);
+}
+
+.cs-back:hover {
+  color: var(--cs-ink);
+}
+
+.cs-back:hover svg {
+  transform: translateX(-3px);
+}
+
+.cs-nav ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 2px;
+}
+
+.cs-nav a {
+  position: relative;
+  display: block;
+  padding: 7px 0 7px 16px;
+  font-size: 14px;
+  line-height: 1.35;
+  color: var(--cs-quiet);
+  transition: color 300ms ease;
+}
+
+/* A short bar marks where you are. */
+.cs-nav a::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 2px;
+  height: 14px;
+  margin-top: -7px;
+  border-radius: 1px;
+  background: var(--cs-ink);
+  opacity: 0;
+  transform: scaleY(0.4);
+  transition:
+    opacity 300ms ease,
+    transform 400ms var(--ease-out);
+}
+
+.cs-nav a:hover {
+  color: var(--cs-ink-2);
+}
+
+.cs-nav a[aria-current] {
+  color: var(--cs-ink);
+}
+
+.cs-nav a[aria-current]::before {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------------------------------------------------------------- Main */
+
+.cs-main {
+  min-width: 0;
+  padding: 40px 0 0;
+}
+
+.cs-head {
+  scroll-margin-top: 24px;
+}
+
+.cs-crumb {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 40px;
+  font-size: 14px;
+  color: var(--cs-ink-3);
+}
+
+.cs .p-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+.cs .p-icon img {
+  width: 18px;
+  height: 18px;
+}
+
+.cs .p-icon--app img {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+}
+
+.cs .p-icon--flags .flag {
+  width: 10px;
+  height: 10px;
+}
+
+.cs-head h1 {
+  max-width: 920px;
+  margin: 0;
+  font-size: clamp(27px, 2.6vw, 35px);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.cs-summary {
+  max-width: 720px;
+  margin: 18px 0 0;
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--cs-ink-2);
+  text-wrap: pretty;
+}
+
+/* Two columns of facts, then the skills, as on Jenn's case studies. */
+.cs-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 26px 40px;
+  max-width: 720px;
+  margin: 40px 0 0;
+}
+
+.cs-meta-skills {
+  grid-column: 1 / -1;
+}
+
+.cs-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cs-chips li {
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.045);
+  font-size: 13.5px;
+  line-height: 32px;
+  color: var(--cs-ink-2);
+}
+
+.cs-meta dt {
+  font-size: 13px;
+  color: var(--cs-ink-3);
+}
+
+.cs-meta dd {
+  margin: 4px 0 0;
+  font-size: 15.5px;
+  line-height: 1.45;
+}
+
+.cs-hero {
+  margin-top: 48px;
+}
+
+/* Media sit on the project's pastel. */
+/* Visuals sit in the project's container from the previous portfolio: its
+   colour, with its fine grain. */
+.cs-panel {
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 24px;
+  background-color: var(--box);
+  background-image: var(--box-texture);
+  background-size: var(--box-size);
+  background-position: center;
+  padding: 32px;
+}
+
+/* A tile as tall as its partner, filled with the visual's own colour. */
+.cs-tile {
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.cs-fig--plain .cs-tile > video,
+.cs-fig--plain .cs-tile > img {
+  border-radius: 0;
+}
+
+/* Visuals that sit straight on the page, with no container. */
+.cs-fig--plain img,
+.cs-fig--plain video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+}
+
+.cs-panel img {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 640px;
+}
+
+.cs-panel--hero {
+  min-height: 420px;
+  padding: 56px;
+}
+
+.cs-panel--hero img {
+  max-height: 560px;
+}
+
+.cs-panel--fill {
+  padding: 0;
+}
+
+/* Recordings sit inset on the container, as they did on the old site. */
+.cs-panel--video {
+  padding: 36px;
+}
+
+.cs-panel video {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 24px 48px -24px rgba(0, 0, 0, 0.35);
+}
+
+.cs-media--pair .cs-panel--video {
+  padding: 24px;
+}
+
+.cs-panel--fill img {
+  width: 100%;
+  height: auto;
+  max-height: none;
+}
+
+/* ------------------------------------------------------------ Sections */
+
+.cs-section {
+  padding-top: 112px;
+  scroll-margin-top: 8px;
+}
+
+.cs-section > :not(.cs-media) {
+  max-width: 680px;
+}
+
+.cs-kicker {
+  margin: 0 0 10px;
+  font-size: 13px;
+  color: var(--cs-ink-3);
+}
+
+.cs-section h2 {
+  margin: 0 0 22px;
+  font-family: var(--font-case-serif), Georgia, serif;
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.cs-p {
+  margin: 0 0 18px;
+  font-size: 17px;
+  line-height: 28px;
+  color: var(--cs-ink-2);
+  text-wrap: pretty;
+}
+
+.cs-p strong,
+.cs-list strong {
+  font-weight: 600;
+  color: var(--cs-ink);
+}
+
+.cs-p a,
+.cs-list a {
+  color: var(--cs-ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+.cs-lead {
+  margin: 0 0 28px;
+  font-size: 22px;
+  line-height: 1.55;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: rgba(18, 18, 18, 0.9);
+  text-wrap: pretty;
+}
+
+/* A line set apart, in Gentium italic. */
+.cs-quote {
+  margin: 8px 0 26px;
+  font-family: var(--font-gentium), Georgia, serif;
+  font-size: 20px;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--cs-ink-2);
+  text-wrap: pretty;
+}
+
+.cs-h3 {
+  margin: 52px 0 14px;
+  font-family: var(--font-case-serif), Georgia, serif;
+  font-size: 26px;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.cs-h4 {
+  margin: 36px 0 14px;
+  font-family: var(--font-case-serif), Georgia, serif;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.cs-list {
+  display: grid;
+  gap: 10px;
+  margin: 4px 0 22px;
+  padding: 0;
+  list-style: none;
+}
+
+.cs-list li {
+  position: relative;
+  padding-left: 22px;
+  font-size: 17px;
+  line-height: 28px;
+  color: var(--cs-ink-2);
+  text-wrap: pretty;
+}
+
+.cs-list li::before {
+  content: "";
+  position: absolute;
+  top: 0.72em;
+  left: 4px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cs-ink-3);
+}
+
+/* Results read as statements, on the project's colour. */
+.cs-list--big li {
+  padding: 20px 24px;
+  border-radius: 18px;
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.04);
+  font-size: 19px;
+  line-height: 1.45;
+  font-weight: 600;
+  color: var(--result, var(--cs-ink));
+}
+
+.cs-list--big li::before {
+  display: none;
+}
+
+.cs-media {
+  margin: 36px 0 40px;
+}
+
+.cs-media--pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  align-items: stretch;
+}
+
+.cs-fig {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Side by side, both panels are as tall as the taller one. */
+.cs-media--pair .cs-panel {
+  flex: 1;
+}
+
+.cs-fig figcaption {
+  margin-top: 12px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--cs-ink-3);
+}
+
+/* ----------------------------------------------------------------- End */
+
+.cs-end {
+  margin-top: 140px;
+}
+
+.cs-thanks {
+  margin: 0 0 24px;
+  font-family: var(--font-gentium), Georgia, serif;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.cs-next {
+  position: relative;
+  display: grid;
+  gap: 6px;
+  padding: 28px 88px 28px 28px;
+  border-radius: 24px;
+  background: #fff;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.04),
+    0 0 60px 12px rgba(0, 0, 0, 0);
+  transition: box-shadow 500ms var(--ease-out);
+}
+
+.cs-next:hover {
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.04),
+    0 0 60px 12px rgba(0, 0, 0, 0.04);
+}
+
+.cs-next-label {
+  font-size: 13px;
+  color: var(--cs-ink-3);
+}
+
+.cs-next-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.cs-next-line {
+  font-size: 15px;
+  color: var(--cs-ink-2);
+}
+
+.cs-next-arrow {
+  position: absolute;
+  top: 50%;
+  right: 28px;
+  width: 44px;
+  height: 44px;
+  margin-top: -22px;
+  padding: 13px;
+  border-radius: 50%;
+  background: #171717;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 400ms var(--ease-out);
+}
+
+.cs-next:hover .cs-next-arrow {
+  transform: translateX(4px);
+}
+
+.cs-foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 72px;
+  padding: 28px 0 40px;
+  border-top: 1px solid var(--cs-line);
+  font-size: 13px;
+  color: var(--cs-ink-3);
+}
+
+.cs-foot span:last-child {
+  display: flex;
+  gap: 18px;
+}
+
+.cs-foot a:hover {
+  color: var(--cs-ink);
+}
+
+/* -------------------------------------------------------------- Narrow */
+
+@media (max-width: 1000px) {
+  .cs {
+    grid-template-columns: 1fr;
+    padding: 0 16px;
+  }
+
+  .cs-side {
+    position: static;
+    height: auto;
+    padding: 24px 0 0;
+  }
+
+  .cs-nav {
+    display: none;
+  }
+
+  .cs-main {
+    padding-top: 28px;
+  }
+
+  .cs-crumb {
+    margin-bottom: 24px;
+  }
+
+  .cs-panel--hero {
+    min-height: 0;
+    padding: 28px;
+  }
+
+  .cs-panel {
+    padding: 20px;
+    border-radius: 20px;
+  }
+
+  .cs-panel--video,
+  .cs-media--pair .cs-panel--video {
+    padding: 14px;
+  }
+
+  .cs-section {
+    padding-top: 80px;
+  }
+
+  .cs-section h2 {
+    font-size: 28px;
+  }
+
+  .cs-media--pair {
+    grid-template-columns: 1fr;
+  }
+
+  /* Stacked, the pair no longer needs to match in height. */
+  .cs-tile {
+    aspect-ratio: auto !important;
+  }
+
+  .cs-next {
+    padding-right: 72px;
+  }
+
+  .cs-next-arrow {
+    right: 20px;
+  }
+}

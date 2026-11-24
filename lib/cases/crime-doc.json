@@ -1,0 +1,378 @@
+{
+ "project": "crime-doc",
+ "title": "AI-Assisted, Care-Informed Crime Documentation System",
+ "headline": "Making crime reporting simple, secure, and trackable for safer communities.",
+ "summary": "In Nigeria, police records still live on paper, so cases get lost and victims have to tell their story again. I designed a system that turns handwritten statements into searchable records shared across stations, with AI that flags risk and patterns while officers keep the final say.",
+ "skills": [
+  "User Research",
+  "Product Strategy",
+  "Information Architecture",
+  "AI UX",
+  "Interaction Design",
+  "Prototyping"
+ ],
+ "box": {
+  "color": "#f1e4a9",
+  "texture": "/case/crime-doc/texture.webp",
+  "size": "cover"
+ },
+ "hero": {
+  "src": "/case/crime-doc/transcription.mp4",
+  "poster": "/case/crime-doc/transcription.webp",
+  "w": 1920,
+  "h": 1080,
+  "kind": "video"
+ },
+ "next": "group-savings",
+ "slug": "crime-doc",
+ "meta": [
+  {
+   "label": "Role",
+   "value": "Solo product designer"
+  },
+  {
+   "label": "Timeline",
+   "value": "4 months"
+  },
+  {
+   "label": "Tools",
+   "value": "Figma, ChatGPT, Jitter, Claude"
+  },
+  {
+   "label": "Year",
+   "value": "2025"
+  }
+ ],
+ "sections": [
+  {
+   "id": "at-a-glance",
+   "nav": "Summary",
+   "title": "At a Glance: What the system does",
+   "blocks": [
+    {
+     "t": "media",
+     "items": [
+      {
+       "src": "/case/crime-doc/glance.webp",
+       "w": 2000,
+       "h": 410,
+       "kind": "image",
+       "fill": true,
+       "plain": true
+      }
+     ],
+     "wide": true
+    },
+    {
+     "t": "quote",
+     "text": "Everything below this point is how I got there, starting with the moment that made \"AI\" the only honest answer to what this system needed to do."
+    }
+   ]
+  },
+  {
+   "id": "discovery",
+   "nav": "Research",
+   "title": "Introduction",
+   "blocks": [
+    {
+     "t": "lead",
+     "text": "In Nigeria, police records are still largely documented using paper. While this may seem like a simple administrative issue, it deeply affects how crimes are tracked, how justice is delivered, and how citizens especially victims, are remembered by the system. This project emerged from a personal experience that opened my eyes to just how broken this system can be."
+    },
+    {
+     "t": "h",
+     "text": "How I discovered the problem"
+    },
+    {
+     "t": "p",
+     "text": "I was invited to the station. This was my first time inside a police station, and while the entire process felt unfamiliar, what struck me the most was the manual way statements were documented. Each person had to handwrite their account of the incident on paper.\nAfter the investigation, the culprit was identified and fined. The officer warned that if she repeated this behavior, she would be prosecuted. That sparked a question in my mind:\n*\"How would the officer ever know if she repeated this offense somewhere else?\"*"
+    },
+    {
+     "t": "p",
+     "text": "There was no centralized tracking, no offender history, no way to connect cases. She could move to a new neighborhood tomorrow, and no one would know. That realization stayed with me."
+    },
+    {
+     "t": "p",
+     "text": "That realization didn't leave me."
+    },
+    {
+     "t": "h",
+     "text": "Field Research & Real Encounters"
+    },
+    {
+     "t": "p",
+     "text": "I returned to the station a week later to validate if this was truly a systemic issue, not just an isolated case. Unfortunately, I couldn't get much from the officers. They were uneasy about my questions, perhaps thinking I was a spy or reporter. But then something happened that solidified my resolve."
+    },
+    {
+     "t": "p",
+     "text": "While I was there, a man came in asking about a case he reported the previous month. He had tried to stop a rape and was brutally attacked by the abuser with a cutlass. He was hospitalized for weeks and returned seeking an update. To my shock, the officer did not remember him or his case.\nHe had to retell the entire traumatic story for her to even vaguely recall. She then began rummaging through a large bag stuffed with paper files trying to find his statement. This wasn’t just inefficiency.\n*It was a failure of justice.*"
+    },
+    {
+     "t": "h4",
+     "text": "The institutional memory gap"
+    },
+    {
+     "t": "media",
+     "items": [
+      {
+       "src": "/case/crime-doc/memory-gap.webp",
+       "w": 2000,
+       "h": 1000,
+       "kind": "image",
+       "plain": true
+      }
+     ],
+     "wide": true
+    }
+   ]
+  },
+  {
+   "id": "problem",
+   "nav": "Problem",
+   "title": "Defining the Problem",
+   "blocks": [
+    {
+     "t": "p",
+     "text": "From these observations, I defined the core problem:\nNigeria’s police stations still rely heavily on paper documentation of crimes and statements, often stored in bags and files with no digital backup. This creates critical gaps in justice delivery:"
+    },
+    {
+     "t": "media",
+     "items": [
+      {
+       "src": "/case/crime-doc/problem.webp",
+       "w": 2000,
+       "h": 660,
+       "kind": "image",
+       "fill": true,
+       "plain": true
+      }
+     ],
+     "wide": true
+    },
+    {
+     "t": "h",
+     "text": "From Problem to Principles"
+    },
+    {
+     "t": "p",
+     "text": "Four rules the whole system is held to. Every later decision traces back to one of these."
+    },
+    {
+     "t": "media",
+     "items": [
+      {
+       "src": "/case/crime-doc/principles.webp",
+       "w": 2000,
+       "h": 594,
+       "kind": "image",
+       "fill": true,
+       "plain": true
+      }
+     ],
+     "wide": true
+    }
+   ]
+  },
+  {
+   "id": "goals",
+   "nav": "Goals",
+   "title": "Project goal",
+   "blocks": [
+    {
+     "t": "p",
+     "text": "To design a **centralized, care-informed crime documentation and history-tracking system** that enables police officers to:"
+    },
+    {
+     "t": "list",
+     "items": [
+      "Document statements digitally",
+      "Allowing officers to log a case with basic victim/suspect information and record statements securely.",
+      "Access and search for case records across all police stations",
+      "Trace criminal and victim history even if they move between regions",
+      "Improve accountability and communication with the public"
+     ],
+     "big": false
+    }
+   ]
+  },
+  {
+   "id": "designing",
+   "nav": "Solution",
+   "title": "Designing the system",
+   "blocks": [
+    {
+     "t": "p",
+     "text": "**How this evolved:** the introduction of AI wasn't part of the plan from day one. My first pass at this system was really just about digitizing records, getting cases out of paper and into a searchable place. It was only as I kept iterating that I realized digitizing the record wasn't enough on its own. An officer could now *find* a case, but they'd still have to read through it cold and start their investigation from zero, the same way the officer with the cutlass case had to hear the whole story again just to remember it. That's when AI transcription and AI case analysis came in, not as features I planned from the start, but as the answer to a second, quieter version of the same problem: finding a record isn't the same as being *briefed* on it. The system needed to give officers a heads-up, not just a file."
+    },
+    {
+     "t": "h",
+     "text": "AI-Assisted Statement Transcription"
+    },
+    {
+     "t": "p",
+     "text": "**Identify Problem.** The bottleneck I watched happen wasn't really about paper, it was about literacy and access. A statement only exists if someone was able to write it down, by hand, in that moment. If it isn't written, it doesn't exist. That was the real constraint I had to design around, not just \"digitize the paperwork.\""
+    },
+    {
+     "t": "p",
+     "text": "**Idea exploration i considered and ruled out:**"
+    },
+    {
+     "t": "p",
+     "text": "**Voice dictation.** I considered this seriously. It removes handwriting from the equation entirely."
+    },
+    {
+     "t": "p",
+     "text": "**A structured digital form, filled live.** Also considered — officer or complainant types directly into fields instead of writing on paper first."
+    },
+    {
+     "t": "p",
+     "text": "**An officer typing up the statement on the complainant's behalf.**"
+    },
+    {
+     "t": "p",
+     "text": "I ruled all three out, for related but distinct reasons."
+    },
+    {
+     "t": "p",
+     "text": "Voice dictation and a live digital form both assume a level of comfort with digital tools that a large number of the people coming through a Nigerian police station don't have. A lot of people here simply aren't used to typing on a device or speaking to one, they're used to writing, by hand, the way they always have. If the system requires them to do something unfamiliar in order to be documented, the actual risk isn't \"the interface is a little harder to use.\" It's that **the statement goes missing entirely**, because the person couldn't complete it, which is the exact failure I was trying to eliminate, not recreate in a new form."
+    },
+    {
+     "t": "p",
+     "text": "**Final design.** So the design keeps the one behavior everyone already knows how to do, write, by hand and removes everything downstream of it. The person writes their statement exactly as they always would have. The system scans and extracts it, converting it into a typed, searchable digital record without asking anyone to change how they naturally communicate. It's the smallest possible behavioral ask on the person who's already had the hardest day, and it's the direct answer to the moment that started this project: a statement that existed once, on paper, and then couldn't be found. because it was lost in the stack fo paper files."
+    },
+    {
+     "t": "p",
+     "text": "**Where I'm honest about the risk:** I haven't validated the accuracy of AI handwriting extraction, I know there's real risk of misreads or dropped words, especially with messy handwriting or damaged pages. I don't have a way yet to prove that risk is acceptably low. I believe it's the strongest solution I could design given the constraint, but \"best available\" isn't the same as \"proven,\" and that's a gap I'd want to close with further research on the accuracy of extracting handwritten text."
+    },
+    {
+     "t": "media",
+     "items": [
+      {
+       "src": "/case/crime-doc/transcription.mp4",
+       "poster": "/case/crime-doc/transcription.webp",
+       "w": 1920,
+       "h": 1080,
+       "kind": "video",
+       "caption": "Handwritten statements, turned into typed records"
+      }
+     ],
+     "wide": true
+    },
+    {
+     "t": "h",
+     "text": "Searching Across Stations"
+    },
+    {
+     "t": "p",
+     "text": "**What's there:** A search bar (by name, case ID, etc.) that pulls from a shared record, the direct fix for the cutlass-attack scenario, where a case existed but couldn't be found."
+    },
+    {
+     "t": "p",
+     "text": "**Why this mattered so much:** the core failure I kept seeing was that a crime committed in one area was simply invisible to officers in another. Search across stations fixes that directly, searching a name surfaces both the station that first recorded the incident and the station currently handling it, so a case can be traced across every police station in Nigeria rather than staying trapped wherever it was first reported. This is close to how U.S. record-keeping works, based on what I found researching it and what my U.S.-based friend confirmed from experience."
+    },
+    {
+     "t": "media",
+     "items": [
+      {
+       "src": "/case/crime-doc/search.mp4",
+       "poster": "/case/crime-doc/search.webp",
+       "w": 1920,
+       "h": 1080,
+       "kind": "video",
+       "caption": "Search across stations"
+      }
+     ],
+     "wide": true
+    },
+    {
+     "t": "h",
+     "text": "AI Case Analysis, Risk Scoring & Investigation Guidance"
+    },
+    {
+     "t": "p",
+     "text": "**What's there:** After a case is logged, the system generates a risk assessment score, flags public safety/time sensitivity/escalation risk, recommends resourcing (officers required, specialized units), and outlines an investigation framework, interview priorities, evidence collection order, urgency tiers."
+    },
+    {
+     "t": "p",
+     "text": "**A deliberate constraint:** the score is advisory, not directive. It's designed to surface urgency an officer might otherwise miss in a busy station, not to make the decision for them. The officer always has final say on how a case is prioritized and investigated. An AI system recommending investigation steps for real crimes carries real risk of bias. I was conscious that a system like this could disproportionately flag certain neighborhoods or demographics as higher-risk if left unchecked, and keeping the officer as the final decision-maker, with the AI strictly in a supporting role, was my way of designing against that rather than around it."
+    },
+    {
+     "t": "media",
+     "items": [
+      {
+       "src": "/case/crime-doc/analysis.mp4",
+       "poster": "/case/crime-doc/analysis.webp",
+       "w": 1920,
+       "h": 1080,
+       "kind": "video",
+       "caption": "Risk scoring and investigation guidance"
+      }
+     ],
+     "wide": true
+    },
+    {
+     "t": "h",
+     "text": "AI Pattern Detection & Reports"
+    },
+    {
+     "t": "p",
+     "text": "**What's there:** A statistics dashboard breaking down case types by percentage, plus an AI-generated pattern alert (e.g. flagging a cluster of theft cases in one sector within a short window and suggesting increased patrols)."
+    },
+    {
+     "t": "p",
+     "text": "**How it actually works:** the AI looks at the overall history of reports for a given area, demographic, and street, not a single case in isolation and surfaces recurring patterns from that aggregate. The kind of alert it produces reads more like *\"incidents like this have tended to happen on Tuesdays in this street\"* than a prediction about any individual person. It's built from what's already been reported in the past."
+    },
+    {
+     "t": "media",
+     "items": [
+      {
+       "src": "/case/crime-doc/patterns.mp4",
+       "poster": "/case/crime-doc/patterns.webp",
+       "w": 1920,
+       "h": 1080,
+       "kind": "video",
+       "caption": "Patterns and reports"
+      }
+     ],
+     "wide": true
+    },
+    {
+     "t": "h",
+     "text": "Case Confirmation & Trackable Case ID"
+    },
+    {
+     "t": "p",
+     "text": "**What's there:** On submission, the complainant receives a case reference number they can use to check status on a future visit"
+    },
+    {
+     "t": "media",
+     "items": [
+      {
+       "src": "/case/crime-doc/confirmation.mp4",
+       "poster": "/case/crime-doc/confirmation.webp",
+       "w": 1920,
+       "h": 1080,
+       "kind": "video",
+       "caption": "Case confirmation and a trackable case ID"
+      }
+     ],
+     "wide": true
+    }
+   ]
+  },
+  {
+   "id": "why",
+   "nav": "Reflection",
+   "title": "Why This Matters?",
+   "blocks": [
+    {
+     "t": "p",
+     "text": "This project was never only about digitization. It's about whether a system remembers the people who pass through it, whether a victim has to keep proving their pain happened, and whether an officer has the tools help secure the community. A centralized system doesn't just make policing more efficient. It makes it possible to keep a promise: *if this happens again, we'll know.*"
+    },
+    {
+     "t": "p",
+     "text": "The next step would be a pilot with a single station, to validate the AI transcription's accuracy and pressure-test the risk-scoring logic against real officer judgment, before any wider rollout. I also believe AI has a broader role to play here than any one feature. I think AI is meant to optimize the way we live and work, and a police station in Nigeria, under-resourced, running on paper, and relying entirely on individual memory is exactly the kind of system that stands to gain the most from that."
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,301 @@
+{
+ "project": "goal-savings",
+ "title": "Ejara Goal Savings",
+ "headline": "Making savings simple for Africans who just want to set money aside without confusion.",
+ "summary": "Ejara's users wanted to save, but the old savings product looked and felt like an investment. I designed Goal Savings to feel familiar and easy to trust, through user research, beta testing and iterative UX improvements. It reached an 80% user completion rate and became Ejara's most-used feature.",
+ "skills": [
+  "User Research",
+  "Competitive Analysis",
+  "Interaction Design",
+  "Usability Testing",
+  "UX Writing",
+  "UX/UI"
+ ],
+ "box": {
+  "color": "#2b411e",
+  "texture": "/case/goal-savings/texture.webp",
+  "size": "cover"
+ },
+ "hero": {
+  "src": "/case/goal-savings/hero-phone.webp",
+  "w": 1201,
+  "h": 2488,
+  "kind": "image"
+ },
+ "next": "crime-doc",
+ "slug": "goal-savings",
+ "meta": [
+  {
+   "label": "Role",
+   "value": "Product Designer"
+  },
+  {
+   "label": "Company",
+   "value": "Ejara (fintech)"
+  },
+  {
+   "label": "Duration",
+   "value": "5 months, launched"
+  },
+  {
+   "label": "Year",
+   "value": "2024"
+  }
+ ],
+ "sections": [
+  {
+   "id": "context",
+   "nav": "Context",
+   "title": "Context",
+   "blocks": [
+    {
+     "t": "p",
+     "text": "When I joined Ejara, one of the first challenges was around savings. Research had shown us that a large number of users didn’t quite understand our savings product. To them, it looked and felt like an investment product, not savings. And for something as sensitive as money, that confusion was dangerous"
+    },
+    {
+     "t": "p",
+     "text": "But here’s the thing: people actually wanted to save. In fact, an earlier experiment that was ran “Locked Savings” showed that users loved putting money aside until a specific date. Many even locked their funds without hesitation. People wanted to save with purpose, they just needed a product that made sense."
+    },
+    {
+     "t": "quote",
+     "text": "So my job was clear: Design a savings experience that felt familiar, intuitive, and easy to trust.",
+     "color": "#8758ff"
+    }
+   ]
+  },
+  {
+   "id": "getting-started",
+   "nav": "Research",
+   "title": "Getting started",
+   "blocks": [
+    {
+     "t": "p",
+     "text": "I didn’t want to reinvent the wheel. Instead, I looked around at apps people already trusted for saving, Piggyvest, Risevest, Aucred. I compared flows, and asked myself: what are the patterns everyone uses, and where can Ejara do better?. I paid attention to what was common across all of them (goal name, target date, target amount, frequency) and also where they fell short."
+    },
+    {
+     "t": "p",
+     "text": "From there, I sketched the first user flow. Creating a goal would start with the essentials: a name, a target date, a target amount, and the saving frequency: weekly, monthly, or flexible. I designed the experience of add money into that goal, tracking progress, breaking a goal early, and even earning a cash bonus from your savings. Each of these flows needed to feel intuitive, like a tool people already knew how to use."
+    }
+   ]
+  },
+  {
+   "id": "key-flows",
+   "nav": "Solution",
+   "title": "Key flows",
+   "blocks": [
+    {
+     "t": "p",
+     "text": "The first visual shows the ‘Create a Goal’ flow, highlighting key details such as the goal name, category, description, target amount, and target date."
+    },
+    {
+     "t": "p",
+     "text": "The second visual shows the ‘Add Money’ flow, where users top up their goal by adding funds."
+    },
+    {
+     "t": "media",
+     "items": [
+      {
+       "src": "/case/goal-savings/create-goal.mp4",
+       "poster": "/case/goal-savings/create-goal.webp",
+       "w": 910,
+       "h": 656,
+       "kind": "video",
+       "plain": true,
+       "bg": "#055b4d",
+       "caption": "Create a goal"
+      },
+      {
+       "src": "/case/goal-savings/add-money.mp4",
+       "poster": "/case/goal-savings/add-money.webp",
+       "w": 910,
+       "h": 656,
+       "kind": "video",
+       "plain": true,
+       "bg": "#2d4322",
+       "caption": "Add money"
+      }
+     ]
+    },
+    {
+     "t": "p",
+     "text": "The first visual is the ‘Edit Goal’ flow, where users have the option to change the details of their goal."
+    },
+    {
+     "t": "p",
+     "text": "The second visual is the ‘Break Goal’ flow, where users can end their goal before the target date, though this comes with a break fee."
+    },
+    {
+     "t": "media",
+     "items": [
+      {
+       "src": "/case/goal-savings/edit.webp",
+       "w": 1216,
+       "h": 1000,
+       "kind": "image",
+       "plain": true,
+       "caption": "Edit a goal"
+      },
+      {
+       "src": "/case/goal-savings/break.webp",
+       "w": 1216,
+       "h": 1000,
+       "kind": "image",
+       "plain": true,
+       "caption": "Break a goal"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "beta",
+   "nav": "Testing",
+   "title": "Beta testing with users",
+   "blocks": [
+    {
+     "t": "p",
+     "text": "I wanted to test what we designed as quickly as possible so i requested for a beta testing, which was done with some of our active users in the previous app version. We watched them use the app, listen to their complain and watched their body language."
+    },
+    {
+     "t": "p",
+     "text": "About 80% of them misunderstood the label “Goal Amount.” They thought it meant how much they wanted to save right now, not the total they needed to reach the goal."
+    },
+    {
+     "t": "p",
+     "text": "The homepage also caused friction. The testers weren’t sure where to go to create a new goal, which meant the experience wasn’t as obvious as it should have been."
+    },
+    {
+     "t": "p",
+     "text": "These insights guided a round of refinements clearer labels, friendlier copy, and a redesigned homepage that made creating a goal feel effortless."
+    }
+   ]
+  },
+  {
+   "id": "after-iteration",
+   "nav": "Testing",
+   "title": "After iteration",
+   "blocks": [
+    {
+     "t": "p",
+     "text": "The first screen highlights the label change for the target field, updated based on feedback from beta testing. It was revised from ‘Goal Amount’ to the clearer label: *How much do you need for this goal?*"
+    },
+    {
+     "t": "p",
+     "text": "The second screen highlights the previous savings homepage and the updated version, with emphasis on the goal savings section. The goal savings section was restructured into a compound section, directing users to a dedicated screen where they can either view existing goals or create a new one."
+    },
+    {
+     "t": "media",
+     "items": [
+      {
+       "src": "/case/goal-savings/label-change.mp4",
+       "poster": "/case/goal-savings/label-change.webp",
+       "w": 876,
+       "h": 1108,
+       "kind": "video",
+       "plain": true,
+       "bg": "#dae7f9",
+       "caption": "The clearer target label"
+      },
+      {
+       "src": "/case/goal-savings/homepage.mp4",
+       "poster": "/case/goal-savings/homepage.webp",
+       "w": 720,
+       "h": 910,
+       "kind": "video",
+       "plain": true,
+       "bg": "#e9f0ea",
+       "caption": "The savings homepage, before and after"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "data",
+   "nav": "After launch",
+   "title": "What the data showed after launch",
+   "blocks": [
+    {
+     "t": "p",
+     "text": "Three months in, the data told an interesting story:"
+    },
+    {
+     "t": "p",
+     "text": "70% of users chose goal durations of three months or less. And about 80% of them either reached their target amount, their target date, rarely both."
+    },
+    {
+     "t": "p",
+     "text": "But patterns always reveal new opportunities. Some users were hitting their savings target early, with time still left before their goal date. Others got to their goal date but hadn’t yet saved enough. In both cases, the product didn’t give them flexibility, so I had proposed something new."
+    }
+   ]
+  },
+  {
+   "id": "flexibility",
+   "nav": "After launch",
+   "title": "Iterating for flexibility",
+   "blocks": [
+    {
+     "t": "p",
+     "text": "So, I pitched a new idea: let users increase their target amount if they finished early, or extend their date if they weren’t there yet."
+    },
+    {
+     "t": "p",
+     "text": "This feature will allow users to increase their target amount if they had saved faster than expected, or extend their target date if they needed more time as it adapt to real-life ups and downs."
+    },
+    {
+     "t": "p",
+     "text": "The result? Goal Savings quickly became the most-used product out of all our releases. It gave users clarity, control, and confidence in their money and that’s exactly what savings should do."
+    },
+    {
+     "t": "media",
+     "items": [
+      {
+       "src": "/case/goal-savings/flex.webp",
+       "w": 2000,
+       "h": 860,
+       "kind": "image",
+       "caption": "Increase the amount, or extend the date"
+      }
+     ],
+     "wide": true
+    }
+   ]
+  },
+  {
+   "id": "impact",
+   "nav": "Impact",
+   "title": "Impacts and Results",
+   "blocks": [
+    {
+     "t": "list",
+     "items": [
+      "Goal Savings became the most-used product across all releases following iterative improvements",
+      "Eliminated 80% user confusion through terminology refinement and UX improvements"
+     ],
+     "big": true,
+     "color": "#088a78"
+    }
+   ]
+  },
+  {
+   "id": "reflection",
+   "nav": "Reflection",
+   "title": "Reflection",
+   "blocks": [
+    {
+     "t": "p",
+     "text": "For me, this project reinforced a few key lessons:"
+    },
+    {
+     "t": "list",
+     "items": [
+      "Familiarity lowers friction, users don’t want to rethink how savings should work.",
+      "Language is design, the right label can be the difference between confusion and clarity.",
+      "When people see a product adapting to their reality, they keep coming back."
+     ],
+     "big": false
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,2099 @@
+:root {
+  --bg: #f5f5f5;
+  --ink: #171717;
+  --ink-2: #5c5c5c;
+  --ink-3: #8f8f8f;
+  --line: rgba(0, 0, 0, 0.06);
+  --line-2: rgba(0, 0, 0, 0.09);
+
+  /* Motion. Studied from the reference: content leaves first, then the cards
+     morph on a soft in-out curve, then the new content fades in. No overshoot. */
+  --ease-soft: cubic-bezier(0.5, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --move: 700ms; /* the morph */
+  --lag: 90ms; /* old content fades before the morph starts */
+  --in: 640ms; /* new content starts fading in */
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  font-feature-settings: "cv11", "ss01";
+}
+
+img,
+video,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+::selection {
+  background: rgba(0, 122, 255, 0.16);
+}
+
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ------------------------------------------------------------------ Page */
+
+.page {
+  width: 100%;
+  max-width: 752px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+  font-size: 14px;
+}
+
+.nav-name {
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+/* The mark: her initial in Great Vibes, finished with a small dot in the
+   colour of the cursor. */
+.nav-logo {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 1px;
+  font-family: var(--font-logo), cursive;
+  font-size: 38px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0;
+  color: #151413;
+  transform: translateY(2px);
+}
+
+.nav-logo-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #c65a3a;
+  transition: transform 400ms var(--ease-out);
+}
+
+.nav-logo:hover .nav-logo-dot {
+  transform: translateY(-3px);
+}
+
+/* Small, quiet links, as on Shater's homepage. */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 12.5px;
+  letter-spacing: 0.01em;
+  color: #767676;
+}
+
+.nav-links a {
+  transition: color 160ms ease;
+}
+
+.nav-links a:hover {
+  color: var(--ink);
+}
+
+.sound-toggle {
+  width: 32px;
+  height: 32px;
+  margin-right: -8px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  color: var(--ink-2);
+  transition: background 160ms ease, color 160ms ease, transform 160ms var(--ease-out);
+}
+
+.sound-toggle:hover {
+  background: rgba(0, 0, 0, 0.045);
+  color: var(--ink);
+}
+
+.sound-toggle:active {
+  transform: scale(0.94);
+}
+
+.sound-toggle svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.sound-toggle .spk {
+  fill: currentColor;
+  stroke-width: 1.2;
+}
+
+.sound-toggle .wave,
+.sound-toggle .mute {
+  transition: opacity 200ms ease, transform 260ms var(--ease-out);
+  transform-origin: 12px 10px;
+}
+
+.sound-toggle .wave.off {
+  opacity: 0;
+  transform: scale(0.6);
+}
+
+.sound-toggle .mute {
+  opacity: 0;
+  transform: scale(0.6);
+}
+
+.sound-toggle .mute.show {
+  opacity: 1;
+  transform: none;
+}
+
+/* ------------------------------------------------------------------ Hero */
+
+.hero {
+  padding: 88px 0 72px;
+  max-width: 600px;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: 24px;
+  line-height: 1.3;
+  font-weight: 500;
+  letter-spacing: -0.022em;
+}
+
+.greeting {
+  margin: 6px 0 28px;
+  color: var(--ink-3);
+  font-size: 14px;
+}
+
+.greeting-inner {
+  display: inline-block;
+  opacity: 0;
+  transition: opacity 500ms ease;
+}
+
+.greeting-inner.is-ready {
+  opacity: 1;
+}
+
+.greeting .sep {
+  margin: 0 2px;
+}
+
+.hero-p {
+  margin: 0 0 16px;
+  color: var(--ink-2);
+  font-size: 15.5px;
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+
+.hero-p a {
+  color: var(--ink);
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 100% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  padding-bottom: 1px;
+  transition: background-size 300ms var(--ease-out);
+}
+
+.hero-p a:hover {
+  background-size: 0% 1px;
+  background-position: 100% 100%;
+}
+
+/* ----------------------------------------------------------- Hero (home) */
+
+/* Measured from Shater's homepage: 13.5px text on 21px lines, a 540px
+   column, quiet grey with the links in near-black. Her name is in STIX Two
+   Text, as on Flo Guo's. */
+.hero3 {
+  position: relative;
+  max-width: none;
+  padding: 16px 0 52px;
+}
+
+/* As wide as the work cards below, so the intro takes fewer lines. */
+.hero3-col {
+  max-width: 720px;
+}
+
+.hero3 .hero-hi {
+  margin: 0 0 18px;
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #1f1d1a;
+}
+
+.hero3 .hero-hi em {
+  font-family: var(--font-hand), cursive;
+  font-size: 1.32em;
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.hero3 .hero-name {
+  margin: 0;
+  font-family: var(--font-name), Georgia, serif;
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: #121212;
+}
+
+.hero-tag {
+  margin: 10px 0 40px;
+  font-size: 13.5px;
+  line-height: 21px;
+  letter-spacing: 0.01em;
+  color: #767676;
+}
+
+.hi {
+  margin: 0 0 10px;
+  font-size: 13.5px;
+  line-height: 21px;
+  letter-spacing: 0.01em;
+  color: #767676;
+  opacity: 0;
+  transition: opacity 400ms ease;
+}
+
+.hi.is-ready {
+  opacity: 1;
+}
+
+.hi-word {
+  display: inline-block;
+  animation: hi-in 420ms var(--ease-out);
+}
+
+@keyframes hi-in {
+  from {
+    opacity: 0;
+    filter: blur(3px);
+    transform: translateY(3px);
+  }
+}
+
+.hi {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+}
+
+/* A small pill that names the next language: clearly a button. */
+.hi-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 24px;
+  padding: 0 10px 0 8px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.08),
+    0 1px 2px rgba(0, 0, 0, 0.04);
+  font-size: 12px;
+  color: #545454;
+  cursor: pointer;
+  transition:
+    box-shadow 200ms ease,
+    color 200ms ease,
+    transform 160ms ease;
+}
+
+.hi-more svg {
+  width: 12px;
+  height: 12px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 500ms var(--ease-out);
+}
+
+.hi-more span {
+  display: inline-block;
+  animation: hi-in 420ms var(--ease-out);
+}
+
+.hi-more:hover {
+  color: #0e0e0e;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.16),
+    0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.hi-more:hover svg {
+  transform: rotate(150deg);
+}
+
+.hi-more:active {
+  transform: scale(0.96);
+}
+
+/* Highlighted words: point at them for a picture, click to open. */
+.hero3 .hero-p a.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 6px 0 4px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--tone) 11%, transparent);
+  color: var(--tone);
+  line-height: 20px;
+  vertical-align: baseline;
+  transition: background-color 200ms ease;
+}
+
+.hero3 .hero-p a.chip:hover,
+.hero3 .hero-p a.chip:focus-visible {
+  background: color-mix(in srgb, var(--tone) 19%, transparent);
+}
+
+.chip-icon {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+}
+
+.pk-card {
+  position: fixed;
+  z-index: 60;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.pk-inner {
+  display: block;
+  opacity: 0;
+  transform: translateY(10px) rotate(-4deg) scale(0.9);
+  transform-origin: 50% 100%;
+  transition:
+    opacity 160ms ease,
+    transform 260ms var(--ease-out);
+}
+
+.pk-card.is-on .pk-inner {
+  opacity: 1;
+  transform: rotate(-2deg);
+  transition:
+    opacity 220ms ease,
+    transform 520ms var(--ease-out);
+}
+
+.pk-img {
+  display: block;
+  width: 190px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.06),
+    0 16px 30px -12px rgba(0, 0, 0, 0.3);
+}
+
+.pk-img--paper {
+  width: 200px;
+}
+
+.pk-phone {
+  display: block;
+  width: 128px;
+  height: auto;
+  filter: drop-shadow(0 20px 28px rgba(0, 0, 0, 0.22));
+}
+
+.pk-frame {
+  display: block;
+  width: 124px;
+  padding: 4px;
+  border-radius: 20px;
+  background: #0c0c0d;
+  box-shadow: 0 20px 36px -14px rgba(0, 0, 0, 0.4);
+}
+
+.pk-frame img {
+  display: block;
+  width: 100%;
+  border-radius: 16px;
+}
+
+.pk-shot {
+  display: block;
+  width: 240px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.06),
+    0 20px 36px -14px rgba(0, 0, 0, 0.3);
+}
+
+/* Still being built: a small "soon" tag; pointing at it says so. */
+.soon {
+  position: relative;
+  display: inline-flex;
+}
+
+.soon-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.soon-tag {
+  padding: 1px 6px 2px;
+  border-radius: 6px;
+  background: rgba(198, 90, 58, 0.12);
+  color: #b4502f;
+  font-size: 10.5px;
+  font-weight: 500;
+  line-height: 14px;
+  letter-spacing: 0.02em;
+}
+
+.soon-note {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 8px);
+  left: 50%;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  width: max-content;
+  max-width: 260px;
+  padding: 8px 11px;
+  border-radius: 10px;
+  background: #1f1d1a;
+  color: #fff;
+  font-size: 12px;
+  line-height: 1.4;
+  letter-spacing: 0;
+  white-space: normal;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -4px);
+  transition:
+    opacity 160ms ease,
+    transform 260ms var(--ease-out);
+}
+
+.soon-note.is-on {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* Real state: being worked on. */
+.soon-dot {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #f5a524;
+  animation: soon-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes soon-pulse {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+/* In the intro it reads like a highlighted word. */
+.soon--chip .soon-btn {
+  padding: 0 4px 0 6px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.05);
+  color: #0e0e0e;
+  transition: background-color 200ms ease;
+}
+
+.soon--chip .soon-btn:hover {
+  background: rgba(0, 0, 0, 0.09);
+}
+
+.soon--nav .soon-btn:hover {
+  color: var(--ink);
+}
+
+/* Inline links with their mark, after Bimanshu's. */
+.hero3 .hero-p a.hl {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 3px;
+  color: #0e0e0e;
+  background-size: 100% 1px;
+}
+
+.hl svg {
+  width: 12px;
+  height: 12px;
+  align-self: center;
+  color: #545454;
+}
+
+.hl-sub {
+  fill: #ff6719;
+}
+
+/* Her picture above her name: a perforated edge, slightly tilted. */
+.av {
+  display: block;
+  width: fit-content;
+  margin: 0 0 16px -4px;
+  rotate: -4deg;
+  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.14));
+  transition:
+    rotate 500ms var(--ease-out),
+    scale 500ms var(--ease-out);
+  cursor: pointer;
+}
+
+.av:hover {
+  rotate: 0deg;
+  scale: 1.04;
+}
+
+.av.is-tapped {
+  animation: av-wiggle 700ms var(--ease-out);
+}
+
+@keyframes av-wiggle {
+  20% {
+    rotate: 6deg;
+  }
+  45% {
+    rotate: -7deg;
+  }
+  70% {
+    rotate: 2deg;
+  }
+}
+
+.av-paper {
+  position: relative;
+  display: block;
+  --r: 3px;
+  width: 66px;
+  padding: calc(2.5 * var(--r));
+  background: #fff;
+  /* Holes only along the edge: a grid of holes, with the middle kept whole. */
+  -webkit-mask:
+    radial-gradient(var(--r), #0000 97%, #000) round calc(-1.5 * var(--r)) calc(-1.5 * var(--r)) / calc(3 * var(--r))
+      calc(3 * var(--r)),
+    linear-gradient(#000 0 0) no-repeat 50% / calc(100% - 3 * var(--r)) calc(100% - 3 * var(--r));
+  mask:
+    radial-gradient(var(--r), #0000 97%, #000) round calc(-1.5 * var(--r)) calc(-1.5 * var(--r)) / calc(3 * var(--r))
+      calc(3 * var(--r)),
+    linear-gradient(#000 0 0) no-repeat 50% / calc(100% - 3 * var(--r)) calc(100% - 3 * var(--r));
+}
+
+
+
+.av-paper img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 480 / 602;
+  object-fit: cover;
+}
+
+.hero3 .hero-p {
+  margin: 0 0 20px;
+  font-size: 13.5px;
+  line-height: 24px;
+  letter-spacing: 0.01em;
+  color: #545454;
+}
+
+.hero3 .hero-p a {
+  color: #0e0e0e;
+}
+
+.hero-open {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 26px 0 0;
+  font-size: 13.5px;
+  line-height: 21px;
+  letter-spacing: 0.01em;
+  color: #545454;
+}
+
+.hero-open a {
+  color: #0e0e0e;
+  transition: opacity 160ms ease;
+}
+
+.say-hi {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.say-hi svg {
+  width: 14px;
+  height: 14px;
+  transition: transform 300ms var(--ease-out);
+}
+
+.say-hi:hover svg {
+  transform: translateY(-1px) rotate(-8deg);
+}
+
+.hero-open a:hover {
+  opacity: 0.6;
+}
+
+/* Real state: open to roles. */
+.hero-dot {
+  position: relative;
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22a06b;
+}
+
+.hero-dot::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: rgba(34, 160, 107, 0.28);
+  animation: dot-pulse 2.4s ease-out infinite;
+}
+
+/* ------------------------------------------------------------- Hero (v2) */
+
+/* One calm column of text, like a letter. */
+.hero2 {
+  max-width: 580px;
+  padding: 56px 0 64px;
+}
+
+.hero2 .hero-p {
+  margin-bottom: 12px;
+  line-height: 1.6;
+}
+
+.hero2 h1 {
+  margin: 0;
+  font-size: 26px;
+  line-height: 1.25;
+  font-weight: 500;
+  letter-spacing: -0.022em;
+}
+
+/* Her name, in Margin's pen. */
+.hero2-name {
+  display: inline-block;
+  font-family: var(--font-hand), cursive;
+  font-size: 1.62em;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0;
+  transform: translateY(2px) rotate(-2deg);
+}
+
+.hero2-lede {
+  margin: 8px 0 22px;
+  font-size: 17px;
+  line-height: 1.5;
+  letter-spacing: -0.012em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+/* Greeting: tap it to say it in another language. */
+.hello {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 8px;
+  margin: 0 0 14px;
+  min-height: 26px;
+  font-size: 14px;
+  color: var(--ink-3);
+  opacity: 0;
+  transition: opacity 400ms ease;
+}
+
+.hello.is-ready {
+  opacity: 1;
+}
+
+.hello-word {
+  color: var(--ink-2);
+  font-weight: 500;
+  background-image: linear-gradient(90deg, currentColor 50%, transparent 0);
+  background-size: 4px 1px;
+  background-repeat: repeat-x;
+  background-position: 0 100%;
+  padding-bottom: 1px;
+}
+
+.hello-swap,
+.hello-next span {
+  display: inline-block;
+  animation: hello-in 420ms var(--ease-out);
+}
+
+@keyframes hello-in {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+    filter: blur(3px);
+  }
+}
+
+.hello-next {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 24px;
+  padding: 0 9px 0 7px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06);
+  font-size: 12.5px;
+  color: var(--ink-2);
+  transition: box-shadow 200ms ease, color 200ms ease;
+}
+
+.hello-next svg {
+  width: 12px;
+  height: 12px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 500ms var(--ease-out);
+}
+
+.hello-word:hover + .hello-next,
+.hello-next:hover {
+  color: var(--ink);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12);
+}
+
+.hello-word:hover + .hello-next svg,
+.hello-next:hover svg {
+  transform: rotate(140deg);
+}
+
+.hello-where .sep {
+  margin-right: 4px;
+}
+
+/* Open to work. */
+.hero2-status {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 20px 0 0;
+  font-size: 14px;
+  color: var(--ink-2);
+}
+
+.hero2-status a {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.hero2-status a:hover {
+  opacity: 0.7;
+}
+
+.hero2-dot {
+  position: relative;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22a06b;
+}
+
+.hero2-dot::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: rgba(34, 160, 107, 0.28);
+  animation: dot-pulse 2.4s ease-out infinite;
+}
+
+@keyframes dot-pulse {
+  from {
+    transform: scale(0.4);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+/* A product name you can hover for a peek. */
+.peek {
+  white-space: nowrap;
+}
+
+.peek-icon {
+  display: inline-block;
+  width: 17px;
+  height: 17px;
+  margin: 0 5px 0 1px;
+  border-radius: 5px;
+  vertical-align: -3px;
+  box-shadow: 0 2px 6px -2px rgba(10, 132, 255, 0.6);
+}
+
+.peek-card {
+  position: fixed;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.peek-inner {
+  display: block;
+  width: 116px;
+  padding: 4px;
+  border-radius: 20px;
+  background: #0c0c0d;
+  box-shadow: 0 24px 48px -20px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(0, 0, 0, 0.08);
+  opacity: 0;
+  transform: rotate(-6deg) scale(0.86) translateY(10px);
+  transform-origin: 0 100%;
+  transition:
+    opacity 160ms ease,
+    transform 260ms var(--ease-out);
+}
+
+.peek-card.is-bare .peek-inner {
+  width: 124px;
+  padding: 0;
+  background: none;
+  box-shadow: none;
+  filter: drop-shadow(0 20px 28px rgba(0, 0, 0, 0.22));
+}
+
+.peek-card.is-bare .peek-inner img {
+  border-radius: 0;
+}
+
+.peek-card.is-on .peek-inner {
+  opacity: 1;
+  transform: rotate(-3deg) scale(1);
+  transition:
+    opacity 220ms ease,
+    transform 520ms var(--ease-out);
+}
+
+.peek-inner img {
+  display: block;
+  width: 100%;
+  border-radius: 16px;
+}
+
+.reveal {
+  animation: reveal 1000ms var(--ease-out) both;
+  animation-delay: calc(var(--r, 0) * 80ms + 80ms);
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+    filter: blur(6px);
+  }
+}
+
+/* ------------------------------------------------------------------ Work */
+
+.work {
+  padding-bottom: 8px;
+}
+
+.stack-wrap {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.stack-meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  height: 44px;
+  padding-bottom: 20px;
+  font-size: 13px;
+  color: var(--ink-3);
+}
+
+.eyebrow {
+  color: var(--ink-2);
+  font-weight: 500;
+}
+
+.stack-meta-r {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 20px;
+}
+
+/* The way to the full work page, for people who'd rather not browse the stack. */
+.see-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--ink);
+  font-weight: 500;
+  transition: opacity 160ms ease;
+}
+
+.see-all svg {
+  width: 13px;
+  height: 13px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 300ms var(--ease-out);
+}
+
+.see-all:hover {
+  opacity: 0.7;
+}
+
+.see-all:hover svg {
+  transform: translateX(3px);
+}
+
+/* The track is as tall as the scroll distance; the stack stays pinned in the
+   middle of the screen while you scroll through it. */
+.work-track {
+  position: relative;
+}
+
+.work-pin {
+  position: sticky;
+}
+
+.stack {
+  position: relative;
+  width: 100%;
+}
+
+/* Each project is one card. Collapsed it wears the project's pastel; open it
+   is white, and the colour fades away while it grows. */
+.card {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: var(--w);
+  height: var(--h);
+  border-radius: var(--r);
+  background: #fff;
+  color: var(--ink);
+  /* From the reference: a collapsed card is just a hairline edge, no shadow. */
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.035),
+    0 0 60px 12px rgba(0, 0, 0, 0);
+  overflow: hidden;
+  opacity: 0;
+  transform: translate3d(-50%, calc(var(--y) + 18px), 0);
+  transition:
+    transform var(--move) var(--ease-soft) var(--lag),
+    width var(--move) var(--ease-soft) var(--lag),
+    height var(--move) var(--ease-soft) var(--lag),
+    border-radius var(--move) var(--ease-soft) var(--lag),
+    box-shadow var(--move) var(--ease-soft) var(--lag),
+    color var(--move) var(--ease-soft) var(--lag),
+    opacity var(--move) var(--ease-soft) var(--lag);
+  isolation: isolate;
+}
+
+/* The colour layer. */
+/* Collapsed cards are white, as in the reference recording; the project's
+   colour shows on its icon, and fills the tiles once the card opens. */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  background-color: #fff;
+  box-shadow: none;
+  transition: opacity var(--move) var(--ease-soft) var(--lag);
+}
+
+.card.tone-light {
+  --ink: #ffffff;
+  --ink-2: rgba(255, 255, 255, 0.66);
+  --ink-3: rgba(255, 255, 255, 0.22);
+}
+
+.card.tone-dark {
+  --ink: #1b1a17;
+  --ink-2: rgba(27, 26, 23, 0.58);
+  --ink-3: rgba(27, 26, 23, 0.14);
+}
+
+/* Open: white card, dark text. Declared after the tones so it wins. */
+.card[data-state="open"] {
+  --ink: #171717;
+  --ink-2: #8a8a8a;
+  --ink-3: rgba(0, 0, 0, 0.1);
+  /* The open card: the same hairline and a soft, even glow, about 2% dark at
+     the edge and gone ~70px out, the same on every side. */
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.04),
+    0 0 60px 12px rgba(0, 0, 0, 0.04);
+}
+
+.card[data-state="open"]::before {
+  opacity: 0;
+}
+
+.stack.is-entered .card {
+  opacity: var(--o);
+  transform: translate3d(-50%, var(--y), 0);
+}
+
+/* First appearance: cards rise into place one after another. */
+.stack.is-first .card {
+  transition-duration: 1000ms;
+  transition-delay: var(--enter);
+}
+
+.card[data-state="hidden"] {
+  pointer-events: none;
+}
+
+.card-hit {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  border-radius: inherit;
+}
+
+.card-hit:focus-visible {
+  outline-offset: -3px;
+  border-radius: var(--r);
+}
+
+/* The header is the whole pill when collapsed, and the top row of the card
+   when open; it grows taller and gains the card's padding as it opens. */
+.card-head {
+  position: relative;
+  z-index: 2;
+  height: var(--pill-h);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 18px;
+  pointer-events: none;
+  transition:
+    height var(--move) var(--ease-soft) var(--lag),
+    padding var(--move) var(--ease-soft) var(--lag);
+}
+
+.card[data-state="open"] .card-head {
+  height: var(--open-head);
+  padding: 4px var(--pad) 0;
+}
+
+.p-icon {
+  position: relative;
+  flex: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.16);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14);
+  overflow: hidden;
+  transition: background-color var(--move) var(--ease-soft) var(--lag);
+}
+
+.tone-dark .p-icon {
+  background: rgba(255, 255, 255, 0.62);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.7), 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+/* The icon tile always carries the project's colour. */
+.p-icon::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-color: var(--box, var(--surface));
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+.p-icon img,
+.p-icon .flag {
+  position: relative;
+}
+
+.p-icon img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+.p-icon--round img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.p-icon--app {
+  background: none;
+  box-shadow: none;
+  overflow: visible;
+}
+
+.p-icon--app::before {
+  display: none;
+}
+
+.p-icon--app img {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  box-shadow: 0 6px 16px -6px rgba(10, 132, 255, 0.7);
+}
+
+.p-icon--flags {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.p-icon--flags .flag {
+  width: 14px;
+  height: 14px;
+  margin: 0 -2px;
+  box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.9);
+}
+
+/* The title, and under it the pitch, on one line. Opening the card lifts the
+   title to make room for the pitch. */
+.card-titles {
+  position: relative;
+  min-width: 0;
+  flex: 1;
+  height: 64px;
+}
+
+.card-title,
+.card-summary {
+  position: absolute;
+  left: 0;
+  right: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-title {
+  top: 21px;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.012em;
+  line-height: 22px;
+  transform-origin: left center;
+  transition: transform var(--move) var(--ease-soft) var(--lag);
+}
+
+.card[data-state="open"] .card-title {
+  transform: translateY(-11px) scale(1.07);
+}
+
+.card-summary {
+  top: 35px;
+  font-size: 13px;
+  line-height: 19px;
+  color: var(--ink-2);
+  opacity: 0;
+  transition: opacity 160ms ease;
+}
+
+/* Pointing at the button: the pill needs the room, so the pitch moves onto a
+   second line, and the title and pitch rise together to stay centred.
+   (WorkStack sets data-go, and data-wraps when the pitch does wrap.) */
+.card[data-state="open"][data-go] .card-summary {
+  right: 112px;
+  display: -webkit-box;
+  white-space: normal;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  text-wrap: balance;
+}
+
+.card[data-state="open"][data-go][data-wraps] .card-title {
+  transform: translateY(-20.5px) scale(1.07);
+  transition: transform 420ms var(--ease-out);
+}
+
+.card[data-state="open"][data-go][data-wraps] .card-summary {
+  transform: translateY(-9.5px);
+}
+
+.card[data-state="open"] .card-summary {
+  opacity: 1;
+  transition:
+    opacity 600ms var(--ease-out) var(--in),
+    transform 420ms var(--ease-out);
+}
+
+.card-side {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  color: var(--ink-2);
+  transition: color var(--move) var(--ease-soft) var(--lag);
+}
+
+.card-meta {
+  max-width: 160px;
+  overflow: hidden;
+  white-space: nowrap;
+  transition:
+    max-width var(--move) var(--ease-soft) var(--lag),
+    opacity 300ms ease;
+}
+
+/* The open card gives the meta's room to the summary line. */
+.card[data-state="open"] .card-meta {
+  max-width: 0;
+  opacity: 0;
+}
+
+.card[data-state="open"] .card-side {
+  gap: 0;
+}
+
+.card-meta .dot {
+  margin: 0 1px;
+}
+
+/* The way into the case study. A black circle with an arrow while the card
+   is open; when the mouse comes near it, it stretches to the left into a pill
+   that says where it goes, and the arrow slips out and back in. It is laid
+   over the end of the summary so nothing in the header moves. */
+.card-go {
+  position: relative;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  margin-right: -4px;
+  opacity: 0;
+  transition:
+    opacity 160ms ease,
+    width var(--move) var(--ease-soft) var(--lag),
+    margin var(--move) var(--ease-soft) var(--lag);
+}
+
+.card[data-state="pill"] .card-go,
+.card[data-state="hidden"] .card-go {
+  width: 0;
+  margin-right: -12px;
+}
+
+.card[data-state="open"] .card-go {
+  opacity: 1;
+  transition:
+    opacity 600ms var(--ease-out) var(--in),
+    width var(--move) var(--ease-soft) var(--lag),
+    margin var(--move) var(--ease-soft) var(--lag);
+}
+
+.card-go::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 22px;
+  background: #171717;
+  /* A white veil to its left, so the summary fades out under the pill
+     instead of running into it. */
+  transition: width 560ms var(--ease-out);
+}
+
+.card-go-label {
+  position: absolute;
+  top: 0;
+  right: 42px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 44px;
+  letter-spacing: -0.005em;
+  color: #fff;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(10px);
+  transition:
+    opacity 160ms ease,
+    transform 300ms var(--ease-out);
+}
+
+.card-go-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 44px;
+  height: 44px;
+  overflow: hidden;
+  border-radius: 50%;
+  color: #fff;
+}
+
+.card-go-icon svg {
+  position: absolute;
+  top: 13px;
+  left: 13px;
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 520ms var(--ease-out);
+}
+
+.card-go-icon svg + svg {
+  transform: translate(-28px, 28px);
+}
+
+/* data-go is set by WorkStack when the mouse is near the button. */
+.card[data-state="open"][data-go] .card-go::before {
+  width: 160px;
+}
+
+.card[data-state="open"][data-go] .card-go-label {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 360ms ease 140ms,
+    transform 520ms var(--ease-out) 80ms;
+}
+
+.card[data-state="open"][data-go] .card-go-icon svg {
+  transform: translate(28px, -28px);
+}
+
+.card[data-state="open"][data-go] .card-go-icon svg + svg {
+  transform: none;
+  transition-delay: 60ms;
+}
+
+.card-body {
+  position: absolute;
+  z-index: 1;
+  top: var(--open-head);
+  left: 50%;
+  width: var(--body-w);
+  height: var(--body-h);
+  transform: translateX(-50%);
+  container-type: inline-size;
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------- Work grid */
+
+/* Two columns of tall cards, the right one set lower, captions underneath. */
+.wk-wrap {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.wk-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 44px 20px;
+  padding-bottom: 72px;
+}
+
+.wk {
+  position: relative;
+  display: block;
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 900ms var(--ease-out),
+    transform 1100ms var(--ease-out);
+}
+
+.wk:nth-child(2n) {
+  top: 72px;
+}
+
+.wk.is-seen {
+  opacity: 1;
+  transform: none;
+}
+
+/* The card: white, hairline edge; the project's pastel tiles inside. */
+.wk-media {
+  --pad: 12px;
+  position: relative;
+  height: 470px;
+  border-radius: 26px;
+  background: #fff;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.04),
+    0 0 60px 12px rgba(0, 0, 0, 0);
+  container-type: inline-size;
+  transition:
+    box-shadow 500ms var(--ease-out),
+    transform 600ms var(--ease-out);
+}
+
+.wk:hover .wk-media {
+  transform: translateY(-3px);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.04),
+    0 0 60px 12px rgba(0, 0, 0, 0.04);
+}
+
+.wk-visual {
+  position: absolute;
+  inset: 12px 0 0;
+  pointer-events: none;
+}
+
+.wk-go {
+  position: absolute;
+  z-index: 3;
+  top: 22px;
+  right: 22px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #171717;
+  color: #fff;
+  opacity: 0;
+  transform: scale(0.8);
+  transition:
+    opacity 200ms ease,
+    transform 400ms var(--ease-out);
+}
+
+.wk-go svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.wk:hover .wk-go,
+.wk:focus-visible .wk-go {
+  opacity: 1;
+  transform: none;
+}
+
+.wk:focus-visible {
+  outline: none;
+}
+
+.wk:focus-visible .wk-media {
+  box-shadow: 0 0 0 2px #2563eb;
+}
+
+/* The caption, as a gallery labels a piece. */
+.wk-cap {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 4px 0;
+}
+
+.wk-cap .p-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+.wk-cap .p-icon img {
+  width: 22px;
+  height: 22px;
+}
+
+.wk-cap .p-icon--app img {
+  width: 34px;
+  height: 34px;
+}
+
+.wk-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.wk-text b {
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.012em;
+}
+
+.wk-text span {
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--ink-2);
+  text-wrap: pretty;
+}
+
+.wk-year {
+  flex: none;
+  padding-top: 2px;
+  font-size: 13px;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 600px) {
+  .wk-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    padding-bottom: 24px;
+  }
+
+  .wk:nth-child(2n) {
+    top: 0;
+  }
+
+  .wk-media {
+    height: 460px;
+    border-radius: 22px;
+  }
+}
+
+/* ----------------------------------------------------------- Site footer */
+
+/* A sign-off: thanks, her name in the script of the nav mark, where to find
+   her, and the time in Lagos. */
+.sf {
+  margin-top: 24px;
+  padding: 48px 0 32px;
+  border-top: 1px solid rgba(0, 0, 0, 0.07);
+  font-size: 13.5px;
+  line-height: 22px;
+  color: #545454;
+}
+
+.sf-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 40px 64px;
+  align-items: start;
+}
+
+.sf-thanks {
+  margin: 0;
+  color: #767676;
+}
+
+.sf-name {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 2px;
+  margin: 6px 0 0;
+  font-family: var(--font-logo), cursive;
+  font-size: 58px;
+  line-height: 1.15;
+  color: #151413;
+}
+
+.sf-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #c65a3a;
+}
+
+.sf-open {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 14px 0 0;
+}
+
+.sf-cols {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 48px;
+}
+
+.sf-cols h2 {
+  margin: 0 0 10px;
+  font-size: 12.5px;
+  font-weight: 400;
+  color: #9a9a9a;
+}
+
+.sf-cols ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 6px;
+}
+
+.sf-cols li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sf-cols a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #2a2a2a;
+  transition: color 160ms ease;
+}
+
+.sf-cols a:hover {
+  color: #c65a3a;
+}
+
+.sf-cols a svg {
+  width: 14px;
+  height: 14px;
+  color: #8a8a8a;
+}
+
+.sf-sub {
+  fill: #ff6719;
+}
+
+.sf-copy {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  color: #8a8a8a;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease;
+}
+
+.sf-copy:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: #151413;
+}
+
+.sf-copy.is-done {
+  color: #1f9d63;
+}
+
+.sf-copy svg {
+  width: 14px;
+  height: 14px;
+}
+
+.sf-copied {
+  position: absolute;
+  bottom: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  color: #1f9d63;
+  white-space: nowrap;
+}
+
+.sf-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 24px;
+  margin-top: 48px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  font-size: 12.5px;
+  color: #9a9a9a;
+}
+
+.sf-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #767676;
+  transition: color 160ms ease;
+}
+
+.sf-top:hover {
+  color: #151413;
+}
+
+.sf-top svg {
+  width: 13px;
+  height: 13px;
+  transition: transform 300ms var(--ease-out);
+}
+
+.sf-top:hover svg {
+  transform: translateY(-2px);
+}
+
+@media (max-width: 600px) {
+  .sf-main {
+    grid-template-columns: 1fr;
+  }
+
+  .sf-name {
+    font-size: 48px;
+  }
+
+  .sf-cols {
+    gap: 32px;
+  }
+
+  .sf-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ---------------------------------------------------------------- Cursor */
+
+/* A small solid mark. Native first (works without JavaScript); with a mouse,
+   Cursor.tsx swaps in a drawn copy that can spin once on click. */
+html,
+body,
+a,
+button {
+  cursor: url("/cursor.svg") 9 9, auto;
+}
+
+.cursor-mark {
+  display: none;
+}
+
+@media (pointer: fine) {
+  body.has-cursor,
+  body.has-cursor * {
+    cursor: none !important;
+  }
+
+  .cursor-mark {
+    display: block;
+    position: fixed;
+    z-index: 9999;
+    top: -9px;
+    left: -9px;
+    width: 18px;
+    height: 18px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 160ms ease;
+  }
+
+  body.has-cursor .cursor-mark {
+    opacity: 1;
+  }
+
+  body.has-cursor .cursor-mark.gone {
+    opacity: 0;
+  }
+
+  .cursor-mark svg {
+    width: 18px;
+    height: 18px;
+    fill: #c65a3a;
+  }
+
+  .cursor-mark.spin svg {
+    animation: cursor-spin 460ms cubic-bezier(0.34, 0, 0.2, 1);
+  }
+
+}
+
+@keyframes cursor-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------------------------------------------------------------- Footer */
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 24px;
+  padding: 28px 0 40px;
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+  color: var(--ink-3);
+}
+
+.footer-links {
+  display: flex;
+  gap: 18px;
+}
+
+.footer-links a {
+  transition: color 160ms ease;
+}
+
+.footer-links a:hover {
+  color: var(--ink);
+}
+
+@media (max-width: 600px) {
+  .hero {
+    padding: 48px 0 56px;
+  }
+
+  .hero h1 {
+    font-size: 21px;
+  }
+
+  .nav {
+    gap: 14px;
+  }
+
+  .hero3 {
+    display: flex;
+    flex-direction: column;
+    padding-top: 6px;
+  }
+
+  .av-paper {
+    width: 64px;
+  }
+
+  .hero3 .hero-hi {
+    font-size: 26px;
+  }
+
+  .nav-name {
+    white-space: nowrap;
+  }
+
+  .nav-logo {
+    font-size: 34px;
+  }
+
+  .nav-links {
+    gap: 12px;
+    font-size: 12.5px;
+    white-space: nowrap;
+  }
+
+  /* Hover sounds only matter with a mouse. */
+  .nav-links .sound-toggle {
+    display: none;
+  }
+
+  /* On phones the nav's "soon" tag becomes a small dot. */
+  .soon--nav .soon-tag {
+    width: 6px;
+    height: 6px;
+    padding: 0;
+    border-radius: 50%;
+    background: #c65a3a;
+    font-size: 0;
+    align-self: flex-start;
+    margin-top: 2px;
+  }
+
+  .soon-note {
+    max-width: 220px;
+  }
+
+  .hero2 {
+    padding: 40px 0 48px;
+  }
+
+  .hello-where .sep {
+    display: none;
+  }
+
+  .hero2 h1 {
+    font-size: 22px;
+  }
+
+  .hero2-lede {
+    margin-bottom: 22px;
+    font-size: 16px;
+  }
+
+
+  .card-head {
+    gap: 12px;
+    padding: 0 14px;
+  }
+
+  .p-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+  }
+
+  .p-icon--app img {
+    width: 34px;
+    height: 34px;
+  }
+
+  .card-meta {
+    display: none;
+  }
+
+  .card-title {
+    font-size: 14.5px;
+  }
+
+  .card-summary {
+    font-size: 12.5px;
+    line-height: 18px;
+  }
+
+  .card-go,
+  .card-go::before,
+  .card-go-icon {
+    width: 38px;
+    height: 38px;
+  }
+
+  .card-go-icon svg {
+    top: 11px;
+    left: 11px;
+    width: 16px;
+    height: 16px;
+  }
+
+  .footer-loc {
+    display: none;
+  }
+}
+
+@media (max-width: 380px) {
+  .nav,
+  .nav-links {
+    gap: 9px;
+  }
+
+  .nav-name,
+  .nav-links {
+    font-size: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .av,
+  .av.is-tapped {
+    animation: none;
+    transition: none;
+  }
+
+  :root {
+    --move: 1ms;
+    --lag: 0ms;
+    --in: 0ms;
+  }
+
+  .reveal {
+    animation: none;
+  }
+
+  .cursor-mark.spin svg {
+    animation: none;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}

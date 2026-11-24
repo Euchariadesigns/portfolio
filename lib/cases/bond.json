@@ -1,0 +1,140 @@
+{
+ "project": "bond",
+ "title": "Ejara Bond Investment",
+ "headline": "Redefining savings as true investments.",
+ "summary": "Users believed they were saving, but they were really investing in government bonds. I reframed the product from saving to investing, so people understood what they owned, how it pays out, and when.",
+ "skills": [
+  "User Research",
+  "Information Architecture",
+  "UX Writing",
+  "UX/UI"
+ ],
+ "box": {
+  "color": "#639139",
+  "texture": "/case/bond/texture.webp",
+  "size": "cover"
+ },
+ "hero": {
+  "src": "/case/bond/hero.webp",
+  "w": 1362,
+  "h": 736,
+  "kind": "image"
+ },
+ "next": "goal-savings",
+ "slug": "bond",
+ "meta": [
+  {
+   "label": "Role",
+   "value": "Product Designer"
+  },
+  {
+   "label": "Company",
+   "value": "Ejara (fintech)"
+  },
+  {
+   "label": "Duration",
+   "value": "3 months, launched"
+  },
+  {
+   "label": "Year",
+   "value": "2024"
+  }
+ ],
+ "sections": [
+  {
+   "id": "context",
+   "nav": "Context",
+   "title": "Context",
+   "blocks": [
+    {
+     "t": "p",
+     "text": "When I studied user behavior on the old app, I noticed something interesting: what users saw of as “savings” were actually government bonds. People deposited money believing they were saving, but in reality, they were investing without even realizing it."
+    },
+    {
+     "t": "p",
+     "text": "This created two problems:"
+    },
+    {
+     "t": "list",
+     "items": [
+      "Users treated it like a regular savings account, expecting easy withdrawals.",
+      "Instead of empowering users to understand investment, the product masked it as “savings.”"
+     ],
+     "big": false
+    }
+   ]
+  },
+  {
+   "id": "approach",
+   "nav": "Approach",
+   "title": "Our Approach",
+   "blocks": [
+    {
+     "t": "p",
+     "text": "I set out to reframe the experience from “saving” to “investing” by:"
+    },
+    {
+     "t": "list",
+     "items": [
+      "Making it clear that users were investing in government bonds, not just saving.",
+      "Designing flows that reflected how real investments behave, fixed terms, payout at bond anniversary dates, and maturity dates of the bonds.",
+      "Communicating benefits in plain, transparent language to build trust and financial literacy."
+     ],
+     "big": false
+    },
+    {
+     "t": "p",
+     "text": "I wanted users to feel the shift: this isn’t money you dip into casually, this is your investment portfolio growing."
+    }
+   ]
+  },
+  {
+   "id": "design",
+   "nav": "Solution",
+   "title": "Design and Implementation",
+   "blocks": [
+    {
+     "t": "list",
+     "items": [
+      "Changed product copy from “Save” to “Invest,” reinforcing correct mental models.",
+      "Instead of a simple deposit, users now choose specific government bonds to invest in.",
+      "Clear screens showed interest rates and payout timelines, so users understood exactly how and when they’d earn.",
+      "Withdrawals aligned with the bond anniversary date, no more instant access, but predictable, rewarding outcomes."
+     ],
+     "big": false
+    },
+    {
+     "t": "media",
+     "items": [
+      {
+       "src": "/case/bond/flows.webp",
+       "w": 2000,
+       "h": 996,
+       "kind": "image"
+      }
+     ],
+     "wide": true
+    }
+   ]
+  },
+  {
+   "id": "reflection",
+   "nav": "Reflection",
+   "title": "Reflection",
+   "blocks": [
+    {
+     "t": "p",
+     "text": "Transforming this product was more thank the interface, it was about user trust."
+    },
+    {
+     "t": "p",
+     "text": "At first, some users resisted because they were used to instant access. But with clearer education, transparency, and better expectations, adoption grew."
+    },
+    {
+     "t": "p",
+     "text": "A single word like “save” vs. “invest” changes how people think, act, and value their money."
+    }
+   ]
+  }
+ ]
+}

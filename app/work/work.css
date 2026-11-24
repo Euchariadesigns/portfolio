@@ -1,0 +1,169 @@
+/* The work page: a masonry gallery of tiles with captions underneath.
+   The grid has a small row unit; each tile spans as many rows as its height,
+   so the two columns settle into each other with no gaps. */
+
+.wk2 {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+.nav-links a[aria-current] {
+  color: var(--ink);
+}
+
+.wk2-main {
+  padding: 72px 0 40px;
+  font-family: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* The page is the work; the heading is for screen readers only. */
+.wk2-title {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.wk2-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: 8px;
+  column-gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.wk2-item {
+  min-width: 0;
+}
+
+.wk2-link {
+  display: block;
+}
+
+.wk2-pic {
+  position: relative;
+  height: var(--h);
+  overflow: hidden;
+  border-radius: 6px;
+}
+
+/* Savings Box, Group Goal Savings and Bond: one card at a time, on the
+   tile's colour, a little larger than in the home page cards. */
+.wk2-pic {
+  container-type: inline-size;
+}
+
+.wk2-pic .v-scenes {
+  inset: 0;
+}
+
+.wk2-pic .v-scenes .cell {
+  background: none;
+  box-shadow: none;
+  opacity: 1;
+}
+
+@container (min-width: 521px) {
+  .wk2-pic .sc-stage:not(.sc-phonestage) {
+    scale: 1.25;
+  }
+}
+
+/* The Crime recording sits with room around it, like the phones. */
+.wk2-pic .cv-inset {
+  inset: 48px 36px;
+}
+
+/* On hover the picture grows very slightly, as on Jenn Choi's cards. */
+.wk2-link:hover .cv-root {
+  transform: scale(1.015);
+}
+
+/* Caption: name and year on the left, the kind of work on the right. */
+.wk2-cap {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 2px 0;
+  font-size: 14px;
+  line-height: 1.3;
+}
+
+.wk2-cap h2 {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--ink);
+}
+
+.wk2-cap h2 span,
+.wk2-kind {
+  color: var(--ink-2);
+}
+
+.wk2-kind {
+  text-align: right;
+}
+
+.wk2-link:hover .wk2-cap h2 {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.wk2-link:focus-visible {
+  outline: none;
+}
+
+.wk2-link:focus-visible .wk2-pic {
+  outline: 2px solid #2563eb;
+  outline-offset: 3px;
+}
+
+.wk2-foot {
+  font-family: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+}
+
+@media (max-width: 760px) {
+  .wk2 {
+    padding: 0 16px;
+  }
+
+  .wk2-main {
+    padding-top: 40px;
+  }
+
+  .wk2-grid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+    row-gap: 28px;
+  }
+
+  .wk2-item {
+    grid-row-end: auto !important;
+  }
+
+  .wk2-pic {
+    height: min(var(--h), 520px);
+  }
+
+  .wk2-pic .cv-inset {
+    inset: 28px 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wk2-link:hover .cv-root {
+    transform: none;
+  }
+}
