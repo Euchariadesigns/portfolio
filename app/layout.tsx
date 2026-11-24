@@ -28,6 +28,7 @@ const nunito = Nunito({ subsets: ["latin"], weight: ["400", "600", "700"], varia
 const caveat = Caveat({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-hand", display: "swap" });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://euchariaodili.com"),
   title: "Eucharia Odili, product designer",
   description:
     "Product designer who ships the code. Eucharia takes 0→1 products from research to design, and builds them in Claude Code, Lovable and Codex.",
