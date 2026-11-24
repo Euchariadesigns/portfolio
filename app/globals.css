@@ -730,9 +730,18 @@ button {
 }
 
 /* In the intro it reads like a highlighted word. */
+/* A little air above the line these chips sit on. */
+.soon--chip {
+  margin-top: 4px;
+}
+
+/* The same height as the other chips in the intro (Goal Savings, Margin,
+   Strata), so it keeps clear of the lines above and below. */
 .soon--chip .soon-btn {
   padding: 0 4px 0 6px;
   border-radius: 6px;
+  line-height: 20px;
+  vertical-align: baseline;
   background: rgba(0, 0, 0, 0.05);
   color: #0e0e0e;
   transition: background-color 200ms ease;
