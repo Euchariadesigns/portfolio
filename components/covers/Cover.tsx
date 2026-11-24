@@ -84,15 +84,32 @@ function InsetVideo({ active, src, poster, label }: { active: boolean; src: stri
 export function CoverInView({ id }: { id: ProjectId }) {
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
+  const [shown, setShown] = useState(false);
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
     const io = new IntersectionObserver(([e]) => setInView(e.isIntersecting), { rootMargin: "0px 0px 120px 0px" });
     io.observe(el);
-    return () => io.disconnect();
+    // The mockup scales into its tile once, when a fifth of the tile is on
+    // screen. The right-hand column follows the left a beat later.
+    const seen = new IntersectionObserver(
+      ([e]) => {
+        if (!e.isIntersecting) return;
+        const r = e.boundingClientRect;
+        if (r.left > window.innerWidth / 2) el.style.setProperty("--grow-delay", "140ms");
+        setShown(true);
+        seen.disconnect();
+      },
+      { threshold: 0.2 },
+    );
+    seen.observe(el);
+    return () => {
+      io.disconnect();
+      seen.disconnect();
+    };
   }, []);
   return (
-    <div className="cv-root" ref={ref}>
+    <div className={`cv-root${shown ? " is-shown" : ""}`} ref={ref}>
       {id === "savings-box" ? (
         <SavingsBoxVisual active={inView} />
       ) : id === "group-savings" ? (

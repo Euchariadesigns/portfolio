@@ -259,8 +259,12 @@
   border-radius: 16px;
 }
 
+/* Sized from the picture's shape (--ar) rather than from the file, so the
+   box is already its final size while the image loads and nothing below it
+   jumps. Never wider than the panel, taller than 640px, or larger than the
+   picture itself (--w). */
 .cs-panel img {
-  width: auto;
+  width: min(100%, calc(640px * var(--ar, 1)), var(--w, 100%));
   max-width: 100%;
   height: auto;
   max-height: 640px;
@@ -272,6 +276,7 @@
 }
 
 .cs-panel--hero img {
+  width: min(100%, calc(560px * var(--ar, 1)), var(--w, 100%));
   max-height: 560px;
 }
 

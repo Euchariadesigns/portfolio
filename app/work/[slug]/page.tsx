@@ -4,7 +4,8 @@ import { notFound } from "next/navigation";
 import CaseNav from "@/components/case/CaseNav";
 import CaseVideo from "@/components/case/CaseVideo";
 import Rich from "@/components/case/Rich";
-import Cursor from "@/components/Cursor";
+import Link from "next/link";
+import PageFade from "@/components/PageFade";
 import ProjectIcon from "@/components/ProjectIcon";
 import { CASES, caseHref } from "@/lib/cases";
 import type { Block, Media } from "@/lib/cases";
@@ -27,6 +28,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const c = CASES[slug];
   if (!c) return {};
   return { title: `${c.title} · Eucharia Odili`, description: c.headline };
+}
+
+// A picture's shape and natural width, so its box is the right size before
+// the file arrives (see .cs-panel img).
+function shape(w: number, h: number) {
+  return { "--ar": w / h, "--w": `${w}px` } as CSSProperties;
 }
 
 // `ratio`: when paired with a taller visual, this one sits centred in a tile
@@ -58,7 +65,7 @@ function MediaItem({ m, ratio }: { m: Media; ratio?: number }) {
         {m.kind === "video" ? (
           <CaseVideo src={m.src} poster={m.poster} w={m.w} h={m.h} label={m.caption ?? "Product recording"} />
         ) : (
-          <img src={m.src} alt={m.caption ?? ""} width={m.w} height={m.h} loading="lazy" decoding="async" />
+          <img src={m.src} alt={m.caption ?? ""} width={m.w} height={m.h} loading="lazy" decoding="async" style={shape(m.w, m.h)} />
         )}
       </div>
       {m.caption ? <figcaption>{m.caption}</figcaption> : null}
@@ -138,109 +145,110 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
   const nextProject = next ? projects.find((p) => p.id === next.project) : undefined;
 
   return (
-    <div
-      className="cs"
-      style={
-        {
-          "--surface": project?.surface.color ?? "#F2F7FD",
-          "--box": c.box.color,
-          "--box-texture": `url(${c.box.texture})`,
-          "--box-size": c.box.size,
-        } as CSSProperties
-      }
-    >
-      <aside className="cs-side">
-        <a className="cs-back" href="/">
-          <svg viewBox="0 0 16 16" aria-hidden="true">
-            <path d="M12.5 8h-9M7.5 4l-4 4 4 4" />
-          </svg>
-          Back home
-        </a>
-        <CaseNav sections={[{ id: "overview", nav: "Overview" }, ...c.sections.map((s) => ({ id: s.id, nav: s.nav }))]} />
-      </aside>
+    <PageFade>
+      <div
+        className="cs"
+        style={
+          {
+            "--surface": project?.surface.color ?? "#F2F7FD",
+            "--box": c.box.color,
+            "--box-texture": `url(${c.box.texture})`,
+            "--box-size": c.box.size,
+          } as CSSProperties
+        }
+      >
+        <aside className="cs-side">
+          <Link className="cs-back" href="/">
+            <svg viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M12.5 8h-9M7.5 4l-4 4 4 4" />
+            </svg>
+            Back home
+          </Link>
+          <CaseNav sections={[{ id: "overview", nav: "Overview" }, ...c.sections.map((s) => ({ id: s.id, nav: s.nav }))]} />
+        </aside>
 
-      <main className="cs-main">
-        <header id="overview" className="cs-head">
-          <p className="cs-crumb">
-            {project ? <ProjectIcon project={project} /> : null}
-            <span>{c.title}</span>
-          </p>
-          <h1>{c.headline}</h1>
-          <p className="cs-summary">{c.summary}</p>
-          <dl className="cs-meta">
-            {c.meta.map((m) => (
-              <div key={m.label}>
-                <dt>{m.label}</dt>
-                <dd>{m.value}</dd>
+        <main className="cs-main">
+          <header id="overview" className="cs-head">
+            <p className="cs-crumb">
+              {project ? <ProjectIcon project={project} /> : null}
+              <span>{c.title}</span>
+            </p>
+            <h1>{c.headline}</h1>
+            <p className="cs-summary">{c.summary}</p>
+            <dl className="cs-meta">
+              {c.meta.map((m) => (
+                <div key={m.label}>
+                  <dt>{m.label}</dt>
+                  <dd>{m.value}</dd>
+                </div>
+              ))}
+              <div className="cs-meta-skills">
+                <dt>Skills</dt>
+                <dd>
+                  <ul className="cs-chips">
+                    {c.skills.map((s) => (
+                      <li key={s}>{s}</li>
+                    ))}
+                  </ul>
+                </dd>
               </div>
-            ))}
-            <div className="cs-meta-skills">
-              <dt>Skills</dt>
-              <dd>
-                <ul className="cs-chips">
-                  {c.skills.map((s) => (
-                    <li key={s}>{s}</li>
-                  ))}
-                </ul>
-              </dd>
+            </dl>
+            <div className="cs-hero">
+              <div className={`cs-panel cs-panel--hero${c.hero.kind === "video" ? " cs-panel--video" : ""}`}>
+                {c.hero.kind === "video" ? (
+                  <CaseVideo src={c.hero.src} poster={c.hero.poster} w={c.hero.w} h={c.hero.h} label={c.title} />
+                ) : (
+                  <img src={c.hero.src} alt={c.title} width={c.hero.w} height={c.hero.h} fetchPriority="high" style={shape(c.hero.w, c.hero.h)} />
+                )}
+              </div>
             </div>
-          </dl>
-          <div className="cs-hero">
-            <div className={`cs-panel cs-panel--hero${c.hero.kind === "video" ? " cs-panel--video" : ""}`}>
-              {c.hero.kind === "video" ? (
-                <CaseVideo src={c.hero.src} poster={c.hero.poster} w={c.hero.w} h={c.hero.h} label={c.title} />
-              ) : (
-                <img src={c.hero.src} alt={c.title} width={c.hero.w} height={c.hero.h} fetchPriority="high" />
+          </header>
+
+          {c.sections.map((s, i) => (
+            <section key={s.id} id={s.id} className="cs-section" aria-labelledby={`${s.id}-title`}>
+              {/* The plain label from the left side, above her own heading (once per group). */}
+              {c.sections[i - 1]?.nav === s.nav || s.title.toLowerCase().startsWith(s.nav.toLowerCase()) ? null : (
+                <p className="cs-kicker">{s.nav}</p>
               )}
-            </div>
-          </div>
-        </header>
+              <h2 id={`${s.id}-title`}>{s.title}</h2>
+              {s.blocks.map((b, i) => (
+                <BlockView key={i} b={b} />
+              ))}
+            </section>
+          ))}
 
-        {c.sections.map((s, i) => (
-          <section key={s.id} id={s.id} className="cs-section" aria-labelledby={`${s.id}-title`}>
-            {/* The plain label from the left side, above her own heading (once per group). */}
-            {c.sections[i - 1]?.nav === s.nav || s.title.toLowerCase().startsWith(s.nav.toLowerCase()) ? null : (
-              <p className="cs-kicker">{s.nav}</p>
-            )}
-            <h2 id={`${s.id}-title`}>{s.title}</h2>
-            {s.blocks.map((b, i) => (
-              <BlockView key={i} b={b} />
-            ))}
-          </section>
-        ))}
-
-        <footer className="cs-end">
-          <p className="cs-thanks">Thank you for reading</p>
-          {next ? (
-            <a className="cs-next" href={caseHref(next.slug)}>
-              <span className="cs-next-label">Next project</span>
-              <span className="cs-next-title">
-                {nextProject ? <ProjectIcon project={nextProject} /> : null}
-                {next.title}
+          <footer className="cs-end">
+            <p className="cs-thanks">Thank you for reading</p>
+            {next ? (
+              <Link className="cs-next" href={caseHref(next.slug)}>
+                <span className="cs-next-label">Next project</span>
+                <span className="cs-next-title">
+                  {nextProject ? <ProjectIcon project={nextProject} /> : null}
+                  {next.title}
+                </span>
+                <span className="cs-next-line">{next.headline}</span>
+                <svg className="cs-next-arrow" viewBox="0 0 16 16" aria-hidden="true">
+                  <path d="M3.5 8h9M8.5 4l4 4-4 4" />
+                </svg>
+              </Link>
+            ) : null}
+            <div className="cs-foot">
+              <span>© 2026 Eucharia Odili</span>
+              <span>
+                <a href="https://dribbble.com/Eucharia_Odili" target="_blank" rel="noreferrer">
+                  Dribbble
+                </a>
+                <a href="https://www.linkedin.com/in/eucharia-odili-730248210/" target="_blank" rel="noreferrer">
+                  LinkedIn
+                </a>
+                <a href="https://x.com/Euchariadesigns" target="_blank" rel="noreferrer">
+                  X
+                </a>
               </span>
-              <span className="cs-next-line">{next.headline}</span>
-              <svg className="cs-next-arrow" viewBox="0 0 16 16" aria-hidden="true">
-                <path d="M3.5 8h9M8.5 4l4 4-4 4" />
-              </svg>
-            </a>
-          ) : null}
-          <div className="cs-foot">
-            <span>© 2026 Eucharia Odili</span>
-            <span>
-              <a href="https://dribbble.com/Eucharia_Odili" target="_blank" rel="noreferrer">
-                Dribbble
-              </a>
-              <a href="https://www.linkedin.com/in/eucharia-odili-730248210/" target="_blank" rel="noreferrer">
-                LinkedIn
-              </a>
-              <a href="https://x.com/Euchariadesigns" target="_blank" rel="noreferrer">
-                X
-              </a>
-            </span>
-          </div>
-        </footer>
-      </main>
-      <Cursor />
-    </div>
+            </div>
+          </footer>
+        </main>
+      </div>
+    </PageFade>
   );
 }

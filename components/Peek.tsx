@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
+import Link from "next/link";
 import { createPortal } from "react-dom";
 import { play } from "@/lib/sound";
 
@@ -52,7 +53,7 @@ export default function Peek({
   const external = href.startsWith("http");
   return (
     <>
-      <a
+      <Link
         ref={chip}
         href={href}
         {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
@@ -69,7 +70,7 @@ export default function Peek({
       >
         {icon ? <img className="chip-icon" src={icon} alt="" /> : null}
         {children}
-      </a>
+      </Link>
       {mounted &&
         createPortal(
           <span ref={card} className={`pk-card${on ? " is-on" : ""}`} aria-hidden="true">

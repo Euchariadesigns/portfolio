@@ -80,6 +80,23 @@
   inset: 48px 36px;
 }
 
+/* Arriving on the page, each mockup scales up into its tile: from a little
+   smaller and faded to full size, the first time the tile is on screen. The
+   tile's colour stays put; only the product grows into it. */
+.wk2-pic .cv-root {
+  scale: 0.82;
+  opacity: 0;
+  transition:
+    transform 500ms ease,
+    scale 1300ms var(--ease-out) var(--grow-delay, 0ms),
+    opacity 500ms ease var(--grow-delay, 0ms);
+}
+
+.wk2-pic .cv-root.is-shown {
+  scale: 1;
+  opacity: 1;
+}
+
 /* On hover the picture grows very slightly, as on Jenn Choi's cards. */
 .wk2-link:hover .cv-root {
   transform: scale(1.015);
@@ -165,5 +182,11 @@
 @media (prefers-reduced-motion: reduce) {
   .wk2-link:hover .cv-root {
     transform: none;
+  }
+
+  .wk2-pic .cv-root {
+    scale: 1;
+    opacity: 1;
+    transition: none;
   }
 }

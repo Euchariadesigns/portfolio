@@ -2183,3 +2183,67 @@ button {
     scroll-behavior: auto;
   }
 }
+
+/* ------------------------------------------------------- Page changes */
+
+/* Clicks pass through to the page while a change is fading. */
+::view-transition {
+  pointer-events: none;
+}
+
+/* One after the other, never both at once: two layouts overlapping reads
+   as a glitch. The old page leaves quickly; the new one arrives gently. */
+::view-transition-old(.page-out) {
+  animation: page-out 150ms ease-in both;
+}
+
+::view-transition-new(.page-in) {
+  animation:
+    page-in 280ms ease-out 150ms both,
+    page-rise 520ms var(--ease-out) 150ms both;
+}
+
+@keyframes page-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes page-rise {
+  from {
+    transform: translateY(10px);
+  }
+}
+
+/* The cursor stays live and on top while the page changes under it. */
+.cursor-mark {
+  view-transition-name: site-cursor;
+}
+
+::view-transition-group(site-cursor) {
+  z-index: 100;
+  animation: none;
+}
+
+::view-transition-old(site-cursor) {
+  display: none;
+}
+
+::view-transition-new(site-cursor) {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}

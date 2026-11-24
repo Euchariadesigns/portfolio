@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import type { CSSProperties } from "react";
 import { CoverInView } from "@/components/covers/Cover";
-import Cursor from "@/components/Cursor";
+import Link from "next/link";
+import PageFade from "@/components/PageFade";
 import SiteNav from "@/components/SiteNav";
 import { projects } from "@/lib/projects";
 import type { ProjectId } from "@/lib/projects";
@@ -55,56 +56,57 @@ function background(id: ProjectId): CSSProperties {
 
 export default function WorkPage() {
   return (
-    <div className="wk2">
-      <div className="wk2-bar">
-        <SiteNav current="work" />
+    <PageFade>
+      <div className="wk2">
+        <div className="wk2-bar">
+          <SiteNav current="work" />
+        </div>
+
+        <main className="wk2-main">
+          <h1 className="wk2-title">Work</h1>
+          <ul className="wk2-grid">
+            {TILES.map((t) => {
+              const p = projects.find((x) => x.id === t.id)!;
+              const external = p.href.startsWith("http");
+              return (
+                <li
+                  key={t.id}
+                  className="wk2-item"
+                  style={{ "--h": `${t.h}px`, gridRowEnd: `span ${Math.ceil((t.h + CAPTION) / ROW)}` } as CSSProperties}
+                >
+                  <Link href={p.href} {...(external ? { target: "_blank", rel: "noreferrer" } : {})} className="wk2-link">
+                    <div className={`wk2-pic ink-${p.box.ink}`} style={background(t.id)}>
+                      <CoverInView id={t.id} />
+                    </div>
+                    <div className="wk2-cap">
+                      <h2>
+                        {p.title.replace(/^Ejara /, "")}
+                        <span>© {p.year}</span>
+                      </h2>
+                      <span className="wk2-kind">{t.kind}</span>
+                    </div>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </main>
+
+        <footer className="footer wk2-foot">
+          <span>© 2026 Eucharia Odili</span>
+          <span className="footer-links">
+            <a href="https://dribbble.com/Eucharia_Odili" target="_blank" rel="noreferrer">
+              Dribbble
+            </a>
+            <a href="https://www.linkedin.com/in/eucharia-odili-730248210/" target="_blank" rel="noreferrer">
+              LinkedIn
+            </a>
+            <a href="https://x.com/Euchariadesigns" target="_blank" rel="noreferrer">
+              X
+            </a>
+          </span>
+        </footer>
       </div>
-
-      <main className="wk2-main">
-        <h1 className="wk2-title">Work</h1>
-        <ul className="wk2-grid">
-          {TILES.map((t) => {
-            const p = projects.find((x) => x.id === t.id)!;
-            const external = p.href.startsWith("http");
-            return (
-              <li
-                key={t.id}
-                className="wk2-item"
-                style={{ "--h": `${t.h}px`, gridRowEnd: `span ${Math.ceil((t.h + CAPTION) / ROW)}` } as CSSProperties}
-              >
-                <a href={p.href} {...(external ? { target: "_blank", rel: "noreferrer" } : {})} className="wk2-link">
-                  <div className={`wk2-pic ink-${p.box.ink}`} style={background(t.id)}>
-                    <CoverInView id={t.id} />
-                  </div>
-                  <div className="wk2-cap">
-                    <h2>
-                      {p.title.replace(/^Ejara /, "")}
-                      <span>© {p.year}</span>
-                    </h2>
-                    <span className="wk2-kind">{t.kind}</span>
-                  </div>
-                </a>
-              </li>
-            );
-          })}
-        </ul>
-      </main>
-
-      <footer className="footer wk2-foot">
-        <span>© 2026 Eucharia Odili</span>
-        <span className="footer-links">
-          <a href="https://dribbble.com/Eucharia_Odili" target="_blank" rel="noreferrer">
-            Dribbble
-          </a>
-          <a href="https://www.linkedin.com/in/eucharia-odili-730248210/" target="_blank" rel="noreferrer">
-            LinkedIn
-          </a>
-          <a href="https://x.com/Euchariadesigns" target="_blank" rel="noreferrer">
-            X
-          </a>
-        </span>
-      </footer>
-      <Cursor />
-    </div>
+    </PageFade>
   );
 }

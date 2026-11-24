@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Alegreya, Caveat, Cormorant_Upright, Gentium_Book_Plus, Geist, Geist_Mono, Great_Vibes, Inter, Nunito, STIX_Two_Text } from "next/font/google";
+import Cursor from "@/components/Cursor";
 import "./globals.css";
 import "./visuals.css";
 import "./covers.css";
@@ -46,8 +47,13 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${greatVibes.variable} ${stix.variable} ${alegreya.variable} ${gentium.variable} ${geist.variable} ${geistMono.variable} ${cormorant.variable} ${nunito.variable} ${caveat.variable}`}>
-      <body>{children}</body>
+    // data-scroll-behavior: page changes start at the top instantly instead of
+    // smooth-scrolling up (the smooth scroll stays for in-page links).
+    <html lang="en" data-scroll-behavior="smooth" className={`${inter.variable} ${greatVibes.variable} ${stix.variable} ${alegreya.variable} ${gentium.variable} ${geist.variable} ${geistMono.variable} ${cormorant.variable} ${nunito.variable} ${caveat.variable}`}>
+      <body>
+        {children}
+        <Cursor />
+      </body>
     </html>
   );
 }

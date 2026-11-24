@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { CSSProperties, KeyboardEvent, MouseEvent } from "react";
+import Link from "next/link";
 import { projects } from "@/lib/projects";
 import { play } from "@/lib/sound";
 import ProjectIcon from "./ProjectIcon";
@@ -361,12 +362,12 @@ export default function WorkStack() {
       <div className="stack-meta">
         <span className="eyebrow">Selected work</span>
         <span className="stack-meta-r">
-        <a className="see-all" href="/work">
+        <Link className="see-all" href="/work">
           See all work
           <svg viewBox="0 0 16 16" aria-hidden="true">
             <path d="M3.5 8h9M8.5 4l4 4-4 4" />
           </svg>
-        </a>
+        </Link>
         </span>
       </div>
 
@@ -420,7 +421,7 @@ export default function WorkStack() {
                   } as CSSProperties
                 }
               >
-                <a
+                <Link
                   ref={(el) => {
                     hitRefs.current[i] = el;
                   }}
