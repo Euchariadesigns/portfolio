@@ -80,11 +80,11 @@ export default function Home() {
                     <TiktokLogo weight="regular" aria-hidden="true" />
                   </a>
                   . When I&rsquo;m not designing, I&rsquo;m reading, yapping or watching K-drama. Here&rsquo;s{" "}
-                  <Soon className="soon--chip" note="My current reads, kept up to date. I'm working on it: shipping in v2.">
+                  <Soon className="soon--chip">
                     what I&rsquo;m reading
                   </Soon>{" "}
                   and{" "}
-                  <Soon className="soon--chip" note="My current watch, kept up to date. I'm working on it: shipping in v2.">
+                  <Soon className="soon--chip">
                     watching now
                   </Soon>
                   .
