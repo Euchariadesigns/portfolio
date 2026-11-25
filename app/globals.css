@@ -563,8 +563,14 @@ button {
   gap: 4px;
   padding: 0 6px 0 4px;
   border-radius: 6px;
-  background: color-mix(in srgb, var(--tone) 11%, transparent);
-  color: var(--tone);
+  /* Crisp, like a marker on paper: a solid tint (not see-through, so the
+     page's grey doesn't dull it), a deeper version of the colour for the
+     words, semibold, and a hairline edge in the same colour. */
+  background: color-mix(in srgb, var(--tone) 13%, #fff);
+  box-shadow: inset 0 0 0 0.5px color-mix(in srgb, var(--tone) 22%, transparent);
+  color: color-mix(in srgb, var(--tone) 85%, #000);
+  font-weight: 600;
+  letter-spacing: -0.006em;
   line-height: 20px;
   vertical-align: baseline;
   transition: background-color 200ms ease;
@@ -572,7 +578,7 @@ button {
 
 .hero3 .hero-p a.chip:hover,
 .hero3 .hero-p a.chip:focus-visible {
-  background: color-mix(in srgb, var(--tone) 19%, transparent);
+  background: color-mix(in srgb, var(--tone) 21%, #fff);
 }
 
 .chip-icon {
