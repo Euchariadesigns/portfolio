@@ -126,6 +126,17 @@ function BlockView({ b }: { b: Block }) {
           ))}
         </ul>
       );
+    case "screens":
+      return (
+        <figure className="cs-fig cs-media">
+          <div className="cs-panel cs-screens" style={{ "--n": b.items.length } as CSSProperties}>
+            {b.items.map((s) => (
+              <img key={s.src} src={s.src} alt={s.alt} width={750} height={1706} loading="lazy" decoding="async" />
+            ))}
+          </div>
+          {b.caption ? <figcaption>{b.caption}</figcaption> : null}
+        </figure>
+      );
     case "media": {
       if (b.todo) return null; // waiting for the picture
       // Side by side visuals of different shapes: match the tallest.

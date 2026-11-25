@@ -37,7 +37,9 @@ export type Block =
   | { t: "h4"; text: string }
   | { t: "list"; items: string[]; big?: boolean; color?: string }
   /** `todo`: a picture still to come; kept with its caption, not shown yet. */
-  | { t: "media"; items: Media[]; wide?: boolean; todo?: string };
+  | { t: "media"; items: Media[]; wide?: boolean; todo?: string }
+  /** App screens side by side on one panel, all the same size (750×1706). */
+  | { t: "screens"; items: { src: string; alt: string }[]; caption?: string };
 
 export type Section = { id: string; nav: string; title: string; blocks: Block[] };
 

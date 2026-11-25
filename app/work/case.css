@@ -354,6 +354,28 @@
   max-height: none;
 }
 
+/* App screens in a row on the project's container, each with a phone's
+   rounded corners. Two or three sit larger; four share the width. */
+.cs-screens {
+  display: grid;
+  grid-template-columns: repeat(var(--n), minmax(0, 230px));
+  justify-content: center;
+  align-items: start;
+  gap: clamp(12px, 2vw, 24px);
+  padding: 48px 40px;
+}
+
+.cs-screens img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: none;
+  aspect-ratio: 750 / 1706;
+  /* A phone's corner: about 11.5% of the width, kept round on a tall box. */
+  border-radius: 11.5% / 5.06%;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 24px 48px -24px rgba(0, 0, 0, 0.5);
+}
+
 /* ------------------------------------------------------------ Sections */
 
 .cs-section {
@@ -646,6 +668,13 @@
   .cs-panel--video,
   .cs-media--pair .cs-panel--video {
     padding: 14px;
+  }
+
+  /* On a phone, four screens go two by two. */
+  .cs-screens {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 24px 20px;
+    gap: 14px;
   }
 
   .cs-section {
