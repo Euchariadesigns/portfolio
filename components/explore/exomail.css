@@ -1,0 +1,636 @@
+/* EXOMAIL, playing like a screen recording (ExomailFlow.tsx). The app is
+   drawn at its Figma size (1440 x 918) and a "camera" scales and moves it:
+   wide to start, gliding in to each click, easing back out. */
+
+.ex {
+  --ink: #3d2c59;
+  --ink-2: #8f85ad;
+  --ink-3: #9d94b7;
+  --ink-4: #b9b3cc;
+  --card: #f9f9fb;
+  --tint: #f1ecf8;
+  --rule: #efedf4;
+  --ease-cam: cubic-bezier(0.45, 0, 0.15, 1);
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1440 / 918;
+  overflow: hidden;
+  background: #fff;
+}
+
+.ex-cam {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: 0 0;
+  transition: transform 1150ms var(--ease-cam);
+}
+
+.ex.is-still .ex-cam,
+.ex.is-still * {
+  transition: none !important;
+  animation: none !important;
+}
+
+.ex-art {
+  position: relative;
+  width: 1440px;
+  height: 918px;
+  background: #fefeff;
+  color: var(--ink);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 15.5px;
+  line-height: 1.3;
+  letter-spacing: -0.003em;
+  transition: opacity 480ms ease;
+}
+
+.ex.is-fading .ex-art {
+  opacity: 0;
+}
+
+.ex-art :where(h4, p, ul) {
+  margin: 0;
+  padding: 0;
+  font: inherit;
+  list-style: none;
+}
+
+.ex-abs {
+  position: absolute;
+}
+
+.ex-art svg {
+  display: block;
+  flex: none;
+}
+
+/* ------------------------------------------------------------ Sidebars */
+
+.ex-side,
+.ex-side2 {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border-right: 1px solid var(--rule);
+}
+
+.ex-side {
+  left: 0;
+  width: 240px;
+}
+
+.ex-side2 {
+  left: 240px;
+  width: 210px;
+}
+
+.ex-logo {
+  position: absolute;
+  top: 46px;
+  left: 21px;
+  font-size: 16.5px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.ex-side::before {
+  content: "";
+  position: absolute;
+  top: 80px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--rule);
+}
+
+.ex-btn-new {
+  position: absolute;
+  top: 96px;
+  left: 14px;
+  width: 214px;
+  height: 37px;
+  display: grid;
+  place-items: center;
+  border-radius: 7px;
+  background: var(--ink);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.ex-nav li {
+  position: absolute;
+  left: 9px;
+  width: 211px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 11px;
+  border-radius: 7px;
+  color: var(--ink-2);
+}
+
+.ex-nav li.is-on {
+  background: var(--tint);
+  color: var(--ink);
+}
+
+.ex-side2-h {
+  position: absolute;
+  top: 46px;
+  left: 34px;
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--ink-3);
+}
+
+.ex-nav--sub li {
+  left: 13px;
+  width: 177px;
+  height: 37px;
+  padding-left: 19px;
+}
+
+/* ------------------------------------------------------------ Pages */
+
+.ex-page {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 260ms ease,
+    visibility 0s 260ms;
+}
+
+.ex-page[data-on="true"] {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 320ms ease 60ms;
+}
+
+.ex-h1 {
+  font-size: 26px;
+  line-height: 34px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.ex-h2 {
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.ex-sub {
+  font-size: 16px;
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+
+.ex-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  color: #a295b6;
+  white-space: nowrap;
+}
+
+.ex-card {
+  border-radius: 17px;
+  background: var(--card);
+}
+
+.ex-row {
+  position: absolute;
+  left: 24px;
+  display: grid;
+  gap: 7px;
+}
+
+.ex-row b {
+  font-size: 16.5px;
+  font-weight: 500;
+}
+
+.ex-row > span {
+  display: grid;
+  font-size: 15px;
+  line-height: 18px;
+  color: var(--ink-2);
+}
+
+.ex-line {
+  white-space: nowrap;
+}
+
+.ex-toggle {
+  position: absolute;
+  width: 45px;
+  height: 24px;
+  border-radius: 12px;
+  background: #d9d4e5;
+  transition: background-color 240ms ease;
+}
+
+.ex-toggle i {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(61, 44, 89, 0.25);
+  transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ex-toggle.is-on {
+  background: var(--ink);
+}
+
+.ex-toggle.is-on i {
+  transform: translateX(21px);
+}
+
+.ex-pill {
+  position: absolute;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 0 9px 0 15px;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 0 0 1px #f0eef5;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.ex-pill > i {
+  width: 1px;
+  align-self: stretch;
+  background: #efedf4;
+}
+
+.ex-pill-v {
+  margin-right: auto;
+  animation: ex-swap 360ms ease;
+}
+
+@keyframes ex-swap {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+
+.ex-pill--sound {
+  padding-left: 6px;
+  gap: 7px;
+  font-size: 15px;
+}
+
+.ex-speaker {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #f3f1f8;
+}
+
+.ex-manage {
+  position: absolute;
+  width: 70px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border-radius: 6px;
+  background: #eeeaf6;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Menus: the sound list from the Figma, and the delivery list like it. */
+.ex-menu {
+  z-index: 3;
+  display: grid;
+  padding: 8px 6px;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow:
+    0 0 0 1px #f0eef5,
+    0 18px 40px -12px rgba(61, 44, 89, 0.18);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px) scale(0.98);
+  transform-origin: 85% 0;
+  transition:
+    opacity 180ms ease,
+    transform 220ms ease,
+    visibility 0s 220ms;
+}
+
+.ex-menu[data-on="true"] {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition:
+    opacity 180ms ease,
+    transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ex-menu-h {
+  padding: 6px 0 12px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--ink-3);
+}
+
+.ex-menu-i {
+  height: 33px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px 0 8px;
+  border-radius: 8px;
+  font-size: 15px;
+  color: var(--ink-2);
+  transition: background-color 160ms ease;
+}
+
+.ex-menu-i.is-sel {
+  color: var(--ink);
+}
+
+.ex-menu-i.is-hover {
+  background: #f6f4fa;
+  color: var(--ink);
+}
+
+.ex-menu-note {
+  margin: 10px 2px 2px;
+  padding: 12px 8px 4px;
+  border-top: 1px solid var(--rule);
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+
+/* A sound being previewed: three small bars. */
+.ex-playing {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 12px;
+}
+
+.ex-playing i {
+  width: 2.5px;
+  height: 100%;
+  border-radius: 2px;
+  background: #7a5cc0;
+  animation: ex-bars 700ms ease-in-out infinite alternate;
+}
+
+.ex-playing i:nth-child(2) {
+  animation-delay: -250ms;
+}
+
+.ex-playing i:nth-child(3) {
+  animation-delay: -500ms;
+}
+
+@keyframes ex-bars {
+  from {
+    transform: scaleY(0.3);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+.ex-crumbs {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  font-size: 15.5px;
+  color: var(--ink-4);
+  white-space: nowrap;
+}
+
+.ex-crumbs b {
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.ex-rule {
+  height: 1px;
+  background: var(--rule);
+}
+
+.ex-count {
+  height: 26px;
+  padding: 0 12px;
+  border-radius: 13px;
+  background: #f3f2f7;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 26px;
+}
+
+.ex-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 26px;
+  border-radius: 10px;
+  box-shadow: inset 0 0 0 1px #ebe9f1;
+  font-size: 16px;
+  color: var(--ink-2);
+}
+
+.ex-list li {
+  position: relative;
+  height: 88px;
+  border-top: 1px solid var(--rule);
+  overflow: hidden;
+  transition:
+    height 520ms cubic-bezier(0.22, 1, 0.36, 1) 120ms,
+    opacity 260ms ease,
+    background-color 1200ms ease;
+}
+
+/* Moved to Secondary: it fades and the list closes up. */
+.ex-list li.is-gone {
+  height: 0;
+  opacity: 0;
+  border-top-color: transparent;
+}
+
+/* Just arrived (on Secondary): a soft tint that fades. */
+.ex-list li.is-new {
+  animation: ex-new 2600ms ease;
+}
+
+@keyframes ex-new {
+  0%,
+  50% {
+    background: #f6f2fc;
+  }
+  100% {
+    background: transparent;
+  }
+}
+
+.ex-check {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 15px;
+  height: 15px;
+  border-radius: 3px;
+  box-shadow: inset 0 0 0 1.5px #cdc7dc;
+}
+
+.ex-name {
+  position: absolute;
+  top: 18px;
+  left: 74px;
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.ex-email {
+  position: absolute;
+  top: 47px;
+  left: 74px;
+  color: var(--ink-2);
+}
+
+.ex-move {
+  position: absolute;
+  top: 27px;
+  left: 605px;
+  height: 31px;
+  padding: 0 16px;
+  border-radius: 6px;
+  background: #f2eff8;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 31px;
+  color: #4a3770;
+}
+
+.ex-kebab {
+  position: absolute;
+  top: 34px;
+  left: 754px;
+}
+
+.ex-scroll {
+  border-radius: 4px;
+  background: #f4f3f8;
+}
+
+.ex-scroll i {
+  position: absolute;
+  top: 3px;
+  left: 0;
+  width: 7px;
+  height: 70px;
+  border-radius: 4px;
+  background: #5e4590;
+}
+
+.ex-toast {
+  position: absolute;
+  z-index: 4;
+  left: 876px;
+  bottom: 40px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 13px 18px;
+  border-radius: 12px;
+  background: var(--ink);
+  color: #fff;
+  font-size: 15px;
+  white-space: nowrap;
+  box-shadow: 0 14px 30px -12px rgba(61, 44, 89, 0.5);
+  opacity: 0;
+  transform: translate(-50%, 14px);
+  transition:
+    opacity 260ms ease,
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ex-toast[data-on="true"] {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.ex-toast b {
+  font-weight: 600;
+  color: #cdbff2;
+}
+
+/* ------------------------------------------------------------ Cursor */
+
+.ex-cursor {
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  transition: transform 760ms cubic-bezier(0.45, 0, 0.2, 1);
+}
+
+/* The arrow: filled dark with a white edge, tip on the point. */
+.ex-cursor > span {
+  display: block;
+  margin: -3px 0 0 -3px;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.25));
+}
+
+.ex-cursor svg path {
+  fill: #1c1a20;
+}
+
+.ex-press {
+  animation: ex-press 260ms ease;
+}
+
+@keyframes ex-press {
+  40% {
+    transform: scale(0.82);
+  }
+}
+
+.ex-ripple {
+  position: absolute;
+  top: -18px;
+  left: -18px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(122, 92, 192, 0.25);
+  opacity: 0;
+  animation: ex-ripple 600ms ease-out;
+}
+
+@keyframes ex-ripple {
+  0% {
+    opacity: 1;
+    transform: scale(0.3);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}

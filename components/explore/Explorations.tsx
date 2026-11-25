@@ -1,0 +1,132 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import type { Exploration } from "@/lib/explorations";
+import ExomailFlow from "./ExomailFlow";
+
+/*
+  The explorations, as small windows (like Cindy Ly's): a title bar with the
+  three dots and a file name, and the idea playing inside. Clicking one opens
+  a bigger window over the page (blurred behind): the idea on the left, and
+  what it is, the tools and a short "about" on the right. The red dot, a
+  click outside or Escape closes it.
+*/
+
+function Media({ id, active, label }: { id: Exploration["id"]; active: boolean; label: string }) {
+  if (id === "exomail") return <ExomailFlow active={active} label={label} />;
+  return null;
+}
+
+// Plays only while on screen.
+function useInView<T extends Element>() {
+  const ref = useRef<T>(null);
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => setInView(e.isIntersecting), { threshold: 0.35 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  return [ref, inView] as const;
+}
+
+function Tile({ x, paused, onOpen }: { x: Exploration; paused: boolean; onOpen: (el: HTMLButtonElement) => void }) {
+  const [ref, inView] = useInView<HTMLButtonElement>();
+  return (
+    <li className={`xp-item${x.wide ? " xp-item--wide" : ""}`}>
+      <button ref={ref} type="button" className="xp-win xp-tile" onClick={(e) => onOpen(e.currentTarget)} aria-label={`${x.title}: open`}>
+        <span className="xp-bar" aria-hidden="true">
+          <span className="xp-dots">
+            <i />
+            <i />
+            <i />
+          </span>
+          <span className="xp-file">{x.file}</span>
+        </span>
+        <span className="xp-media">
+          <Media id={x.id} active={inView && !paused} label={x.title} />
+        </span>
+      </button>
+    </li>
+  );
+}
+
+export default function Explorations({ items }: { items: Exploration[] }) {
+  const [open, setOpen] = useState<Exploration | null>(null);
+  const [shown, setShown] = useState(false);
+  const opener = useRef<HTMLButtonElement | null>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+
+  const show = (x: Exploration, el: HTMLButtonElement) => {
+    opener.current = el;
+    setOpen(x);
+    requestAnimationFrame(() => setShown(true));
+  };
+
+  const close = () => {
+    setShown(false);
+    window.setTimeout(() => {
+      setOpen(null);
+      opener.current?.focus();
+    }, 220);
+  };
+
+  useEffect(() => {
+    if (!open) return;
+    closeRef.current?.focus();
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && close();
+    document.addEventListener("keydown", onKey);
+    const html = document.documentElement;
+    const prev = html.style.overflow;
+    html.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      html.style.overflow = prev;
+    };
+  }, [open]);
+
+  return (
+    <>
+      <ul className="xp-grid">
+        {items.map((x) => (
+          <Tile key={x.id} x={x} paused={open !== null} onOpen={(el) => show(x, el)} />
+        ))}
+      </ul>
+
+      {open && (
+        <div className={`xp-modal${shown ? " is-on" : ""}`} onPointerDown={(e) => e.target === e.currentTarget && close()}>
+          <div className="xp-win xp-window" role="dialog" aria-modal="true" aria-labelledby="xp-title">
+            <span className="xp-bar">
+              <span className="xp-dots xp-dots--live">
+                <button ref={closeRef} type="button" onClick={close} aria-label="Close" />
+                <i />
+                <i />
+              </span>
+              <span className="xp-file">{open.file}</span>
+            </span>
+            <div className="xp-window-body">
+              <div className="xp-stage">
+                <Media id={open.id} active={shown} label={open.title} />
+              </div>
+              <div className="xp-about">
+                <h2 id="xp-title">{open.title}</h2>
+                <dl>
+                  <div>
+                    <dt>Type</dt>
+                    <dd>{open.kind}</dd>
+                  </div>
+                  <div>
+                    <dt>Tools</dt>
+                    <dd>{open.tools}</dd>
+                  </div>
+                </dl>
+                <p>{open.about}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}

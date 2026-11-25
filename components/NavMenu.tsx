@@ -11,7 +11,7 @@ import { useEffect, useRef, useState } from "react";
   pick a link and it closes. (On larger screens the links show inline and
   this stays hidden; see .nm in globals.css.)
 */
-export default function NavMenu({ current, resume, github }: { current?: "work" | "about"; resume: string; github: string }) {
+export default function NavMenu({ current, resume, github }: { current?: "work" | "explorations" | "about"; resume: string; github: string }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
@@ -55,10 +55,9 @@ export default function NavMenu({ current, resume, github }: { current?: "work" 
             </Link>
           </li>
           <li style={{ "--i": 1 } as React.CSSProperties}>
-            <span className="nm-soon">
+            <Link href="/explorations" aria-current={current === "explorations" ? "page" : undefined} onClick={close}>
               Explorations
-              <span className="nm-tag">soon</span>
-            </span>
+            </Link>
           </li>
           <li style={{ "--i": 2 } as React.CSSProperties}>
             <Link href="/about" aria-current={current === "about" ? "page" : undefined} onClick={close}>

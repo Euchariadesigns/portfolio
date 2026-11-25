@@ -1,17 +1,15 @@
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import NavMenu from "./NavMenu";
-import Soon from "./Soon";
 import SoundToggle from "./SoundToggle";
 
 /*
-  The top navigation, shared by the home, work and about pages.
-  Explorations is still being built: it shows a "soon" tag (Soon.tsx).
+  The top navigation, shared by the home, work, explorations and about pages.
 */
 export const RESUME = "/eucharia-odili-resume.pdf";
 const GITHUB = "https://github.com/Euchariadesigns";
 
-export default function SiteNav({ current, reveal = false }: { current?: "work" | "about"; reveal?: boolean }) {
+export default function SiteNav({ current, reveal = false }: { current?: "work" | "explorations" | "about"; reveal?: boolean }) {
   return (
     <nav className={`nav${reveal ? " reveal" : ""}`} style={reveal ? ({ "--r": 0 } as CSSProperties) : undefined}>
       <Link href="/" className="nav-name nav-logo" aria-label="Eucharia Odili, home">
@@ -22,7 +20,9 @@ export default function SiteNav({ current, reveal = false }: { current?: "work" 
         <Link href="/work" aria-current={current === "work" ? "page" : undefined}>
           Work
         </Link>
-        <Soon className="soon--nav">Explorations</Soon>
+        <Link href="/explorations" aria-current={current === "explorations" ? "page" : undefined}>
+          Explorations
+        </Link>
         <Link href="/about" aria-current={current === "about" ? "page" : undefined}>
           About me
         </Link>
