@@ -1599,6 +1599,33 @@ button {
   transform: translateY(-11px) scale(1.07);
 }
 
+/* A result beside the title (Margin: live, and how many use it), so a
+   quick skim of the list catches it. */
+.card-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 20px;
+  margin-left: 9px;
+  padding: 0 8px 0 7px;
+  border-radius: 10px;
+  background: rgba(52, 199, 89, 0.12);
+  color: #1d6b35;
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 20px;
+  vertical-align: 1px;
+}
+
+.card-stat::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #34c759;
+}
+
 .card-summary {
   top: 35px;
   font-size: 13px;

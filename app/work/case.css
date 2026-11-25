@@ -175,6 +175,51 @@
   text-wrap: pretty;
 }
 
+/* Results: three numbers, big enough to catch a skim. */
+.cs-results {
+  max-width: 720px;
+  margin: 30px 0 0;
+}
+
+.cs-results dl {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 0;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+.cs-results dl > div {
+  padding: 20px 22px 22px;
+}
+
+.cs-results dl > div + div {
+  border-left: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.cs-results dt {
+  font-size: 38px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.035em;
+  font-variant-numeric: tabular-nums;
+  color: var(--cs-ink);
+}
+
+.cs-results dd {
+  margin: 10px 0 0;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--cs-ink-2);
+}
+
+.cs-results p {
+  margin: 10px 0 0 2px;
+  font-size: 12.5px;
+  color: var(--cs-ink-3);
+}
+
 /* Two columns of facts, then the skills, as on Jenn's case studies. */
 /* The live product: a dark pill under the summary. */
 .cs-live {
@@ -683,6 +728,32 @@
   .cs-panel--pair {
     grid-template-columns: 1fr;
     gap: 36px;
+  }
+
+  .cs-results dl {
+    grid-template-columns: 1fr;
+  }
+
+  .cs-results dl > div {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    padding: 16px 18px;
+  }
+
+  .cs-results dl > div + div {
+    border-left: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  .cs-results dt {
+    flex: none;
+    min-width: 64px;
+    font-size: 30px;
+  }
+
+  .cs-results dd {
+    margin: 0;
   }
 
   .cs-section {

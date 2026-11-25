@@ -4,6 +4,21 @@
  "title": "Margin",
  "headline": "Helping people get back the habit of thinking things through, one question a day.",
  "summary": "We scroll, react and repost, but we rarely sit with a question long enough to put our own thoughts into words. Margin is a small daily practice for that: one question, a minute to think, and an answer you write by hand in a notebook. I designed and built it on my own. It went from an idea to a live product, with real people using it, in two weeks.",
+ "results": [
+  {
+   "value": "97",
+   "label": "people opened Margin in its first weeks"
+  },
+  {
+   "value": "27%",
+   "label": "added it to their Home Screen"
+  },
+  {
+   "value": "26",
+   "label": "finished a full day: question, thinking, page"
+  }
+ ],
+ "resultsNote": "Anonymous counts from the live app, 25 November 2026.",
  "live": {
   "label": "Try Margin",
   "href": "https://trymargin.expo.app/start"

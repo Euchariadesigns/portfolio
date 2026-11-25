@@ -337,7 +337,10 @@ export default function WorkStack() {
               <header className="card-head">
                 <ProjectIcon project={p} />
                 <div className="card-titles">
-                  <span className="card-title">{p.title}</span>
+                  <span className="card-title">
+                    {p.title}
+                    {p.stat ? <span className="card-stat">{p.stat}</span> : null}
+                  </span>
                   <span className="card-summary">{p.summary}</span>
                 </div>
                 <div className="card-side">

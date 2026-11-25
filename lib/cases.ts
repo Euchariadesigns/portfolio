@@ -60,6 +60,9 @@ export type CaseStudy = {
   box: { color: string; texture: string; size: string };
   /** The live product, linked under the summary. */
   live?: { label: string; href: string };
+  /** Results, big and early, for anyone skimming (with where they come from). */
+  results?: { value: string; label: string }[];
+  resultsNote?: string;
   hero: Media;
   meta: { label: string; value: string }[];
   sections: Section[];

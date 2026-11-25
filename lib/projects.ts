@@ -12,6 +12,8 @@ export type Project = {
   summary: string;
   org: string;
   year: string;
+  /** A short result beside the title (e.g. "Live · 97 users"). */
+  stat?: string;
   href: string;
   /** Card colour: Eucharia's pastels. The collapsed card wears it; so do the
       tiles inside the open card. */
@@ -34,6 +36,7 @@ export const projects: Project[] = [
     summary: "Margin helps people get back into the habit of thinking through things.",
     org: "Founder",
     year: "2026",
+    stat: "Live · 97 users",
     href: "/work/margin",
     surface: { color: "#F2F7FD" },
     tone: "dark",

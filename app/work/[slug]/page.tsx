@@ -212,6 +212,19 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
             </p>
             <h1>{c.headline}</h1>
             <p className="cs-summary">{c.summary}</p>
+            {c.results ? (
+              <div className="cs-results">
+                <dl>
+                  {c.results.map((r) => (
+                    <div key={r.label}>
+                      <dt>{r.value}</dt>
+                      <dd>{r.label}</dd>
+                    </div>
+                  ))}
+                </dl>
+                {c.resultsNote ? <p>{c.resultsNote}</p> : null}
+              </div>
+            ) : null}
             {c.live ? <LiveLink live={c.live} /> : null}
             <dl className="cs-meta">
               {c.meta.map((m) => (
