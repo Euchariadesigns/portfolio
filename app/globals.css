@@ -1626,6 +1626,14 @@ button {
   background: #34c759;
 }
 
+/* On a phone, an open card has no room for it beside the arrow; the closed
+   card has already shown it. */
+@media (max-width: 600px) {
+  .acc .card[data-state="open"] .card-stat {
+    display: none;
+  }
+}
+
 .card-summary {
   top: 35px;
   font-size: 13px;

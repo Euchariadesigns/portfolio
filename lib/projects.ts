@@ -36,7 +36,7 @@ export const projects: Project[] = [
     summary: "Margin helps people get back into the habit of thinking through things.",
     org: "Founder",
     year: "2026",
-    stat: "Live · 97 users",
+    stat: "Live · 97 users in its first week",
     href: "/work/margin",
     surface: { color: "#F2F7FD" },
     tone: "dark",

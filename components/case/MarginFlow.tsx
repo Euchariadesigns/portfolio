@@ -81,7 +81,6 @@ type S = {
   hour: number;
   min: number;
   read: number;
-  sign: boolean;
   remind: boolean;
   card: boolean;
   tab: 0 | 1;
@@ -103,7 +102,6 @@ const BASE: S = {
   hour: HOURS.indexOf(7),
   min: MINS.indexOf(45),
   read: 0,
-  sign: false,
   remind: false,
   card: false,
   done: "set",
@@ -151,7 +149,7 @@ const AT = {
   under: [187.5, 745],
   shutter: [187.5, 698],
   gear: [337, 69],
-  getStarted: [187.5, 799],
+  getStarted: [187.5, 791],
   toggle: [317.5, 167],
   alertAllow: [255, 498],
   note: [187.5, 595],
@@ -222,8 +220,7 @@ const SCRIPTS = {
   }),
   principles: build((at, tap) => {
     for (let i = 0; i < WORDS.length; i += 6) at(i === 0 ? 900 : 110, (s) => ({ ...s, read: i + 6 }));
-    at(300, (s) => ({ ...s, sign: true }));
-    tap(1300, AT.getStarted);
+    tap(1600, AT.getStarted);
     at(260, (s) => ({ ...s, base: "practice" }));
     tap(1600, AT.gear);
     at(260, (s) => ({ ...s, sheet: "settings" }));
@@ -358,11 +355,11 @@ export default function MarginFlow({ flow, label }: { flow: FlowId; label: strin
 
             {/* ---------------------------------------------------- Welcome */}
             <section className="mf-scr mf-paper" data-on={s.base === "welcome"}>
-              <img className="mf-abs" src={`${F}notebook-tile.png`} alt="" style={pos(163, 72, 49, 49)} />
-              <h4 className="mf-abs mf-welcome-t" style={pos(0, 132, 375)}>
+              <img className="mf-abs" src={`${F}notebook-tile.png`} alt="" style={pos(163, 84, 49, 49)} />
+              <h4 className="mf-abs mf-welcome-t" style={pos(0, 144, 375)}>
                 Welcome to Margin!
               </h4>
-              <div className="mf-abs mf-card mf-welcome-card" style={pos(21, 184, 333)}>
+              <div className="mf-abs mf-card mf-welcome-card" style={pos(21, 190, 333)}>
                 <p className="mf-note">
                   {WORDS.map((w, i) => (
                     <span key={i} className={i < s.read ? "is-read" : undefined}>
@@ -370,13 +367,13 @@ export default function MarginFlow({ flow, label }: { flow: FlowId; label: strin
                     </span>
                   ))}
                 </p>
-                <p className={`mf-sign${s.sign ? " is-on" : ""}`}>
+                <p className="mf-sign">
                   <img src={`${F}signature-squiggle.svg`} alt="" />
                   Eucharia, founder of Margin
                   <img src={`${F}signature-squiggle.svg`} alt="" />
                 </p>
               </div>
-              <span className="mf-abs mf-btn" style={pos(91, 772, 193, 54)}>
+              <span className="mf-abs mf-btn" style={pos(91, 764, 193, 54)}>
                 Get started
               </span>
             </section>

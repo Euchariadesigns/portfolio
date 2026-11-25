@@ -237,7 +237,7 @@
 }
 
 .mf-note {
-  font-size: 15px;
+  font-size: 14.6px;
   line-height: 24px;
   /* The rounded stand-in (Nunito, outside Safari) is a touch wider than
      Apple's rounded font: keep the note to its 20 lines. */
@@ -263,16 +263,6 @@
   font-weight: 700;
   font-size: 19px;
   line-height: 26px;
-  opacity: 0;
-  transform: translateY(4px);
-  transition:
-    opacity 600ms ease,
-    transform 600ms var(--glide);
-}
-
-.mf-sign.is-on {
-  opacity: 1;
-  transform: none;
 }
 
 .mf-sign img {
