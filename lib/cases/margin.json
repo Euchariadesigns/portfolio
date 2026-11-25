@@ -189,17 +189,10 @@
      ]
     },
     {
-     "t": "media",
-     "todo": "Adding Margin to the Home Screen, step by step",
-     "items": [
-      {
-       "kind": "image",
-       "src": "",
-       "w": 1600,
-       "h": 1000,
-       "caption": "From browser to Home Screen"
-      }
-     ]
+     "t": "flow",
+     "flow": "home",
+     "label": "Adding Margin to the Home Screen on an iPhone: Safari’s menu, Share, Add to Home Screen, Add; then the Margin icon on the Home Screen opens the app full screen",
+     "caption": "From browser to Home Screen"
     }
    ]
   },
@@ -225,15 +218,18 @@
      ]
     },
     {
-     "t": "media",
-     "todo": "“Gap closed”, before and after",
+     "t": "flows",
+     "caption": "A reason to come back tomorrow",
      "items": [
       {
-       "kind": "image",
-       "src": "",
-       "w": 1600,
-       "h": 1000,
-       "caption": "A reason to come back tomorrow"
+       "flow": "before",
+       "tag": "Before",
+       "label": "The first Gap closed: “See you tomorrow. Turn on a reminder in Settings so you don’t miss your next question.” and a See today’s note button"
+      },
+      {
+       "flow": "after",
+       "tag": "After",
+       "label": "Gap closed now: a hint of tomorrow’s question, why a reminder helps, and Set a reminder first; once set, “We’ll remind you at 7:45 PM.”"
       }
      ]
     },

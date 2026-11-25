@@ -136,6 +136,20 @@ function BlockView({ b }: { b: Block }) {
           {b.caption ? <figcaption>{b.caption}</figcaption> : null}
         </figure>
       );
+    case "flows":
+      return (
+        <figure className="cs-fig cs-media">
+          <div className="cs-panel cs-panel--flow cs-panel--pair">
+            {b.items.map((f) => (
+              <div key={f.flow} className="cs-flow-item">
+                <span className="cs-flow-tag">{f.tag}</span>
+                <MarginFlow flow={f.flow} label={f.label} />
+              </div>
+            ))}
+          </div>
+          {b.caption ? <figcaption>{b.caption}</figcaption> : null}
+        </figure>
+      );
     case "media": {
       if (b.todo) return null; // waiting for the picture
       // Side by side visuals of different shapes: match the tallest.

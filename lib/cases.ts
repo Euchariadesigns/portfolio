@@ -39,7 +39,11 @@ export type Block =
   /** `todo`: a picture still to come; kept with its caption, not shown yet. */
   | { t: "media"; items: Media[]; wide?: boolean; todo?: string }
   /** Margin playing by itself in a phone (components/case/MarginFlow.tsx). */
-  | { t: "flow"; flow: "loop" | "principles" | "camera" | "gap"; label: string; caption?: string };
+  | { t: "flow"; flow: FlowId; label: string; caption?: string }
+  /** Two of them side by side, each with a small tag (e.g. Before, After). */
+  | { t: "flows"; items: { flow: FlowId; tag: string; label: string }[]; caption?: string };
+
+type FlowId = "loop" | "principles" | "camera" | "gap" | "home" | "before" | "after";
 
 export type Section = { id: string; nav: string; title: string; blocks: Block[] };
 

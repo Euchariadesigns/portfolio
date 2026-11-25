@@ -359,6 +359,29 @@
   padding: 48px 24px;
 }
 
+/* Two phones side by side, each under a small tag. */
+.cs-panel--pair {
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.cs-flow-item {
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+}
+
+.cs-flow-tag {
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 500;
+}
+
 /* ------------------------------------------------------------ Sections */
 
 .cs-section {
@@ -655,6 +678,11 @@
 
   .cs-panel--flow {
     padding: 28px 16px;
+  }
+
+  .cs-panel--pair {
+    grid-template-columns: 1fr;
+    gap: 36px;
   }
 
   .cs-section {
