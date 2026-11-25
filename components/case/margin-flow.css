@@ -227,11 +227,16 @@
   font-weight: 600;
 }
 
+/* The note and the signature under it, in the flow, so the signature always
+   sits below the last line however the words wrap. */
+.mf-welcome-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 16px;
+}
+
 .mf-note {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  right: 16px;
   font-size: 15px;
   line-height: 24px;
   /* The rounded stand-in (Nunito, outside Safari) is a touch wider than
@@ -250,10 +255,6 @@
 }
 
 .mf-sign {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 516px;
   display: flex;
   align-items: center;
   justify-content: center;

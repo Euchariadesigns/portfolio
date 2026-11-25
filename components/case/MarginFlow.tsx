@@ -151,7 +151,7 @@ const AT = {
   under: [187.5, 745],
   shutter: [187.5, 698],
   gear: [337, 69],
-  getStarted: [187.5, 793],
+  getStarted: [187.5, 799],
   toggle: [317.5, 167],
   alertAllow: [255, 498],
   note: [187.5, 595],
@@ -358,11 +358,11 @@ export default function MarginFlow({ flow, label }: { flow: FlowId; label: strin
 
             {/* ---------------------------------------------------- Welcome */}
             <section className="mf-scr mf-paper" data-on={s.base === "welcome"}>
-              <img className="mf-abs" src={`${F}notebook-tile.png`} alt="" style={pos(163, 59, 49, 49)} />
-              <h4 className="mf-abs mf-welcome-t" style={pos(0, 122, 375)}>
+              <img className="mf-abs" src={`${F}notebook-tile.png`} alt="" style={pos(163, 72, 49, 49)} />
+              <h4 className="mf-abs mf-welcome-t" style={pos(0, 132, 375)}>
                 Welcome to Margin!
               </h4>
-              <div className="mf-abs mf-card" style={pos(21, 177, 333, 558)}>
+              <div className="mf-abs mf-card mf-welcome-card" style={pos(21, 184, 333)}>
                 <p className="mf-note">
                   {WORDS.map((w, i) => (
                     <span key={i} className={i < s.read ? "is-read" : undefined}>
@@ -376,7 +376,7 @@ export default function MarginFlow({ flow, label }: { flow: FlowId; label: strin
                   <img src={`${F}signature-squiggle.svg`} alt="" />
                 </p>
               </div>
-              <span className="mf-abs mf-btn" style={pos(91, 766, 193, 54)}>
+              <span className="mf-abs mf-btn" style={pos(91, 772, 193, 54)}>
                 Get started
               </span>
             </section>
