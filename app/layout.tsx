@@ -24,9 +24,9 @@ const gentium = Gentium_Book_Plus({
 const geist = Geist({ subsets: ["latin"], variable: "--font-geist", display: "swap" });
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono", display: "swap" });
 // The three below are only used inside the Margin card, to match Margin's own type.
-const cormorant = Cormorant_Upright({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-serif", display: "swap" });
-const nunito = Nunito({ subsets: ["latin"], weight: ["400", "600", "700"], variable: "--font-rounded", display: "swap" });
-const caveat = Caveat({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-hand", display: "swap" });
+const cormorant = Cormorant_Upright({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-serif", display: "swap" });
+const nunito = Nunito({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-rounded", display: "swap" });
+const caveat = Caveat({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-hand", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://euchariaodili.com"),

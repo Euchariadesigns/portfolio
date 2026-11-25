@@ -482,7 +482,7 @@ function IconDel() {
     </svg>
   );
 }
-function IconSignal() {
+export function IconSignal() {
   return (
     <svg viewBox="0 0 18 12" aria-hidden="true" className="gf-sig">
       <rect x="0" y="8" width="3" height="4" rx="0.8" />
@@ -492,7 +492,7 @@ function IconSignal() {
     </svg>
   );
 }
-function IconWifi() {
+export function IconWifi() {
   return (
     <svg viewBox="0 0 16 12" aria-hidden="true" className="gf-wifi">
       <path d="M8 11.5 5.6 9a3.4 3.4 0 0 1 4.8 0L8 11.5zM3.4 6.8a6.5 6.5 0 0 1 9.2 0l-1.4 1.4a4.5 4.5 0 0 0-6.4 0L3.4 6.8zM1.2 4.6a9.6 9.6 0 0 1 13.6 0l-1.4 1.4a7.6 7.6 0 0 0-10.8 0L1.2 4.6z" />

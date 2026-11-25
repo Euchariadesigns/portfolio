@@ -59,26 +59,10 @@
      "text": "Every day, Margin asks you one question. You put your phone down and think about it for a minute. Then you write your answer in a notebook and take a photo of the page. The photo stays on your phone, and only you can see it. By Day 30, you can look back and see how your thinking has changed."
     },
     {
-     "t": "screens",
-     "caption": "Today’s question, a photo of your page, and your notes to look back on",
-     "items": [
-      {
-       "src": "/case/margin/question.webp",
-       "alt": "Practice screen: today’s question, with a note to take ten minutes to think, then write by hand and take a photo, and a timer button"
-      },
-      {
-       "src": "/case/margin/camera.webp",
-       "alt": "Camera screen: a notebook page framed by four corners, with a shutter button"
-      },
-      {
-       "src": "/case/margin/this-week.webp",
-       "alt": "Notes screen, This week: today’s page saved as a card"
-      },
-      {
-       "src": "/case/margin/notes.webp",
-       "alt": "A saved note: the question and its date, with the other days below"
-      }
-     ]
+     "t": "flow",
+     "flow": "loop",
+     "label": "Margin playing through one day: today’s question, a minute counting down, “Now, write.”, a photo of the page, Gap closed, and the page arriving in This week",
+     "caption": "One day with Margin: a question, a minute to think, a photo of your page"
     },
     {
      "t": "quote",
@@ -132,18 +116,10 @@
      ]
     },
     {
-     "t": "screens",
-     "caption": "The welcome note says Margin will never grade you; Settings says nothing is uploaded",
-     "items": [
-      {
-       "src": "/case/margin/welcome.webp",
-       "alt": "Welcome to Margin: a note from Eucharia, founder of Margin, explaining the practice, with a Get started button"
-      },
-      {
-       "src": "/case/margin/settings.webp",
-       "alt": "Settings: a daily reminder at 7:45 PM, no reminder on days you’ve already practised, Share Margin, and “Your notes stay on this phone. Nothing is uploaded.”"
-      }
-     ]
+     "t": "flow",
+     "flow": "principles",
+     "label": "Margin’s welcome note turning dark as it is read, signed by Eucharia, then Settings: the daily reminder switched on, and “Your notes stay on this phone. Nothing is uploaded.”",
+     "caption": "The welcome note says Margin will never grade you; Settings says nothing is uploaded"
     }
    ]
   },
@@ -165,18 +141,10 @@
      "text": "**The photo.** A photo of the page turns a loose notebook into a record. It stays inside Margin, not in your camera roll, so your thinking stays yours."
     },
     {
-     "t": "screens",
-     "caption": "Asking for the camera, then checking the page",
-     "items": [
-      {
-       "src": "/case/margin/allow-camera.webp",
-       "alt": "Allow the camera: Margin uses your camera only to photograph your page; your photo stays on your phone"
-      },
-      {
-       "src": "/case/margin/your-page.webp",
-       "alt": "Your page: the photo, “Can you read it? If it’s blurry, take it again.”, and a Save page button"
-      }
-     ]
+     "t": "flow",
+     "flow": "camera",
+     "label": "Saving the page: Margin asks for the camera, the page settles into the corners, a blurry photo is retaken, then saved",
+     "caption": "Saving the page: if it’s blurry, take it again"
     },
     {
      "t": "p",
@@ -187,17 +155,10 @@
      "text": "**“Gap closed.”** Every day ends with the same two words. They’re small, but they give the practice a finish line."
     },
     {
-     "t": "media",
-     "todo": "“Gap closed” screen",
-     "items": [
-      {
-       "kind": "image",
-       "src": "",
-       "w": 1600,
-       "h": 1000,
-       "caption": "The end of each day"
-      }
-     ]
+     "t": "flow",
+     "flow": "gap",
+     "label": "After saving the page: Gap closed, “Same time tomorrow?”, the reminder set to 7:45 PM, and the page in This week",
+     "caption": "The end of each day"
     }
    ]
   },

@@ -4,6 +4,7 @@ import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import { notFound } from "next/navigation";
 import CaseNav from "@/components/case/CaseNav";
 import CaseVideo from "@/components/case/CaseVideo";
+import MarginFlow from "@/components/case/MarginFlow";
 import { CoverInView } from "@/components/covers/Cover";
 import Rich from "@/components/case/Rich";
 import Link from "next/link";
@@ -126,13 +127,11 @@ function BlockView({ b }: { b: Block }) {
           ))}
         </ul>
       );
-    case "screens":
+    case "flow":
       return (
         <figure className="cs-fig cs-media">
-          <div className="cs-panel cs-screens" style={{ "--n": b.items.length } as CSSProperties}>
-            {b.items.map((s) => (
-              <img key={s.src} src={s.src} alt={s.alt} width={750} height={1706} loading="lazy" decoding="async" />
-            ))}
+          <div className="cs-panel cs-panel--flow">
+            <MarginFlow flow={b.flow} label={b.label} />
           </div>
           {b.caption ? <figcaption>{b.caption}</figcaption> : null}
         </figure>
