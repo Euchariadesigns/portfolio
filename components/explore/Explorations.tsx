@@ -5,6 +5,7 @@ import type { CSSProperties } from "react";
 import { ArrowUpRight } from "@phosphor-icons/react";
 import type { Exploration } from "@/lib/explorations";
 import AvelisFlow from "./AvelisFlow";
+import BeforeAfter from "./BeforeAfter";
 import ExomailFlow from "./ExomailFlow";
 import HomelandFlow from "./HomelandFlow";
 import NutrientubFlow from "./NutrientubFlow";
@@ -20,12 +21,25 @@ import StrataFlip from "./StrataFlip";
   click outside or Escape closes it.
 */
 
-function Media({ id, active, label }: { id: Exploration["id"]; active: boolean; label: string }) {
+function Media({ id, active, label, big = false }: { id: Exploration["id"]; active: boolean; label: string; big?: boolean }) {
   if (id === "exomail") return <ExomailFlow active={active} label={label} />;
   if (id === "avelis") return <AvelisFlow active={active} label={label} />;
   if (id === "strata") return <StrataFlip active={active} label={label} />;
   if (id === "nutrientub") return <NutrientubFlow active={active} label={label} />;
   if (id === "homeland") return <HomelandFlow active={active} label={label} />;
+  if (id === "seoul")
+    return (
+      <BeforeAfter
+        before="/explore/seoul/wireframe.webp"
+        after="/explore/seoul/final.webp"
+        w={1440}
+        h={900}
+        labels={["Wireframe", "Final"]}
+        active={active}
+        draggable={big}
+        label={label}
+      />
+    );
   return null;
 }
 
@@ -164,7 +178,7 @@ export default function Explorations({ items }: { items: Exploration[] }) {
             </span>
             <div className="xp-window-body">
               <div className="xp-stage">
-                <Media id={open.id} active={shown} label={open.title} />
+                <Media id={open.id} active={shown} label={open.title} big />
               </div>
               <div className="xp-about">
                 <h2 id="xp-title">{open.title}</h2>

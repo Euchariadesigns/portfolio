@@ -1,0 +1,92 @@
+/* Before and after (BeforeAfter.tsx). --p is where the line sits, 0 to 1. */
+
+.ba {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: #f1f1f1;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.ba--drag {
+  cursor: ew-resize;
+  touch-action: pan-y;
+}
+
+.ba-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  max-width: none;
+  pointer-events: none;
+}
+
+/* The wireframe on the left of the line. */
+.ba-before {
+  clip-path: inset(0 calc((1 - var(--p)) * 100%) 0 0);
+}
+
+.ba-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--p) * 100%);
+  width: 2px;
+  margin-left: -1px;
+  background: #fff;
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.12);
+  pointer-events: none;
+}
+
+.ba-handle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  width: 38px;
+  height: 38px;
+  margin: -19px 0 0 -19px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow:
+    0 0 0 1.5px #1b1b1b,
+    0 6px 16px rgba(0, 0, 0, 0.18);
+  color: #1b1b1b;
+}
+
+.ba-handle svg {
+  width: 12px;
+  height: 12px;
+}
+
+.ba-tag {
+  position: absolute;
+  bottom: 12px;
+  height: 26px;
+  padding: 0 12px;
+  border-radius: 13px;
+  font-size: 12.5px;
+  font-weight: 500;
+  line-height: 26px;
+  pointer-events: none;
+}
+
+.ba-tag--before {
+  left: 12px;
+  background: rgba(40, 40, 40, 0.62);
+  color: #fff;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+.ba-tag--after {
+  right: 12px;
+  background: #111;
+  color: #fff;
+}

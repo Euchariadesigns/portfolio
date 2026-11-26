@@ -12,7 +12,7 @@
 */
 
 export type Exploration = {
-  id: "exomail" | "homeland" | "avelis" | "nutrientub" | "strata";
+  id: "exomail" | "homeland" | "avelis" | "nutrientub" | "seoul" | "strata";
   /** The window's name, like a file: "exomail.app". */
   file: string;
   title: string;
@@ -65,6 +65,16 @@ export const explorations: Exploration[] = [
     about:
       "A meal planning app for building a relationship with food that feels good for your body and kind to your mind. This is its first moment: opening the app to a plan made for you, here meals to help you gain weight, high in calories and rich in nutrients, with a short note on why.",
     size: "tall",
+  },
+  {
+    id: "seoul",
+    file: "beyond.seoul",
+    title: "Beyond Seoul",
+    kind: "Web design exploration",
+    tools: "Figma",
+    about:
+      "서울 너머, Beyond Seoul: a travel site for South Korea beyond its capital. Every city tells a different story, from the coastal industrial heart of Ulsan to the living history of Gyeongju, yet most visitors stay in Seoul because they don't know what lies beyond. The site gives them a local lens: cities to explore, a vibe matcher, travel essentials, and what real travellers are saying. Drag the line to compare the wireframe with the final design.",
+    size: "wide",
   },
   {
     id: "strata",
