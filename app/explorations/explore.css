@@ -159,21 +159,23 @@
   z-index: 100;
   display: grid;
   place-items: center;
-  padding: 24px;
-  background: rgba(245, 245, 245, 0.55);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
+  padding: 56px 40px;
+  /* As on Cindy Ly's: the page dims (30% black) and softens behind. */
+  background: rgba(0, 0, 0, 0.3);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
   opacity: 0;
-  transition: opacity 220ms ease;
+  transition: opacity 250ms ease;
 }
 
 .xp-modal.is-on {
   opacity: 1;
 }
 
+/* Smaller than the screen, so the dimmed page shows all round it. */
 .xp-window {
-  width: min(1240px, 100%);
-  max-height: calc(100dvh - 48px);
+  width: min(1100px, 100%);
+  max-height: calc(100dvh - 112px);
   display: flex;
   flex-direction: column;
   box-shadow:
@@ -242,7 +244,7 @@
 /* The whole design always fits: as wide as there is room for, and never
    taller than the window leaves. */
 .xp-stage .rc {
-  width: min(100%, calc((100dvh - 140px) * var(--ar, 1.5)));
+  width: min(100%, calc((100dvh - 210px) * var(--ar, 1.5)));
   margin-inline: auto;
   border-radius: 8px;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06);
