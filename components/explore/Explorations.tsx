@@ -6,6 +6,7 @@ import { ArrowUpRight } from "@phosphor-icons/react";
 import type { Exploration } from "@/lib/explorations";
 import AvelisFlow from "./AvelisFlow";
 import ExomailFlow from "./ExomailFlow";
+import NutrientubFlow from "./NutrientubFlow";
 import StrataFlip from "./StrataFlip";
 
 /*
@@ -22,6 +23,7 @@ function Media({ id, active, label }: { id: Exploration["id"]; active: boolean; 
   if (id === "exomail") return <ExomailFlow active={active} label={label} />;
   if (id === "avelis") return <AvelisFlow active={active} label={label} />;
   if (id === "strata") return <StrataFlip active={active} label={label} />;
+  if (id === "nutrientub") return <NutrientubFlow active={active} label={label} />;
   return null;
 }
 
@@ -104,10 +106,12 @@ export default function Explorations({ items }: { items: Exploration[] }) {
   const opener = useRef<HTMLButtonElement | null>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
 
-  // A wide window takes two columns when a phone can sit beside it, else all three.
-  const talls = items.filter((x) => x.size === "tall").length;
-  const wides = items.filter((x) => x.size === "wide");
-  const span = (x: Exploration) => (x.size === "tall" ? 1 : wides.indexOf(x) < talls ? 2 : 3);
+  // A wide window takes two columns when a phone comes right after it, else all three.
+  const span = (x: Exploration) => {
+    if (x.size === "tall") return 1;
+    const next = items[items.indexOf(x) + 1];
+    return next?.size === "tall" ? 2 : 3;
+  };
 
   const show = (x: Exploration, el: HTMLButtonElement) => {
     opener.current = el;

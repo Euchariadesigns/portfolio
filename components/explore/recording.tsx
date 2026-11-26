@@ -52,14 +52,15 @@ export function script<S extends Base>(write: (api: Api<S>) => void): Script<S> 
   return { steps, total: t + 520 };
 }
 
-export function useRecording<S extends Base>(active: boolean, start: S, sc: Script<S>): S {
+/** `rest`: what shows while it isn't playing (off screen, or reduced motion). */
+export function useRecording<S extends Base>(active: boolean, start: S, sc: Script<S>, rest?: S): S {
   const [s, set] = useState<S>(start);
   useEffect(() => {
     const timers: number[] = [];
     const later = (ms: number, fn: () => void) => timers.push(window.setTimeout(fn, ms));
     const clear = () => timers.splice(0).forEach((id) => window.clearTimeout(id));
     if (!active || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      set({ ...start, still: true });
+      set({ ...(rest ?? start), still: true });
       return clear;
     }
     const run = (delay: number) => {
@@ -73,12 +74,29 @@ export function useRecording<S extends Base>(active: boolean, start: S, sc: Scri
     set(start);
     run(400);
     return clear;
-  }, [active, start, sc]);
+  }, [active, start, sc, rest]);
   return s;
 }
 
 /** The frame: sized to the design's shape, with the camera inside. */
-export function Recording({ w, h, s, label, className = "", children }: { w: number; h: number; s: Base; label: string; className?: string; children: ReactNode }) {
+export function Recording({
+  w,
+  h,
+  s,
+  label,
+  className = "",
+  pointer = true,
+  children,
+}: {
+  w: number;
+  h: number;
+  s: Base;
+  label: string;
+  className?: string;
+  /** false for phone explorations: they draw their own tap dot. */
+  pointer?: boolean;
+  children: ReactNode;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const [vw, setVw] = useState(0);
   useLayoutEffect(() => {
@@ -109,7 +127,7 @@ export function Recording({ w, h, s, label, className = "", children }: { w: num
         <div className="rc-cam" style={{ transform: `translate3d(${tx}px, ${ty}px, 0) scale(${k})` }}>
           <div className="rc-art" style={{ width: w, height: h }}>
             {children}
-            <Cursor at={s.cursor} click={s.click} />
+            {pointer ? <Cursor at={s.cursor} click={s.click} /> : null}
           </div>
         </div>
       )}

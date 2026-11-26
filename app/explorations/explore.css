@@ -43,9 +43,9 @@
   align-self: start;
 }
 
-/* A phone exploration: the phone centred on white, like Cindy's. */
+/* A phone exploration: the phone on white, like Cindy's (the white and the
+   room around the phone are part of its recording). */
 .xp-item--tall .xp-media {
-  padding: 28px 0;
   background: #fff;
 }
 

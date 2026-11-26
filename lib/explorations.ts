@@ -4,15 +4,15 @@
   clicking it opens a bigger window with the idea and a short "about".
 
   The grid is Cindy Ly's: three columns, windows packed like a masonry.
-  - "wide": a desktop screen or anything landscape. Spans two columns when a
-    phone exploration sits beside it, otherwise the full width (so there are
-    never empty holes).
-  - "tall": a phone. One column, the phone centred on white.
-  Order matters: put a tall one after each wide one to pair them.
+  - "wide": a desktop screen or anything landscape. Spans two columns when
+    a phone exploration comes right after it (they sit side by side, the
+    same height), otherwise the full width (so there are never holes).
+  - "tall": a phone. One column, the phone on white.
+  Order matters: put a tall one right after the wide one it should pair with.
 */
 
 export type Exploration = {
-  id: "exomail" | "avelis" | "strata";
+  id: "exomail" | "avelis" | "nutrientub" | "strata";
   /** The window's name, like a file: "exomail.app". */
   file: string;
   title: string;
@@ -45,6 +45,16 @@ export const explorations: Exploration[] = [
     about:
       "A claims review and dispute workflow. I explored how claims reviewers and health plan teams keep track of flagged billing errors. The focus was a clear, simple flow that helps non-technical people understand complex healthcare claims with confidence: why a claim was flagged, what the contract says, and how the dispute Avelis is handling is going.",
     size: "wide",
+  },
+  {
+    id: "nutrientub",
+    file: "nutrientub.app",
+    title: "Nutrientub",
+    kind: "Mobile UX exploration",
+    tools: "Figma",
+    about:
+      "A meal planning app for building a relationship with food that feels good for your body and kind to your mind. This is its first moment: opening the app to a plan made for you, here meals to help you gain weight, high in calories and rich in nutrients, with a short note on why.",
+    size: "tall",
   },
   {
     id: "strata",
