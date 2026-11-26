@@ -10,26 +10,7 @@
   --card: #f9f9fb;
   --tint: #f1ecf8;
   --rule: #efedf4;
-  --ease-cam: cubic-bezier(0.45, 0, 0.15, 1);
-  position: relative;
-  width: 100%;
-  aspect-ratio: 1440 / 918;
-  overflow: hidden;
-  background: #fff;
-}
-
-.ex-cam {
-  position: absolute;
-  top: 0;
-  left: 0;
-  transform-origin: 0 0;
-  transition: transform 1150ms var(--ease-cam);
-}
-
-.ex.is-still .ex-cam,
-.ex.is-still * {
-  transition: none !important;
-  animation: none !important;
+  --rc-click: rgba(122, 92, 192, 0.25);
 }
 
 .ex-art {
@@ -42,11 +23,6 @@
   font-size: 15.5px;
   line-height: 1.3;
   letter-spacing: -0.003em;
-  transition: opacity 480ms ease;
-}
-
-.ex.is-fading .ex-art {
-  opacity: 0;
 }
 
 .ex-art :where(h4, p, ul) {
@@ -579,58 +555,4 @@
 .ex-toast b {
   font-weight: 600;
   color: #cdbff2;
-}
-
-/* ------------------------------------------------------------ Cursor */
-
-.ex-cursor {
-  position: absolute;
-  z-index: 10;
-  top: 0;
-  left: 0;
-  transition: transform 760ms cubic-bezier(0.45, 0, 0.2, 1);
-}
-
-/* The arrow: filled dark with a white edge, tip on the point. */
-.ex-cursor > span {
-  display: block;
-  margin: -3px 0 0 -3px;
-  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.25));
-}
-
-.ex-cursor svg path {
-  fill: #1c1a20;
-}
-
-.ex-press {
-  animation: ex-press 260ms ease;
-}
-
-@keyframes ex-press {
-  40% {
-    transform: scale(0.82);
-  }
-}
-
-.ex-ripple {
-  position: absolute;
-  top: -18px;
-  left: -18px;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: rgba(122, 92, 192, 0.25);
-  opacity: 0;
-  animation: ex-ripple 600ms ease-out;
-}
-
-@keyframes ex-ripple {
-  0% {
-    opacity: 1;
-    transform: scale(0.3);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(1.5);
-  }
 }

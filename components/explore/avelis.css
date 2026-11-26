@@ -1,0 +1,629 @@
+/* Avelis Health, playing like a screen recording (AvelisFlow.tsx). Drawn at
+   its Figma size (1440 x 1024); colours sampled from her screens. Opening a
+   claim narrows the table (columns slide, long text swaps for its short
+   form) and the claim slides in from the right. */
+
+.avh {
+  --ink: #1e1a15;
+  --ink-strong: #321a01;
+  --ink-2: #6d665f;
+  --ink-3: #a09992;
+  --line: #ebe9e7;
+  --page: #fbfaf9;
+  --red: #e5281f;
+  --rc-click: rgba(50, 26, 1, 0.16);
+  --slide: cubic-bezier(0.32, 0.72, 0, 1);
+  background: var(--page);
+}
+
+.avh-art {
+  position: relative;
+  width: 1440px;
+  height: 1024px;
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  font-size: 14.5px;
+  line-height: 1.3;
+  letter-spacing: -0.005em;
+}
+
+.avh-art :where(p, b, i, em, small) {
+  margin: 0;
+  font-style: normal;
+}
+
+.avh-abs {
+  position: absolute;
+}
+
+.avh-dim {
+  color: #8a837c;
+}
+
+/* ------------------------------------------------------------ Sidebar */
+
+.avh-side {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 259px;
+  background: #f4f2f0;
+  border-right: 1px solid #e7e5e3;
+}
+
+.avh-logo {
+  position: absolute;
+  top: 27px;
+  left: 18px;
+}
+
+.avh-side::after {
+  content: "";
+  position: absolute;
+  top: 68px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--line);
+}
+
+.avh-group {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: -6px;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #858b8a;
+}
+
+.avh-item {
+  position: absolute;
+  left: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: -10px;
+  font-size: 14.5px;
+  color: var(--ink-2);
+}
+
+.avh-item--on {
+  left: 8px;
+  width: 244px;
+  height: 39px;
+  margin-top: -19.5px;
+  padding-left: 16px;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.02);
+  font-weight: 500;
+  color: var(--ink-strong);
+}
+
+.avh-badge {
+  margin-left: auto;
+  margin-right: 12px;
+  padding: 0 7px;
+  border-radius: 10px;
+  background: #f9ebeb;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 18px;
+  color: #b63030;
+}
+
+/* ------------------------------------------------------------ Header */
+
+.avh-top {
+  position: absolute;
+  inset: 0 0 auto 259px;
+  height: 68px;
+  border-bottom: 1px solid var(--line);
+}
+
+.avh-top .avh-abs {
+  margin-left: -259px;
+}
+
+.avh-title {
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.avh-title span {
+  font-size: 14.5px;
+  font-weight: 400;
+  color: #c9c5c1;
+}
+
+.avh-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #b0aaa4;
+}
+
+.avh-btn-dark {
+  display: grid;
+  place-items: center;
+  border-radius: 6px;
+  background: #1f1515;
+  color: #fff;
+  font-size: 14.5px;
+  font-weight: 500;
+}
+
+/* ------------------------------------------------------------ Cards */
+
+.avh-card {
+  width: 1100px;
+  border-radius: 16px;
+  box-shadow: inset 0 0 0 1px var(--line);
+  overflow: hidden;
+  transition: width 620ms var(--slide);
+}
+
+.is-open .avh-card {
+  width: 562px;
+}
+
+/* A piece that slides between its full-width place and its narrow one. */
+.avh-col {
+  position: absolute;
+  left: var(--x);
+  transition:
+    left 620ms var(--slide),
+    opacity 300ms ease;
+}
+
+.is-open .avh-col {
+  left: var(--xo);
+}
+
+.is-open .avh-gone {
+  opacity: 0;
+}
+
+.avh-swap {
+  display: inline-grid;
+}
+
+.avh-swap > * {
+  grid-area: 1 / 1;
+  white-space: nowrap;
+  transition: opacity 260ms ease;
+}
+
+.avh-short,
+.is-open .avh-full {
+  opacity: 0;
+}
+
+.is-open .avh-short {
+  opacity: 1;
+  transition-delay: 200ms;
+}
+
+.avh-stat {
+  top: 24px;
+  display: grid;
+  justify-items: center;
+  gap: 13px;
+  transform: translateX(-50%);
+}
+
+.avh-stat-l {
+  font-size: 14px;
+  color: var(--ink-2);
+}
+
+.avh-stat-v {
+  font-size: 29px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 32px;
+  color: var(--ink-strong);
+}
+
+.avh-stat-rule {
+  top: 29px;
+  width: 1px;
+  height: 69px;
+  background: var(--line);
+}
+
+/* ------------------------------------------------------------ Table */
+
+.avh-thead {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 54px;
+  background: #f7f5f3;
+  box-shadow: inset 0 -1px 0 var(--line);
+}
+
+.avh-th {
+  top: 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.avh-kebab {
+  top: 17px;
+}
+
+.avh-check {
+  top: calc(50% - 7px);
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  box-shadow: inset 0 0 0 1.2px #c9c3be;
+  background: #fff;
+}
+
+.avh-row {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 80px;
+  border-top: 1px solid var(--line);
+  transition: background-color 200ms ease;
+}
+
+.avh-row:first-of-type {
+  border-top: 0;
+}
+
+.avh-row.is-hover {
+  background: #f6f3f0;
+}
+
+.avh-row.is-sel {
+  background: #f1edea;
+}
+
+.avh-td {
+  top: 30px;
+  font-size: 14.5px;
+}
+
+.avh-chip {
+  top: 29px;
+  height: 22px;
+  padding: 0 11px;
+  border-radius: 11px;
+  font-size: 12.5px;
+  line-height: 22px;
+}
+
+.avh-chip--over {
+  background: #f9ebeb;
+  color: #b70303;
+}
+
+.avh-chip--dup {
+  background: #f9f6eb;
+  color: #a98402;
+}
+
+.avh-chip--code {
+  background: #ebf7f9;
+  color: #068ba1;
+}
+
+.avh-view {
+  top: 23px;
+  width: 63px;
+  height: 33px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.04),
+    0 1px 3px rgba(0, 0, 0, 0.05);
+  font-size: 14px;
+}
+
+.avh-showing {
+  font-size: 14.5px;
+}
+
+.avh-pager {
+  top: 966px;
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+
+.avh-pager b {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* ------------------------------------------------------------ The claim */
+
+.avh-panel {
+  position: absolute;
+  top: 68px;
+  left: 874px;
+  width: 566px;
+  height: 956px;
+  background: #f9f7f6;
+  border-left: 1px solid var(--line);
+  overflow: hidden;
+  transform: translateX(102%);
+  transition: transform 620ms var(--slide);
+}
+
+.is-open .avh-panel {
+  transform: none;
+}
+
+.avh-claim-id {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.avh-rule {
+  height: 1px;
+  background: var(--line);
+}
+
+.avh-over {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 8px;
+  border-radius: 16px;
+  background:
+    radial-gradient(45% 70% at 50% 50%, rgba(246, 222, 200, 0.75), transparent 75%),
+    #f5f2f0;
+  color: var(--ink-2);
+  font-size: 14px;
+}
+
+.avh-over b {
+  font-size: 35px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 40px;
+  color: var(--red);
+}
+
+.avh-over em {
+  padding: 3px 12px;
+  border-radius: 11px;
+  background: #fff;
+  font-size: 11.5px;
+  color: #01ab51;
+}
+
+.avh-sec {
+  font-size: 14.5px;
+  color: var(--ink-3);
+}
+
+.avh-dcard {
+  border-radius: 14px;
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.avh-details {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-content: space-between;
+  padding: 16px 26px 16px 23px;
+  font-size: 14.5px;
+  font-weight: 500;
+}
+
+.avh-details > span:nth-child(even) {
+  min-width: 132px;
+}
+
+.avh-details small,
+.avh-money small {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 10.5px;
+  font-weight: 400;
+  color: var(--ink-2);
+}
+
+.avh-money small {
+  font-size: 12px;
+}
+
+.avh-money b {
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.avh-money--r {
+  text-align: right;
+}
+
+.avh-why {
+  padding-left: 12px;
+  border-left: 2px solid var(--red);
+  font-size: 11.5px;
+  line-height: 15px;
+  color: var(--ink-2);
+}
+
+.avh-why i {
+  font-family: var(--font-gentium), Georgia, serif;
+  font-style: italic;
+  font-size: 12.5px;
+  color: var(--ink);
+}
+
+.avh-why p {
+  margin-top: 13px;
+}
+
+.avh-evidence {
+  padding: 16px 22px;
+  font-size: 12.5px;
+}
+
+.avh-evidence b {
+  display: block;
+  font-weight: 500;
+}
+
+.avh-evidence p {
+  margin: 5px 0 22px;
+  color: var(--ink-2);
+}
+
+.avh-evidence .avh-small {
+  font-size: 10.5px;
+  line-height: 15px;
+}
+
+.avh-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px 0 17px;
+  background: #fff;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.avh-btn-neg {
+  width: 184px;
+  height: 36px;
+  font-size: 13.5px;
+}
+
+/* ------------------------------------------------------------ Negotiation status */
+
+.avh-shade {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  background: rgba(150, 148, 152, 0.42);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 260ms ease,
+    visibility 0s 260ms;
+}
+
+.avh-shade[data-on="true"] {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 260ms ease;
+}
+
+.avh-modal {
+  position: absolute;
+  z-index: 21;
+  top: 252px;
+  left: 420px;
+  width: 600px;
+  height: 520px;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 30px 60px -24px rgba(30, 20, 10, 0.3);
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.96) translateY(10px);
+  transition:
+    opacity 220ms ease,
+    transform 300ms ease,
+    visibility 0s 300ms;
+}
+
+.avh-modal[data-on="true"] {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition:
+    opacity 220ms ease,
+    transform 380ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.avh-modal-t {
+  position: absolute;
+  top: 19px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.avh-note {
+  padding: 13px 18px 15px;
+  border-radius: 10px;
+  border-left: 3px solid var(--red);
+  background: #fefbf6;
+}
+
+.avh-note b {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--red);
+}
+
+.avh-note p {
+  margin-top: 6px;
+  font-size: 13px;
+  line-height: 18px;
+  color: #888;
+}
+
+.avh-dispute {
+  display: grid;
+  align-content: start;
+  gap: 15px;
+  padding: 16px 28px 16px 20px;
+  border-radius: 14px;
+  background: var(--page);
+}
+
+.avh-dispute b {
+  margin: 0 0 4px -4px;
+  font-size: 14.5px;
+  font-weight: 500;
+}
+
+.avh-dispute span {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: var(--ink-2);
+}
+
+.avh-dispute em {
+  color: var(--ink);
+}
+
+.avh-dispute span:last-child em {
+  font-weight: 600;
+}
+
+.avh-okay {
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: var(--page);
+  box-shadow: inset 0 0 0 1px #e5e2df;
+  font-size: 14px;
+}

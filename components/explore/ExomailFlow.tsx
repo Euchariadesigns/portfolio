@@ -1,13 +1,11 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 import { HugeiconsIcon } from "@hugeicons/react";
 import type { IconSvgElement } from "@hugeicons/react";
 import {
   ArrowDown01Icon,
   ArrowRightDoubleIcon,
-  Cursor01Icon,
   Delete02Icon,
   Flag02Icon,
   InboxIcon,
@@ -25,6 +23,8 @@ import {
   UserIcon,
   VolumeHighIcon,
 } from "@hugeicons/core-free-icons";
+import { Recording, script, useRecording } from "./recording";
+import type { Cam } from "./recording";
 import "./exomail.css";
 
 /*
@@ -57,12 +57,12 @@ type S = {
   toast: boolean;
   cursor: [number, number];
   click: number;
-  cam: [number, number, number];
+  cam: Cam;
   fade: boolean;
   still: boolean;
 };
 
-const WIDE: [number, number, number] = [W / 2, H / 2, 1];
+const WIDE: Cam = [W / 2, H / 2, 1];
 
 const START: S = {
   page: "notif",
@@ -97,22 +97,7 @@ const AT = {
 const SOUNDS = ["Chime", "Arpeggio", "Breaking", "Canopy", "Daybreak"];
 const QUIET_SOUNDS = ["Pebble", "Breeze", "Hush", "Ripple", "Whisper"];
 
-type Step = [number, (s: S) => S];
-
-function build() {
-  const steps: Step[] = [];
-  let t = 0;
-  const at = (dt: number, f: (s: S) => S) => {
-    t += dt;
-    steps.push([t, f]);
-  };
-  const move = (dt: number, p: readonly number[], cam?: [number, number, number]) =>
-    at(dt, (s) => ({ ...s, cursor: [p[0], p[1]], cam: cam ?? s.cam }));
-  const click = (dt: number, then: (s: S) => S) => {
-    at(dt, (s) => ({ ...s, click: s.click + 1 }));
-    at(130, then);
-  };
-
+const SCRIPT = script<S>(({ at, move, click }) => {
   // 1. Notifications: delivery, from Email only to Email + Push.
   move(1100, AT.deliveryPill, [905, 300, 1.6]);
   click(1000, (s) => ({ ...s, deliveryOpen: true }));
@@ -144,10 +129,8 @@ function build() {
   click(800, (s) => ({ ...s, page: "secondary", cam: [960, 420, 1.3] }));
   at(2400, (s) => ({ ...s, cam: WIDE }));
   at(1600, (s) => ({ ...s, fade: true }));
-  return { steps, total: t + 520 };
-}
+});
 
-const SCRIPT = build();
 
 const Icon = ({ icon, size = 18, color = "currentColor", w = 1.5 }: { icon: IconSvgElement; size?: number; color?: string; w?: number }) => (
   <HugeiconsIcon icon={icon} size={size} color={color} strokeWidth={w} />
@@ -156,53 +139,11 @@ const Icon = ({ icon, size = 18, color = "currentColor", w = 1.5 }: { icon: Icon
 const box = (x: number, y: number, w?: number, h?: number): CSSProperties => ({ left: x, top: y, width: w, height: h });
 
 export default function ExomailFlow({ active, label }: { active: boolean; label: string }) {
-  const [s, set] = useState<S>(START);
-  const [vw, setVw] = useState(0);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useLayoutEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const ro = new ResizeObserver(() => setVw(el.clientWidth));
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, []);
-
-  useEffect(() => {
-    const timers: number[] = [];
-    const later = (ms: number, fn: () => void) => timers.push(window.setTimeout(fn, ms));
-    const clear = () => timers.splice(0).forEach((id) => window.clearTimeout(id));
-    if (!active || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      set({ ...START, still: true });
-      return clear;
-    }
-    const run = (delay: number) => {
-      for (const [t, fn] of SCRIPT.steps) later(delay + t, () => set(fn));
-      later(delay + SCRIPT.total, () => {
-        set({ ...START, fade: true, still: true });
-        later(60, () => set(START));
-        run(500);
-      });
-    };
-    set(START);
-    run(400);
-    return clear;
-  }, [active]);
-
-  // The camera: zoom z around a point, kept inside the frame.
-  const base = vw / W;
-  const [fx, fy, z] = s.cam;
-  const k = base * z;
-  const vh = H * base;
-  const tx = Math.min(0, Math.max(vw - W * k, vw / 2 - fx * k));
-  const ty = Math.min(0, Math.max(vh - H * k, vh / 2 - fy * k));
-
+  const s = useRecording(active, START, SCRIPT);
   const secondary = s.page === "secondary";
 
   return (
-    <div className={`ex${s.fade ? " is-fading" : ""}${s.still ? " is-still" : ""}`} ref={ref} role="img" aria-label={label}>
-      {vw > 0 && (
-        <div className="ex-cam" style={{ transform: `translate3d(${tx}px, ${ty}px, 0) scale(${k})` }}>
+    <Recording w={W} h={H} s={s} label={label} className="ex">
           <div className="ex-art">
             {/* ------------------------------------------------ Sidebar */}
             <aside className="ex-side">
@@ -394,17 +335,8 @@ export default function ExomailFlow({ active, label }: { active: boolean; label:
               <b>Undo</b>
             </div>
 
-            {/* The cursor and its click. */}
-            <span className="ex-cursor" style={{ transform: `translate3d(${s.cursor[0]}px, ${s.cursor[1]}px, 0)` }}>
-              {s.click > 0 && <i key={s.click} className="ex-ripple" />}
-              <span key={`c${s.click}`} className={s.click > 0 ? "ex-press" : undefined}>
-                <Icon icon={Cursor01Icon} size={26} color="#fff" w={1.6} />
-              </span>
-            </span>
           </div>
-        </div>
-      )}
-    </div>
+    </Recording>
   );
 }
 

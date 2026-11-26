@@ -199,7 +199,11 @@
   background: #f4f4f5;
 }
 
-.xp-stage .ex {
+/* The whole design always fits: as wide as there is room for, and never
+   taller than the window leaves. */
+.xp-stage .rc {
+  width: min(100%, calc((100dvh - 140px) * var(--ar, 1.5)));
+  margin-inline: auto;
   border-radius: 8px;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06);
 }

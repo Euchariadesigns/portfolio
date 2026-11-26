@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { Exploration } from "@/lib/explorations";
+import AvelisFlow from "./AvelisFlow";
 import ExomailFlow from "./ExomailFlow";
 
 /*
@@ -14,6 +15,7 @@ import ExomailFlow from "./ExomailFlow";
 
 function Media({ id, active, label }: { id: Exploration["id"]; active: boolean; label: string }) {
   if (id === "exomail") return <ExomailFlow active={active} label={label} />;
+  if (id === "avelis") return <AvelisFlow active={active} label={label} />;
   return null;
 }
 
