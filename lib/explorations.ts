@@ -78,16 +78,6 @@ export const explorations: Exploration[] = [
     size: "wide",
   },
   {
-    id: "assistant",
-    file: "assistant.ai",
-    title: "AI Assistant",
-    kind: "Product design exploration",
-    tools: "Figma",
-    about:
-      "The welcome to an AI assistant inside a police case management dashboard: a partner for case management, ready to guide, remind and assist. It introduces what it does: spotting crime patterns across Lagos so resources go where they're needed most, writing well-organised case reports, and searching cases to uncover related ones and hidden patterns.",
-    size: "wide",
-  },
-  {
     id: "exomail",
     file: "exomail.app",
     title: "Email Notification Categories",
@@ -106,5 +96,15 @@ export const explorations: Exploration[] = [
     about:
       "Paying an invoice someone sent you, from your phone. Tahseel shows that the invoice is verified and who it is from, what it is for and when it is due, and lets you pay by card, bank or Apple Pay, or pay part of it. This is the whole flow, from the invoice to a confirmed payment and its receipt.",
     size: "tall",
+  },
+  {
+    id: "assistant",
+    file: "assistant.ai",
+    title: "AI Assistant",
+    kind: "Product design exploration",
+    tools: "Figma",
+    about:
+      "The welcome to an AI assistant inside a police case management dashboard: a partner for case management, ready to guide, remind and assist. It introduces what it does: spotting crime patterns across Lagos so resources go where they're needed most, writing well-organised case reports, and searching cases to uncover related ones and hidden patterns.",
+    size: "wide",
   },
 ];
