@@ -1,49 +1,14 @@
-/* About, after Jenn Choi's about page: back link and local time on top, a
-   one-line opening in serif, a drifting strip of square photos with small
-   captions, then short paragraphs in small type. */
+/* About, after Jenn Choi's about page: the site nav on top, a one-line
+   opening in serif, a drifting strip of square photos with small captions,
+   then short paragraphs in small type. */
 
-/* Jenn's proportions: the content sits about 220px in from each side on a
-   1440px screen, and the photo strip stays inside that column. */
+/* The same column as Work and Explorations, so the nav sits in the same
+   place on every page and the text lines up under the logo. */
 .ab {
   width: 100%;
-  max-width: 1440px;
+  max-width: 1120px;
   margin: 0 auto;
-  padding: 0 24px;
-}
-
-.ab-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 64px;
-  font-size: 12.5px;
-  color: #767676;
-}
-
-.ab-back {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  transition: color 160ms ease;
-}
-
-.ab-back:hover {
-  color: #0e0e0e;
-}
-
-.ab-back svg {
-  width: 12px;
-  height: 12px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.6;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  transition: transform 300ms var(--ease-out);
-}
-
-.ab-back:hover svg {
-  transform: translateX(-3px);
+  padding: 0 32px;
 }
 
 .lagos-time {
@@ -51,7 +16,7 @@
 }
 
 .ab-main {
-  padding: 64px clamp(0px, 13.3vw, 196px) 80px;
+  padding: 64px 0 80px;
 }
 
 .ab-title {
@@ -180,7 +145,7 @@
 }
 
 .ab-foot {
-  margin: 0 clamp(0px, 13.3vw, 196px);
+  margin: 0;
   display: flex;
   justify-content: space-between;
   gap: 16px;
@@ -188,6 +153,12 @@
   border-top: 1px solid rgba(0, 0, 0, 0.07);
   font-size: 12.5px;
   color: #9a9a9a;
+}
+
+.ab-foot-l {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
 }
 
 .ab-foot span:last-child {

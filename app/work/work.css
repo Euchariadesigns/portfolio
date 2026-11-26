@@ -9,10 +9,6 @@
   padding: 0 32px;
 }
 
-.nav-links a[aria-current] {
-  color: var(--ink);
-}
-
 .wk2-main {
   padding: 72px 0 40px;
   font-family: var(--font-geist), ui-sans-serif, system-ui, sans-serif;

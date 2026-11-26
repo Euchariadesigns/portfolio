@@ -51,7 +51,7 @@ export const explorations: Exploration[] = [
     file: "strata.journal",
     title: "Strata",
     kind: "Physical product",
-    tools: "Figma",
+    tools: "Figma, Claude",
     about:
       "Strata is a physical journal that keeps every thought on a thread. Three rhythms share one book: Build Day pages for the work of each day, a Reflect page every seventh page, and a Monthly page to look back and set what comes next. These are its pages, turning as they do in the book.",
     size: "wide",

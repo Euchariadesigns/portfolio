@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import PageFade from "@/components/PageFade";
 import LagosTime from "@/components/LagosTime";
-import { RESUME } from "@/components/SiteNav";
+import SiteNav, { RESUME } from "@/components/SiteNav";
 import "./about.css";
 
 export const metadata: Metadata = {
@@ -47,15 +46,7 @@ export default function AboutPage() {
   return (
     <PageFade>
       <div className="ab">
-        <header className="ab-top">
-          <Link className="ab-back" href="/">
-            <svg viewBox="0 0 16 16" aria-hidden="true">
-              <path d="M12.5 8h-9M7.5 4l-4 4 4 4" />
-            </svg>
-            Back home
-          </Link>
-          <LagosTime />
-        </header>
+        <SiteNav current="about" />
 
         <main className="ab-main">
           <h1 className="ab-title">A curious observer of how people interact with the world.</h1>
@@ -140,7 +131,10 @@ export default function AboutPage() {
         </main>
 
         <footer className="ab-foot">
-          <span>© 2026 Eucharia Odili</span>
+          <span className="ab-foot-l">
+            © 2026 Eucharia Odili
+            <LagosTime />
+          </span>
           <span>
             <a href="https://dribbble.com/Eucharia_Odili" target="_blank" rel="noreferrer">
               Dribbble

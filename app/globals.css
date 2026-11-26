@@ -295,6 +295,11 @@ button {
   color: #767676;
 }
 
+/* The page you are on, darker. */
+.nav-links a[aria-current] {
+  color: var(--ink);
+}
+
 .nav-links a {
   transition: color 160ms ease;
 }
