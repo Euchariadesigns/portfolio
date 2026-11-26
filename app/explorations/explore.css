@@ -24,17 +24,29 @@
   color: var(--ink-2);
 }
 
+/* Cindy Ly's grid: three columns of 1px rows; each window spans as many
+   rows as it is tall plus the 16px gap (set in Explorations.tsx), and the
+   grid packs them densely. Wide windows span two or three columns. */
 .xp-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: 1px;
+  grid-auto-flow: dense;
+  column-gap: 16px;
   margin: 36px 0 0;
   padding: 0;
   list-style: none;
 }
 
-.xp-item--wide {
-  grid-column: 1 / -1;
+.xp-item {
+  grid-column: span var(--span, 1);
+  align-self: start;
+}
+
+/* A phone exploration: the phone centred on white, like Cindy's. */
+.xp-item--tall .xp-media {
+  padding: 28px 0;
+  background: #fff;
 }
 
 /* A window: title bar with three dots and the file name. */
@@ -243,7 +255,8 @@
 
 /* The whole design always fits: as wide as there is room for, and never
    taller than the window leaves. */
-.xp-stage .rc {
+.xp-stage .rc,
+.xp-stage .sf {
   width: min(100%, calc((100dvh - 210px) * var(--ar, 1.5)));
   margin-inline: auto;
   border-radius: 8px;
@@ -295,6 +308,23 @@
   color: #333;
 }
 
+.xp-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 22px;
+  font-size: 14.5px;
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.xp-link svg {
+  width: 14px;
+  height: 14px;
+}
+
 @media (max-width: 760px) {
   .xp-main {
     padding-top: 36px;
@@ -302,6 +332,10 @@
 
   .xp-grid {
     grid-template-columns: 1fr;
+  }
+
+  .xp-item {
+    grid-column: auto;
   }
 
   .xp-modal {

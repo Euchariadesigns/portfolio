@@ -1,13 +1,18 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import type { CSSProperties } from "react";
+import { ArrowUpRight } from "@phosphor-icons/react";
 import type { Exploration } from "@/lib/explorations";
 import AvelisFlow from "./AvelisFlow";
 import ExomailFlow from "./ExomailFlow";
+import StrataFlip from "./StrataFlip";
 
 /*
   The explorations, as small windows (like Cindy Ly's): a title bar with the
-  three dots and a file name, and the idea playing inside. Clicking one opens
+  three dots and a file name, and the idea playing inside. Laid out as her
+  grid is: three columns of 1px rows, each window spanning as many rows as it
+  is tall (plus the gap), packed densely. Clicking one opens
   a bigger window over the page (blurred behind): the idea on the left, and
   what it is, the tools and a short "about" on the right. The red dot, a
   click outside or Escape closes it.
@@ -16,6 +21,7 @@ import ExomailFlow from "./ExomailFlow";
 function Media({ id, active, label }: { id: Exploration["id"]; active: boolean; label: string }) {
   if (id === "exomail") return <ExomailFlow active={active} label={label} />;
   if (id === "avelis") return <AvelisFlow active={active} label={label} />;
+  if (id === "strata") return <StrataFlip active={active} label={label} />;
   return null;
 }
 
@@ -33,9 +39,21 @@ function useInView<T extends Element>() {
   return [ref, inView] as const;
 }
 
-function Tile({ x, paused, onOpen }: { x: Exploration; paused: boolean; onOpen: (el: HTMLButtonElement) => void }) {
+const GAP = 16;
+
+function Tile({ x, cols, paused, onOpen }: { x: Exploration; cols: number; paused: boolean; onOpen: (el: HTMLButtonElement) => void }) {
   const [ref, inView] = useInView<HTMLButtonElement>();
   const hint = useRef<HTMLSpanElement>(null);
+  const [rows, setRows] = useState(0);
+
+  // As tall as the window is, in 1px rows, plus the gap under it.
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const ro = new ResizeObserver(() => setRows(Math.ceil(el.getBoundingClientRect().height) + GAP));
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [ref]);
 
   // "Click to open" rides beside the pointer while it is over the window.
   // Moved directly (no re-render), so the recording inside keeps playing smoothly.
@@ -51,7 +69,7 @@ function Tile({ x, paused, onOpen }: { x: Exploration; paused: boolean; onOpen: 
   const leave = () => hint.current?.classList.remove("is-on");
 
   return (
-    <li className={`xp-item${x.wide ? " xp-item--wide" : ""}`}>
+    <li className={`xp-item xp-item--${x.size}`} style={{ "--span": cols, gridRowEnd: rows ? `span ${rows}` : undefined } as CSSProperties}>
       <button
         ref={ref}
         type="button"
@@ -86,6 +104,11 @@ export default function Explorations({ items }: { items: Exploration[] }) {
   const opener = useRef<HTMLButtonElement | null>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
 
+  // A wide window takes two columns when a phone can sit beside it, else all three.
+  const talls = items.filter((x) => x.size === "tall").length;
+  const wides = items.filter((x) => x.size === "wide");
+  const span = (x: Exploration) => (x.size === "tall" ? 1 : wides.indexOf(x) < talls ? 2 : 3);
+
   const show = (x: Exploration, el: HTMLButtonElement) => {
     opener.current = el;
     setOpen(x);
@@ -118,7 +141,7 @@ export default function Explorations({ items }: { items: Exploration[] }) {
     <>
       <ul className="xp-grid">
         {items.map((x) => (
-          <Tile key={x.id} x={x} paused={open !== null} onOpen={(el) => show(x, el)} />
+          <Tile key={x.id} x={x} cols={span(x)} paused={open !== null} onOpen={(el) => show(x, el)} />
         ))}
       </ul>
 
@@ -150,6 +173,12 @@ export default function Explorations({ items }: { items: Exploration[] }) {
                   </div>
                 </dl>
                 <p>{open.about}</p>
+                {open.link ? (
+                  <a className="xp-link" href={open.link.href} target="_blank" rel="noreferrer">
+                    {open.link.label}
+                    <ArrowUpRight aria-hidden="true" />
+                  </a>
+                ) : null}
               </div>
             </div>
           </div>
