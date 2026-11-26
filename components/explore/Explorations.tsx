@@ -4,6 +4,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 import { ArrowUpRight } from "@phosphor-icons/react";
 import type { Exploration } from "@/lib/explorations";
+import AssistantFlow from "./AssistantFlow";
 import AvelisFlow from "./AvelisFlow";
 import BeforeAfter from "./BeforeAfter";
 import ExomailFlow from "./ExomailFlow";
@@ -27,6 +28,7 @@ function Media({ id, active, label, big = false }: { id: Exploration["id"]; acti
   if (id === "strata") return <StrataFlip active={active} label={label} />;
   if (id === "nutrientub") return <NutrientubFlow active={active} label={label} />;
   if (id === "homeland") return <HomelandFlow active={active} label={label} />;
+  if (id === "assistant") return <AssistantFlow active={active} label={label} />;
   if (id === "seoul")
     return (
       <BeforeAfter

@@ -12,7 +12,7 @@
 */
 
 export type Exploration = {
-  id: "exomail" | "homeland" | "avelis" | "nutrientub" | "seoul" | "strata";
+  id: "exomail" | "homeland" | "avelis" | "nutrientub" | "seoul" | "assistant" | "strata";
   /** The window's name, like a file: "exomail.app". */
   file: string;
   title: string;
@@ -74,6 +74,16 @@ export const explorations: Exploration[] = [
     tools: "Figma",
     about:
       "서울 너머, Beyond Seoul: a travel site for South Korea beyond its capital. Every city tells a different story, from the coastal industrial heart of Ulsan to the living history of Gyeongju, yet most visitors stay in Seoul because they don't know what lies beyond. The site gives them a local lens: cities to explore, a vibe matcher, travel essentials, and what real travellers are saying. Drag the line to compare the wireframe with the final design.",
+    size: "wide",
+  },
+  {
+    id: "assistant",
+    file: "assistant.ai",
+    title: "AI Assistant",
+    kind: "Product design exploration",
+    tools: "Figma",
+    about:
+      "The welcome to an AI assistant inside a police case management dashboard: a partner for case management, ready to guide, remind and assist. It introduces what it does: spotting crime patterns across Lagos so resources go where they're needed most, writing well-organised case reports, and searching cases to uncover related ones and hidden patterns.",
     size: "wide",
   },
   {
