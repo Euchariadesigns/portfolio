@@ -12,7 +12,7 @@
 */
 
 export type Exploration = {
-  id: "exomail" | "avelis" | "nutrientub" | "strata";
+  id: "exomail" | "homeland" | "avelis" | "nutrientub" | "strata";
   /** The window's name, like a file: "exomail.app". */
   file: string;
   title: string;
@@ -35,6 +35,16 @@ export const explorations: Exploration[] = [
     about:
       "I explored how people manage email overload, and how notification sounds that all sound the same add to anxiety, false urgency and constant inbox checking. This design makes notifications more intentional: emails are sorted into meaningful categories, and you choose how each one alerts you. The goal is to help people separate what matters from the noise, cut unnecessary interruptions, and feel more in control of their inbox.",
     size: "wide",
+  },
+  {
+    id: "homeland",
+    file: "homeland.clinic",
+    title: "Homeland Clinic",
+    kind: "Mobile UX exploration",
+    tools: "Figma",
+    about:
+      "Waiting at a clinic is anxious when you can't see what's happening. I explored a check-in screen that keeps patients informed: a status ribbon that changes as the visit moves on, an estimated wait, who you're seeing and when, small things to do while you wait, and, when it's time, exactly where to go.",
+    size: "tall",
   },
   {
     id: "avelis",

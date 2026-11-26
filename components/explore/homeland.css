@@ -1,0 +1,201 @@
+/* Homeland clinic, playing like a screen recording (HomelandFlow.tsx). On
+   her warm grey; the screen is a white rounded phone with no frame, as in
+   her renders. Points: art 700 x 913, screen 375 x 812. */
+
+.hc {
+  background: #e7e6e4;
+}
+
+.hc .rc-art {
+  background: #e7e6e4;
+}
+
+.hc-screen {
+  position: absolute;
+  left: 162.5px;
+  top: 50.5px;
+  width: 375px;
+  height: 812px;
+  overflow: hidden;
+  border-radius: 53px;
+  background: #fff;
+}
+
+/* The grey sheet under the header, warmer behind the card. */
+.hc-sheet {
+  position: absolute;
+  top: 121px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 46px 46px 0 0;
+  background:
+    radial-gradient(75% 36% at 50% 30%, rgba(241, 238, 230, 0.6), rgba(244, 243, 240, 0) 72%),
+    linear-gradient(#f4f4f4, #f4f3f0 30%, #f4f3f0 85%, #f4f4f2);
+}
+
+.hc-l {
+  position: absolute;
+  display: block;
+  max-width: none;
+  opacity: 0;
+  translate: 0 8px;
+  transition:
+    opacity 420ms ease,
+    translate 650ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hc-l.is-in {
+  opacity: 1;
+  translate: none;
+  transition:
+    opacity 520ms ease 120ms,
+    translate 750ms cubic-bezier(0.22, 1, 0.36, 1) 120ms;
+}
+
+.hc-head {
+  translate: 0 6px;
+}
+
+/* The white card: it grows as its content arrives, and shrinks to the
+   doctor's message at the end. */
+.hc-card {
+  position: absolute;
+  top: 236.5px;
+  left: 44px;
+  width: 287.25px;
+  border-radius: 28px;
+  background: #fff;
+  transition: height 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ------------------------------------------------------------ Ribbon */
+
+.hc-ribbon {
+  position: absolute;
+  z-index: 2;
+  top: 258.5px;
+  left: 27.75px;
+  width: 319px;
+  height: 34.5px;
+  border: 1px solid var(--edge);
+  background: var(--fill);
+  transition:
+    background-color 420ms ease,
+    border-color 420ms ease;
+}
+
+/* The ribbon's ends fold behind the card. */
+.hc-fold {
+  position: absolute;
+  top: 33.5px;
+  width: 17.25px;
+  height: 25px;
+  background: var(--fold);
+  transition: background-color 420ms ease;
+}
+
+.hc-fold--l {
+  left: -1px;
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+}
+
+.hc-fold--r {
+  right: -1px;
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+.hc-status {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  color: var(--ink);
+  font-family: var(--font-source-serif), Georgia, serif;
+  font-size: 14.5px;
+  letter-spacing: -0.005em;
+  transition:
+    left 480ms cubic-bezier(0.22, 1, 0.36, 1),
+    color 300ms ease;
+}
+
+.hc-glass {
+  width: 15px;
+  height: 15px;
+  flex: none;
+}
+
+.hc-words b {
+  font-weight: 600;
+}
+
+/* Typed out, left to right; taken back quickly before the next status. */
+.hc-words {
+  clip-path: inset(-4px 100% -4px 0);
+  transition: clip-path 300ms ease-in;
+}
+
+.hc-words.is-typed {
+  clip-path: inset(-4px 0 -4px 0);
+  transition: clip-path 1200ms linear;
+}
+
+/* ------------------------------------------------------------ Breathing */
+
+.hc-breathe {
+  position: absolute;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 520ms ease 120ms;
+}
+
+.hc-breathe.is-in {
+  opacity: 1;
+}
+
+.hc-breathe i {
+  position: absolute;
+  left: 67.25px;
+  top: 58.25px;
+  border-radius: 50%;
+  translate: -50% -50%;
+  animation: hc-breathe 4.2s ease-in-out infinite alternate;
+}
+
+.hc-breathe i:nth-child(1) {
+  width: 95px;
+  height: 95px;
+  background: radial-gradient(closest-side, #fdd263 72%, #fee39f 100%);
+}
+
+.hc-breathe i:nth-child(2) {
+  width: 66px;
+  height: 66px;
+  background: #ffb805;
+  animation-delay: -0.35s;
+}
+
+.hc-breathe i:nth-child(3) {
+  width: 38px;
+  height: 38px;
+  background: #fd9935;
+  animation-delay: -0.7s;
+}
+
+@keyframes hc-breathe {
+  from {
+    scale: 0.86;
+  }
+  to {
+    scale: 1.04;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hc-breathe i {
+    animation: none;
+  }
+}

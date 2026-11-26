@@ -6,6 +6,7 @@ import { ArrowUpRight } from "@phosphor-icons/react";
 import type { Exploration } from "@/lib/explorations";
 import AvelisFlow from "./AvelisFlow";
 import ExomailFlow from "./ExomailFlow";
+import HomelandFlow from "./HomelandFlow";
 import NutrientubFlow from "./NutrientubFlow";
 import StrataFlip from "./StrataFlip";
 
@@ -24,6 +25,7 @@ function Media({ id, active, label }: { id: Exploration["id"]; active: boolean; 
   if (id === "avelis") return <AvelisFlow active={active} label={label} />;
   if (id === "strata") return <StrataFlip active={active} label={label} />;
   if (id === "nutrientub") return <NutrientubFlow active={active} label={label} />;
+  if (id === "homeland") return <HomelandFlow active={active} label={label} />;
   return null;
 }
 
