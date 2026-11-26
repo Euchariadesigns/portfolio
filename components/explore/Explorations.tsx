@@ -35,9 +35,32 @@ function useInView<T extends Element>() {
 
 function Tile({ x, paused, onOpen }: { x: Exploration; paused: boolean; onOpen: (el: HTMLButtonElement) => void }) {
   const [ref, inView] = useInView<HTMLButtonElement>();
+  const hint = useRef<HTMLSpanElement>(null);
+
+  // "Click to open" rides beside the pointer while it is over the window.
+  // Moved directly (no re-render), so the recording inside keeps playing smoothly.
+  const follow = (e: React.PointerEvent<HTMLButtonElement>) => {
+    const el = hint.current;
+    if (!el || e.pointerType !== "mouse") return;
+    const r = e.currentTarget.getBoundingClientRect();
+    const x = Math.min(e.clientX - r.left + 16, r.width - el.offsetWidth - 10);
+    const y = Math.min(e.clientY - r.top + 18, r.height - el.offsetHeight - 10);
+    el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+    el.classList.add("is-on");
+  };
+  const leave = () => hint.current?.classList.remove("is-on");
+
   return (
     <li className={`xp-item${x.wide ? " xp-item--wide" : ""}`}>
-      <button ref={ref} type="button" className="xp-win xp-tile" onClick={(e) => onOpen(e.currentTarget)} aria-label={`${x.title}: open`}>
+      <button
+        ref={ref}
+        type="button"
+        className="xp-win xp-tile"
+        onClick={(e) => onOpen(e.currentTarget)}
+        onPointerMove={follow}
+        onPointerLeave={leave}
+        aria-label={`${x.title}: open`}
+      >
         <span className="xp-bar" aria-hidden="true">
           <span className="xp-dots">
             <i />
@@ -48,6 +71,9 @@ function Tile({ x, paused, onOpen }: { x: Exploration; paused: boolean; onOpen: 
         </span>
         <span className="xp-media">
           <Media id={x.id} active={inView && !paused} label={x.title} />
+        </span>
+        <span ref={hint} className="xp-hint" aria-hidden="true">
+          Click to open
         </span>
       </button>
     </li>

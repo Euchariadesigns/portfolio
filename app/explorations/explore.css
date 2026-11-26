@@ -68,6 +68,46 @@
     0 18px 40px -20px rgba(0, 0, 0, 0.22);
 }
 
+/* Pointing at a window: its first dot lights up red, as on a Mac (and on
+   Cindy Ly's), and "Click to open" rides beside the pointer. */
+.xp-tile {
+  position: relative;
+}
+
+.xp-tile:hover .xp-dots > :nth-child(1) {
+  background: #ff5f57;
+}
+
+.xp-hint {
+  position: absolute;
+  z-index: 5;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 28px;
+  padding: 0 12px;
+  border-radius: 14px;
+  background: #1b1b1b;
+  color: #fff;
+  font-size: 12.5px;
+  font-weight: 500;
+  white-space: nowrap;
+  box-shadow: 0 8px 20px -8px rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+  opacity: 0;
+  scale: 0.9;
+  transition:
+    opacity 180ms ease,
+    scale 220ms var(--ease-out);
+}
+
+.xp-hint.is-on {
+  opacity: 1;
+  scale: 1;
+}
+
 .xp-tile:focus-visible {
   outline: 2px solid #2563eb;
   outline-offset: 3px;
@@ -217,7 +257,7 @@
 .xp-about h2 {
   margin: 0;
   font-family: var(--font-name), Georgia, serif;
-  font-size: 26px;
+  font-size: 30px;
   font-style: italic;
   font-weight: 400;
   line-height: 1.2;
@@ -247,9 +287,9 @@
 }
 
 .xp-about p {
-  margin: 22px 0 0;
-  font-size: 15px;
-  line-height: 1.6;
+  margin: 24px 0 0;
+  font-size: 15.5px;
+  line-height: 1.65;
   color: #333;
 }
 
