@@ -91,6 +91,9 @@ button {
   align-items: center;
   justify-content: space-between;
   height: 72px;
+  /* Room above the nav, so the page starts about 40px down, as the case
+     studies do. */
+  margin-top: 20px;
   font-size: 14px;
 }
 
@@ -432,7 +435,9 @@ button {
   /* Above the work stack, so the Say hi menu and the peeks open over it. */
   z-index: 2;
   max-width: none;
-  padding: 16px 0 52px;
+  /* 34 below (was 52): it gives back the room added above the nav, so
+     the Margin card and a peek of the next still show on a laptop. */
+  padding: 16px 0 34px;
 }
 
 /* As wide as the work cards below, so the intro takes fewer lines. */
@@ -2305,6 +2310,7 @@ button {
 
   .nav {
     gap: 14px;
+    margin-top: 12px;
   }
 
   .hero3 {
