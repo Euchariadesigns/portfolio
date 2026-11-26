@@ -1,0 +1,238 @@
+/* Tahseel, playing like a screen recording (TahseelFlow.tsx). A white phone
+   screen with no frame on a cool grey; points: art 700 x 913, screen
+   360 x 780. */
+
+.th {
+  background: #e9ecf0;
+}
+
+.th .rc-art {
+  background: #e9ecf0;
+}
+
+.th-screen {
+  position: absolute;
+  left: 170px;
+  top: 66.5px;
+  width: 360px;
+  height: 780px;
+  overflow: hidden;
+  border-radius: 46px;
+  background: #fff;
+}
+
+.th-status {
+  z-index: 6;
+  padding: 15px 26px 0 34px;
+  background: #fff;
+  font-size: 15px;
+}
+
+.th-page {
+  position: absolute;
+  top: 44px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+}
+
+.th-scroll {
+  position: absolute;
+  inset: 0;
+  transition: transform 1200ms cubic-bezier(0.45, 0, 0.15, 1);
+}
+
+.th-l {
+  position: absolute;
+  display: block;
+  max-width: none;
+  opacity: 0;
+  translate: 0 10px;
+  transition:
+    opacity 460ms ease,
+    translate 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    scale 600ms cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+.th-l.is-in {
+  opacity: 1;
+  translate: none;
+}
+
+/* The receipt pops in. */
+.th-pop {
+  translate: none;
+  scale: 0.8;
+}
+
+.th-pop.is-in {
+  scale: none;
+}
+
+/* The Bank radio: grey ring, then the blue ring and dot. */
+.th-radio {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  margin: -11px 0 0 -11px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.th-radio::before {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px #bfc5cc;
+  transition: box-shadow 220ms ease;
+}
+
+.th-radio i {
+  position: absolute;
+  inset: 7px;
+  border-radius: 50%;
+  background: #24598b;
+  scale: 0;
+  transition: scale 280ms cubic-bezier(0.34, 1.5, 0.64, 1);
+}
+
+.th-radio.is-on::before {
+  box-shadow: inset 0 0 0 1.5px #24598b;
+}
+
+.th-radio.is-on i {
+  scale: 1;
+}
+
+/* The bottom bar: "Proceed to payment", off until a method is chosen. */
+.th-bar {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 136px;
+  opacity: 0;
+  transition:
+    opacity 400ms ease,
+    scale 160ms ease;
+}
+
+.th-bar.is-in {
+  opacity: 1;
+}
+
+.th-bar img,
+.th-sheet > img {
+  position: absolute;
+  display: block;
+  max-width: none;
+}
+
+.th-off {
+  transition: opacity 320ms ease;
+}
+
+.th-off.is-gone {
+  opacity: 0;
+}
+
+.th-bar.is-pressed,
+.th-sheet.is-pressed {
+  scale: 0.995;
+}
+
+/* Sheets rise from the bottom over a dimmed page. */
+.th-dim {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.36);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 320ms ease,
+    visibility 0s 320ms;
+}
+
+.th-dim[data-on="true"] {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 320ms ease;
+}
+
+.th-sheet {
+  position: absolute;
+  z-index: 4;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transform: translateY(104%);
+  transition: transform 560ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.th-sheet[data-on="true"] {
+  transform: none;
+}
+
+.th-done {
+  border-radius: 24px 24px 0 0;
+  background: #fff;
+}
+
+/* The bank list, opening under the field. */
+.th-list {
+  position: absolute;
+  top: 150px;
+  left: 16px;
+  right: 16px;
+  display: grid;
+  padding: 6px;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow:
+    0 0 0 1px #e8eaed,
+    0 16px 32px -12px rgba(15, 23, 42, 0.22);
+  font-family: var(--font-plex), system-ui, sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: #1f2937;
+  opacity: 0;
+  transform: translateY(-6px);
+  transform-origin: 50% 0;
+  visibility: hidden;
+  transition:
+    opacity 180ms ease,
+    transform 220ms ease,
+    visibility 0s 220ms;
+}
+
+.th-list[data-on="true"] {
+  opacity: 1;
+  transform: none;
+  visibility: visible;
+  transition:
+    opacity 180ms ease,
+    transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.th-list span {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 46px;
+  padding: 0 10px;
+  border-radius: 10px;
+}
+
+.th-list span:first-child {
+  background: #f3f6fa;
+}
+
+.th-list img {
+  width: 30px;
+  height: 26px;
+  object-fit: contain;
+}

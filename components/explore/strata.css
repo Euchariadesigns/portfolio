@@ -1,22 +1,22 @@
 /* Strata's flip-book (StrataFlip.tsx), on her dark brown, as in her file. */
 
-.sf {
+.sj {
   position: relative;
   width: 100%;
   overflow: hidden;
   background: #21120d;
 }
 
-.sf-art {
+.sj-art {
   position: absolute;
   top: 0;
   left: 0;
   transform-origin: 0 0;
 }
 
-.sf-head {
+.sj-head {
   position: absolute;
-  top: 34px;
+  top: 108px;
   left: 70px;
   width: 2260px;
   height: 281px;
@@ -24,14 +24,14 @@
   pointer-events: none;
 }
 
-.sf-book {
+.sj-book {
   position: absolute;
-  top: 330px;
+  top: 404px;
   left: 450px;
   width: 1500px;
   height: 1010px;
 }
 
-.sf-book .stf__parent {
+.sj-book .stf__parent {
   box-shadow: 0 30px 60px -28px rgba(0, 0, 0, 0.6);
 }

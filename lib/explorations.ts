@@ -12,7 +12,7 @@
 */
 
 export type Exploration = {
-  id: "exomail" | "homeland" | "avelis" | "nutrientub" | "seoul" | "assistant" | "strata";
+  id: "exomail" | "homeland" | "avelis" | "nutrientub" | "seoul" | "assistant" | "strata" | "tahseel";
   /** The window's name, like a file: "exomail.app". */
   file: string;
   title: string;
@@ -27,14 +27,15 @@ export type Exploration = {
 
 export const explorations: Exploration[] = [
   {
-    id: "exomail",
-    file: "exomail.app",
-    title: "Email Notification Categories",
-    kind: "UX exploration",
-    tools: "Figma",
+    id: "strata",
+    file: "strata.journal",
+    title: "Strata",
+    kind: "Physical product",
+    tools: "Figma, Claude",
     about:
-      "I explored how people manage email overload, and how notification sounds that all sound the same add to anxiety, false urgency and constant inbox checking. This design makes notifications more intentional: emails are sorted into meaningful categories, and you choose how each one alerts you. The goal is to help people separate what matters from the noise, cut unnecessary interruptions, and feel more in control of their inbox.",
+      "Strata is a physical journal that keeps every thought on a thread. Three rhythms share one book: Build Day pages for the work of each day, a Reflect page every seventh page, and a Monthly page to look back and set what comes next. These are its pages, turning as they do in the book.",
     size: "wide",
+    link: { label: "stratajournal.com", href: "https://stratajournal.com/" },
   },
   {
     id: "homeland",
@@ -87,14 +88,23 @@ export const explorations: Exploration[] = [
     size: "wide",
   },
   {
-    id: "strata",
-    file: "strata.journal",
-    title: "Strata",
-    kind: "Physical product",
-    tools: "Figma, Claude",
+    id: "exomail",
+    file: "exomail.app",
+    title: "Email Notification Categories",
+    kind: "UX exploration",
+    tools: "Figma",
     about:
-      "Strata is a physical journal that keeps every thought on a thread. Three rhythms share one book: Build Day pages for the work of each day, a Reflect page every seventh page, and a Monthly page to look back and set what comes next. These are its pages, turning as they do in the book.",
+      "I explored how people manage email overload, and how notification sounds that all sound the same add to anxiety, false urgency and constant inbox checking. This design makes notifications more intentional: emails are sorted into meaningful categories, and you choose how each one alerts you. The goal is to help people separate what matters from the noise, cut unnecessary interruptions, and feel more in control of their inbox.",
     size: "wide",
-    link: { label: "stratajournal.com", href: "https://stratajournal.com/" },
+  },
+  {
+    id: "tahseel",
+    file: "tahseel.pay",
+    title: "Tahseel",
+    kind: "Mobile UX exploration",
+    tools: "Figma",
+    about:
+      "Paying an invoice someone sent you, from your phone. Tahseel shows that the invoice is verified and who it is from, what it is for and when it is due, and lets you pay by card, bank or Apple Pay, or pay part of it. This is the whole flow, from the invoice to a confirmed payment and its receipt.",
+    size: "tall",
   },
 ];

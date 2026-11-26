@@ -256,7 +256,7 @@
 /* The whole design always fits: as wide as there is room for, and never
    taller than the window leaves. */
 .xp-stage .rc,
-.xp-stage .sf,
+.xp-stage .sj,
 .xp-stage .ba {
   width: min(100%, calc((100dvh - 210px) * var(--ar, 1.5)));
   margin-inline: auto;

@@ -11,6 +11,7 @@ import ExomailFlow from "./ExomailFlow";
 import HomelandFlow from "./HomelandFlow";
 import NutrientubFlow from "./NutrientubFlow";
 import StrataFlip from "./StrataFlip";
+import TahseelFlow from "./TahseelFlow";
 
 /*
   The explorations, as small windows (like Cindy Ly's): a title bar with the
@@ -29,6 +30,7 @@ function Media({ id, active, label, big = false }: { id: Exploration["id"]; acti
   if (id === "nutrientub") return <NutrientubFlow active={active} label={label} />;
   if (id === "homeland") return <HomelandFlow active={active} label={label} />;
   if (id === "assistant") return <AssistantFlow active={active} label={label} />;
+  if (id === "tahseel") return <TahseelFlow active={active} label={label} />;
   if (id === "seoul")
     return (
       <BeforeAfter

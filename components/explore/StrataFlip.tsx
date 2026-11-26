@@ -15,7 +15,7 @@ import "./strata.css";
 */
 
 const W = 2400;
-const H = 1380;
+const H = 1529; // tall enough to sit level with a phone exploration beside it
 const TURN = 700; // page-turn duration
 const HOLD = 1500; // pause on each spread
 
@@ -99,10 +99,10 @@ export default function StrataFlip({ active, label }: { active: boolean; label: 
   }, [active]);
 
   return (
-    <div ref={boxRef} className="sf" style={{ aspectRatio: `${W} / ${H}`, "--ar": W / H } as CSSProperties} role="img" aria-label={label}>
-      <div className="sf-art" style={{ width: W, height: H, transform: `scale(${vw / W || 0})` }}>
-        <img className="sf-head" src="/explore/strata/header.webp" alt="" width={2260} height={281} />
-        <div ref={bookRef} className="sf-book" />
+    <div ref={boxRef} className="sj" style={{ aspectRatio: `${W} / ${H}`, "--ar": W / H } as CSSProperties} role="img" aria-label={label}>
+      <div className="sj-art" style={{ width: W, height: H, transform: `scale(${vw / W || 0})` }}>
+        <img className="sj-head" src="/explore/strata/header.webp" alt="" width={2260} height={281} />
+        <div ref={bookRef} className="sj-book" />
       </div>
     </div>
   );
