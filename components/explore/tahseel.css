@@ -236,3 +236,47 @@
   height: 26px;
   object-fit: contain;
 }
+
+/* Her text, corrected in place (see TahseelFlow.tsx). */
+.th-cant,
+.th-issued {
+  position: absolute;
+  background: #fff;
+  font-family: var(--font-plex), system-ui, sans-serif;
+  white-space: nowrap;
+}
+
+.th-cant {
+  left: 0;
+  right: 0;
+  height: 26px;
+  padding-top: 2.4px;
+  text-align: center;
+  font-size: 13.5px;
+  line-height: 20px;
+  color: #515862;
+}
+
+.th-cant b {
+  font-weight: 600;
+  color: #24598b;
+}
+
+.th-cant u {
+  font-weight: 500;
+  color: #24598b;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2.5px;
+}
+
+.th-issued {
+  right: 15px;
+  width: 126px;
+  padding-right: 3px;
+  height: 22px;
+  text-align: right;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 20px;
+  color: #242628;
+}

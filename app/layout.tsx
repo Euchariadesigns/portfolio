@@ -30,7 +30,7 @@ const caveat = Caveat({ subsets: ["latin"], weight: ["400", "500", "600", "700"]
 // Homeland clinic exploration (its status ribbon). Not preloaded: only that page uses it.
 const sourceSerif = Source_Serif_4({ subsets: ["latin"], weight: ["400", "600"], variable: "--font-source-serif", display: "swap", preload: false });
 // Tahseel exploration (its bank list). Not preloaded either.
-const plex = IBM_Plex_Sans({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-plex", display: "swap", preload: false });
+const plex = IBM_Plex_Sans({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-plex", display: "swap", preload: false });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://euchariaodili.com"),

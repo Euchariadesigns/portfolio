@@ -110,6 +110,20 @@ const CONFIRM: [string, number, number][] = [
   ["c-button", 389, 66],
 ];
 
+/*
+  Two small fixes to her screens, drawn over them in the same type (IBM
+  Plex Sans): "Can't pay" gets its apostrophe, and the invoice is issued on
+  Oct 1 (it was issued the same day it was due, three days after it was
+  paid on Oct 12).
+*/
+function CantPay({ top }: { top: number }) {
+  return (
+    <span className="th-cant" style={{ top }}>
+      Can&rsquo;t pay <b>full amount?</b> Pay part of it <u>here</u>
+    </span>
+  );
+}
+
 const BANKS = [
   { name: "Al Rajhi Bank", logo: "logo-rajhi" },
   { name: "Saudi National Bank", logo: "logo-bank" },
@@ -137,6 +151,9 @@ export default function TahseelFlow({ active, label }: { active: boolean; label:
             {PAGE.map(([src, y, h], i) => (
               <img key={src} className={`th-l${s.built > i ? " is-in" : ""}`} src={`${N}${src}.webp`} alt="" style={pos(y, h)} />
             ))}
+            <span className={`th-l th-issued${s.built > 3 ? " is-in" : ""}`} style={{ top: 392.4 }}>
+              Oct 1, 2026
+            </span>
             {/* The Bank option's radio */}
             <span className={`th-radio${s.bank ? " is-on" : ""}`} style={{ left: 35.5, top: 710 }}>
               <i />
@@ -147,6 +164,7 @@ export default function TahseelFlow({ active, label }: { active: boolean; label:
         <div className={`th-bar${s.built >= 1 ? " is-in" : ""}${s.pressed === "bar" ? " is-pressed" : ""}`}>
           <img src={N + "bar-on.webp"} alt="" style={pos(0, 136)} />
           <img className={`th-off${s.bank ? " is-gone" : ""}`} src={N + "bar-off.webp"} alt="" style={pos(0, 136)} />
+          <CantPay top={89} />
         </div>
 
         {/* Sheets */}
@@ -154,6 +172,7 @@ export default function TahseelFlow({ active, label }: { active: boolean; label:
         <div className={`th-sheet${s.pressed === "sheet" ? " is-pressed" : ""}`} data-on={s.sheet === "bank"} style={{ height: 305.5 }}>
           <img src={N + "sheet-rajhi.webp"} alt="" style={pos(0, 305.5)} />
           <img className={`th-off${s.rajhi ? " is-gone" : ""}`} src={N + "sheet-select.webp"} alt="" style={pos(0, 305.5)} />
+          <CantPay top={250} />
           <div className="th-list" data-on={s.list}>
             {BANKS.map((b) => (
               <span key={b.name}>
