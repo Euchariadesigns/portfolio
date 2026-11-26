@@ -1,6 +1,6 @@
 /* Homeland clinic, playing like a screen recording (HomelandFlow.tsx). On
    her warm grey; the screen is a white rounded phone with no frame, as in
-   her renders. Points: art 700 x 913, screen 375 x 812. */
+   her renders. Points: art 640 x 932, screen 375 x 812. */
 
 .hc {
   background: #e7e6e4;
@@ -12,8 +12,8 @@
 
 .hc-screen {
   position: absolute;
-  left: 162.5px;
-  top: 50.5px;
+  left: 132.5px;
+  top: 60px;
   width: 375px;
   height: 812px;
   overflow: hidden;

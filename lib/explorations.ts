@@ -38,13 +38,13 @@ export const explorations: Exploration[] = [
     link: { label: "stratajournal.com", href: "https://stratajournal.com/" },
   },
   {
-    id: "homeland",
-    file: "homeland.clinic",
-    title: "Homeland Clinic",
+    id: "nutrientub",
+    file: "nutrientub.app",
+    title: "Nutrientub",
     kind: "Mobile UX exploration",
     tools: "Figma",
     about:
-      "Waiting at a clinic is anxious when you can't see what's happening. I explored a check-in screen that keeps patients informed: a status ribbon that changes as the visit moves on, an estimated wait, who you're seeing and when, small things to do while you wait, and, when it's time, exactly where to go.",
+      "A meal planning app for building a relationship with food that feels good for your body and kind to your mind. This is its first moment: opening the app to a plan made for you, here meals to help you gain weight, high in calories and rich in nutrients, with a short note on why.",
     size: "tall",
   },
   {
@@ -58,13 +58,13 @@ export const explorations: Exploration[] = [
     size: "wide",
   },
   {
-    id: "nutrientub",
-    file: "nutrientub.app",
-    title: "Nutrientub",
+    id: "homeland",
+    file: "homeland.clinic",
+    title: "Homeland Clinic",
     kind: "Mobile UX exploration",
     tools: "Figma",
     about:
-      "A meal planning app for building a relationship with food that feels good for your body and kind to your mind. This is its first moment: opening the app to a plan made for you, here meals to help you gain weight, high in calories and rich in nutrients, with a short note on why.",
+      "Waiting at a clinic is anxious when you can't see what's happening. I explored a check-in screen that keeps patients informed: a status ribbon that changes as the visit moves on, an estimated wait, who you're seeing and when, small things to do while you wait, and, when it's time, exactly where to go.",
     size: "tall",
   },
   {

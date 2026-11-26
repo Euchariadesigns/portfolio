@@ -1,5 +1,5 @@
 /* Nutrientub, playing like a screen recording (NutrientubFlow.tsx). The art
-   is 640 x 932 points on white; the phone is drawn here (a titanium edge, a
+   is 700 x 913 points on white; the phone is drawn here (a titanium edge, a
    black bezel, a thin white screen edge, as in her renders). */
 
 .nt {
@@ -14,8 +14,8 @@
 
 .nt-device {
   position: absolute;
-  left: 115px;
-  top: 42px;
+  left: 145px;
+  top: 33px;
   width: 410px;
   height: 847px;
   padding: 4px;
@@ -116,8 +116,8 @@
 .nt-hero {
   position: absolute;
   z-index: 5;
-  left: 220px;
-  top: 366px;
+  left: 250px;
+  top: 356.5px;
   width: 200px;
   height: 200px;
   border-radius: 26%;

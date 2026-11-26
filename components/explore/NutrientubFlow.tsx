@@ -18,17 +18,17 @@ import "./nutrientub.css";
 
   The welcome screen is her design cut into layers (public/explore/
   nutrientub), so each part can move; the phone and Home Screen are drawn
-  here. All in points: the art is 640 x 932, the screen 375 x 812.
+  here. All in points: the art is 700 x 913, the screen 375 x 812.
 */
 
-const W = 640;
-const H = 932;
+const W = 700;
+const H = 913;
 const WIDE: Cam = [W / 2, H / 2, 1];
 const N = "/explore/nutrientub/";
 
 // The screen's top-left corner in the art (inside the phone's frame).
-const SX = 132.5;
-const SY = 59.5;
+const SX = 162.5;
+const SY = 50.5;
 const art = (x: number, y: number) => ({ x: SX + x, y: SY + y });
 
 // Home Screen grid: big rounded squares, two across (as in her frames).
@@ -60,12 +60,12 @@ const BASE: S = {
   tap: null,
   cursor: [0, 0],
   click: 0,
-  cam: [195, 196, 2.4],
+  cam: [225, 187, 2.4],
   fade: false,
   still: false,
 };
 
-const START: S = { ...BASE, cam: [112, 162, 2.9] };
+const START: S = { ...BASE, cam: [142, 153, 2.9] };
 
 // Shown while it isn't playing: the finished welcome screen.
 const POSTER: S = { ...BASE, screen: "welcome", built: 9, cam: WIDE };
@@ -78,7 +78,7 @@ const SCRIPT = script<S>(({ at }) => {
     at(220, (s) => ({ ...s, pressed: "" }));
   };
   // 1. Into the corner of the Home Screen.
-  at(100, (s) => ({ ...s, cam: [195, 196, 2.4] }));
+  at(100, (s) => ({ ...s, cam: [225, 187, 2.4] }));
   // 2. Tap the icon; it lifts out and grows to the middle.
   tap(1500, iconCentre, "icon");
   at(260, (s) => ({ ...s, hero: "home" }));
@@ -87,7 +87,7 @@ const SCRIPT = script<S>(({ at }) => {
   at(1500, (s) => ({ ...s, screen: "welcome", hero: "gone", phone: true, cam: WIDE }));
   for (let k = 1; k <= 9; k++) at(k === 1 ? 380 : 170, (s) => ({ ...s, built: k }));
   // 4. Lean in to read the top, back out, tap the button.
-  at(1300, (s) => ({ ...s, cam: [W / 2, 340, 1.5] }));
+  at(1300, (s) => ({ ...s, cam: [W / 2, 331, 1.5] }));
   at(2700, (s) => ({ ...s, cam: WIDE }));
   tap(1500, BUTTON, "button");
   at(1500, (s) => ({ ...s, fade: true }));

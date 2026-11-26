@@ -23,13 +23,13 @@ import "./homeland.css";
     with the way to the room.
 
   Her screens are cut into layers (public/explore/homeland); the ribbon,
-  card and circles are drawn here. Points: art 700 x 913, screen 375 x 812.
+  card and circles are drawn here. Points: art 640 x 932, screen 375 x 812.
 */
 
-const W = 700;
-const H = 913;
+const W = 640;
+const H = 932;
 const WIDE: Cam = [W / 2, H / 2, 1];
-const SY = 50.5; // the screen's top in the art
+const SY = 60; // the screen's top in the art
 const N = "/explore/homeland/";
 
 // The ribbon's colours for each status, from her frames.
